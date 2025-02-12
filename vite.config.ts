@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
+// svg파일을 ReactComponent로 처리하도록 설정
+import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
 export default defineConfig({

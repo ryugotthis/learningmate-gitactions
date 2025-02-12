@@ -3,7 +3,7 @@
     "module": "ESNext",
     "target": "ES6",
     "moduleResolution": "node",
-    "types": ["node"], // Node.js 모듈 타입 추가
+    "types": ["node"], // 기존 "node"를 유지
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true

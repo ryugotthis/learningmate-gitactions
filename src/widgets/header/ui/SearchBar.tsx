@@ -7,6 +7,7 @@ import Coloso from './icons/Coloso.svg';
 import Dropdown from './icons/Polygon 1.svg';
 import Notice from './icons/Notice.svg';
 import Plus from './icons/Plus.svg';
+import PlusIcon from './icons/PlusIcon';
 import Search from './icons/Search.svg';
 import DeleteClose from './icons/DeleteClose.svg';
 import { useRef, useState } from 'react';
@@ -46,7 +47,7 @@ const SearchBar = () => {
   );
 
   const inputRef = useRef<HTMLInputElement>(null); // input 요소 참조
-
+  console.log('궁금해서', Udemy);
   return (
     <>
       <div className="relative flex w-140 items-center border border-line rounded-4xl bg-surface-dark flex-grow">
@@ -128,7 +129,7 @@ const SearchBar = () => {
                 ))
               ) : (
                 <li className="px-3 py-2 flex items-center text-primary-default cursor-pointer hover:bg-gray-200">
-                  <img src={Plus} alt="plus" className="px-3" />
+                  <PlusIcon className="mr-1" />
                   <p>새로 등록하기</p>
                 </li>
               )}

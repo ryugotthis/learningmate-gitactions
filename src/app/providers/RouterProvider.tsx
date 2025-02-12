@@ -3,6 +3,8 @@ import { LoginPage } from '../../pages/LoginPage';
 import { SignupPage } from '../../pages/SignupPage';
 import App from '../../App';
 import { HomePage } from '../../pages/HomePage';
+import { LecturesForMe } from '../../pages/LecturesForMe';
+import { MyActivity } from '../../pages/MyActivity';
 
 export const RouterProvider = () => {
   return (
@@ -30,6 +32,22 @@ export const RouterProvider = () => {
           element={
             <App>
               <SignupPage />
+            </App>
+          }
+        />
+        <Route
+          path="/lectures-for-me"
+          element={
+            <App>
+              <LecturesForMe />
+            </App>
+          }
+        />
+        <Route
+          path="/my-activity"
+          element={
+            <App>
+              <MyActivity />
             </App>
           }
         />

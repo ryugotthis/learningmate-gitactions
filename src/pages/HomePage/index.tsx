@@ -13,6 +13,9 @@ import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import { useState } from 'react';
 import FilterModal from '../../features/filter/ui/FilterModal';
 import { useFilterList } from '../../entities/filter/model/store';
+import { usePlatforms } from '../../entities/lectures/hooks/usePlatforms';
+
+import { LectureCardList } from '../../features/lectures/ui/LectureCardList';
 
 interface Lecture {
   name: string;
@@ -79,9 +82,32 @@ export const HomePage = () => {
   //필터 사이트 전역 리스트
   const { filterList } = useFilterList();
 
+  const { data: platforms, isLoading, isError, error } = usePlatforms();
+  console.log('플랫폼데이터', platforms);
+
   return (
     <>
       <Header />
+      <div>{isLoading && <p>⏳ 로딩 중...</p>}</div>
+      <div>{isError && <p>❌ 오류 발생: {error.message}</p>}</div>
+
+      {/* 데이터가 올바르게 로드되었는지 확인 */}
+      {platforms && Array.isArray(platforms) ? (
+        <div>
+          {platforms.map((platform) => (
+            <div key={platform.id}>
+              <h3>{platform.title}</h3>
+              <img src={platform.logoUrl} alt={platform.title} />
+              <a href={platform.url} target="_blank" rel="noopener noreferrer">
+                {platform.url}
+              </a>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>⚠️ 데이터가 올바르게 로드되지 않았습니다.</p>
+      )}
+
       <div className="container w-2/3 flex flex-col mx-auto">
         <header className="flex items-center justify-between h-100 mt-10 bg-white">
           <div>
@@ -101,17 +127,17 @@ export const HomePage = () => {
           </div>
         </header>
         <main className="mt-25">
-          <div className="flex justify-between">
+          <div className="flex justify-between mb-7">
             <div className="font-bold text-2xl">추천강의</div>
             <div className="flex items-center gap-3 ">
               {/* 사이트 필터 버튼 */}
-              <div className="">
+              <div>
                 <button
                   onClick={() => setIsModalOpen(true)}
                   className="flex items-center px-4 py-3 border border-surface-line rounded-4xl"
                 >
                   <img src={FilterSiteIcon} alt="filter" className="mr-1" />
-                  <p className="text-font-sub-default font-bold cursor-pointer">
+                  <p className="text-font-sub-default text-sm font-bold cursor-pointer">
                     사이트
                   </p>
                 </button>
@@ -124,14 +150,14 @@ export const HomePage = () => {
                 )}
               </div>
 
-              {/* 추천 버튼 */}
+              {/* 정렬 버튼 */}
               <div className="">
                 <button
                   onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
                   // disabled={isModalOpen}
                   className=" flex focus-within:outline-none items-center px-4 py-3 border border-surface-line border-opacity-100  text-font-sub-default rounded-4xl"
                 >
-                  <p className="text-font-sub-default font-bold cursor-pointer">
+                  <p className="text-font-sub-default text-sm font-bold cursor-pointer">
                     {sortSelected.name}
                   </p>
                   <img src={SortIcon} alt="sort" className="pl-1" />
@@ -163,6 +189,9 @@ export const HomePage = () => {
               ))}
             </ul>
           )}
+          {/* 본문 카드 */}
+
+          <LectureCardList />
         </main>
       </div>
 
