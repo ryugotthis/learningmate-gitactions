@@ -10,7 +10,7 @@
 //   });
 // };
 
-import { demandLecture } from '../api/getDemandLecture';
+import { demandLecture } from '../api/fetchDemandLectures';
 import { useQuery } from '@tanstack/react-query';
 
 // ✅ React Query 훅

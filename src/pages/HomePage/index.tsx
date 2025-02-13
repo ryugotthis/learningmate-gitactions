@@ -11,7 +11,7 @@ import HomeLogo from '../../widgets/header/ui/icons/HomeLogo.svg';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import { useState } from 'react';
-import FilterModal from '../../features/filter/ui/FilterModal';
+import FilterModal from '../../features/lectures/ui/FilterModal';
 import { useFilterList } from '../../entities/filter/model/store';
 import { usePlatforms } from '../../entities/lectures/hooks/usePlatforms';
 

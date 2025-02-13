@@ -3,9 +3,10 @@ import LecturesForME from '../../entities/lectures/ui/icons/lecturesForMe.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import PlusIcon from '../../widgets/header/ui/icons/PlusIcon';
 import { useState } from 'react';
-import { LecturesForMECardList } from '../../features/lectures/ui/LectureForMeCardList';
-import { useDemandLecture } from '../../entities/lectures/hooks/useDemandLecture';
-import { usePostDemandLecture } from '../../entities/lectures/api/postDemandLecture';
+import { LecturesForMECardList } from '../../features/recommended/LectureForMeCardList';
+import { useDemandLecture } from '../../entities/recomended/hooks/useDemandLecture';
+// import { usePostDemandLecture } from '../../entities/recomended/api/createDemandLecture';
+import { usePostDemandLecture } from '../../entities/recomended/api/createDemandLecture';
 interface Sort {
   name: string;
   id: number;
@@ -34,8 +35,9 @@ export const LecturesForMe = () => {
     error: demandError,
   } = usePostDemandLecture();
   const [testData, setTestData] = useState({
-    title: '테스트 강의',
-    content: '이 강의는 테스트입니다.',
+    title: 'Javascript 기초보고 응용할 만한 영상',
+    content:
+      'Javascript 기초보고 이론 동영상보고 이제 개인 프로젝트 해보려하는데 도움되는 강의 있을까요?',
   });
 
   return (
@@ -149,7 +151,7 @@ export const LecturesForMe = () => {
           <div className="mt-2">
             <LecturesForMECardList />
             {/* 카드 */}
-            <div className="flex p-5 border border-surface-line">
+            {/* <div className="flex p-5 border border-surface-line ">
               <button className="flex flex-col items-center mr-5 text-sm border border-surface-line rounded-4xl py-4 px-2 gap-1">
                 <span>up</span>
                 <span>102K</span>
@@ -166,7 +168,7 @@ export const LecturesForMe = () => {
                   <span>2</span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </main>
       </div>

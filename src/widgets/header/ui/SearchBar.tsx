@@ -10,7 +10,7 @@ import Plus from './icons/Plus.svg';
 import PlusIcon from './icons/PlusIcon';
 import Search from './icons/Search.svg';
 import DeleteClose from './icons/DeleteClose.svg';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Option {
   value: string;
@@ -31,6 +31,9 @@ const SearchBar = () => {
   const [selected, SetSelected] = useState<Option>(options[0]);
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const [searchText, setSearchText] = useState<string>('');
+  const dropdownRef = useRef<HTMLDivElement>(null); // 플랫폼 드롭다운 감지
+  const searchDropdownRef = useRef<HTMLDivElement>(null); // 검색어 추천 드롭다운 감지
+  const inputRef = useRef<HTMLInputElement>(null); // 검색 입력창 감지
 
   // 예제 검색어 목록 (실제 데이터는 API 요청 등으로 대체 가능)
   const suggestions = [
@@ -46,13 +49,35 @@ const SearchBar = () => {
     word.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const inputRef = useRef<HTMLInputElement>(null); // input 요소 참조
-  console.log('궁금해서', Udemy);
+  // 외부 클릭 감지 후 드롭다운 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+      if (
+        searchDropdownRef.current &&
+        !searchDropdownRef.current.contains(event.target as Node)
+      ) {
+        setSearchText('');
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div className="relative flex w-140 items-center border border-line rounded-4xl bg-surface-dark flex-grow">
-        {/* 드롭다운 버튼 */}
-        <div className="relative flex-3">
+        {/* 플랫폼 드롭다운 버튼 */}
+        <div ref={dropdownRef} className="relative flex-3">
           <button
             className=" w-full flex gap-1 justify-between items-center flex-1 text-sm text-gray-700 pl-3  py-3  border-gray-300 cursor-pointer focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
@@ -65,7 +90,7 @@ const SearchBar = () => {
             <img src={Dropdown} alt="dropdown" />
           </button>
 
-          {/* 드롭다운 리스트 */}
+          {/* 플랫폼 드롭다운 리스트 */}
           {isOpen && (
             <ul className="absolute mt-5 text-sm l-0 w-full bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)] ">
               {options.map((option) => (
@@ -109,7 +134,10 @@ const SearchBar = () => {
         </div>
         {/* 입력창 클릭 시 메시지 표시 */}
         {searchText && (
-          <div className="absolute top-0 w-140 border py-1 border-gray-300 rounded-md shadow-md mt-17">
+          <div
+            ref={searchDropdownRef}
+            className="absolute top-0 w-140 border py-1 bg-white border-gray-300 rounded-md shadow-md mt-17"
+          >
             <div className="flex items-center text-font-sub-default text-sm border-b border-line px-3 py-3">
               <img src={Notice} alt="notice" className="px-3" />
               <p>찾는 강의가 없으면 강의 URL을 입력해 새로 등록할 수 있어</p>
