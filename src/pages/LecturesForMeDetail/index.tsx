@@ -5,9 +5,13 @@ import { DateIcon } from '../../shared/ui/icons/DateIcon';
 import { ViewsIcon } from '../../shared/ui/icons/ViewsIcon';
 import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
-import { useRef, useState } from 'react';
-import { useCreateDemandLectureComment } from '../../entities/recomended/api/comments/createDemandLectureComment';
 import { CommentInput } from '../../features/recommended/CommentInput';
+import { CommentList } from '../../features/recommended/CommemtList';
+import { useAuthStore } from '../../shared/model/store';
+import { UpIcon } from '../../shared/ui/icons/UpIcon';
+import { useState } from 'react';
+import { UpVoteButton } from '../../features/recommended/UpVoteButton';
+import { usePostDemandLectureLikes } from '../../entities/recomended/hooks/usePostDemandLectureLikes';
 
 // 날짜 형식 변경
 const formatDate = (isoString: string) => {
@@ -18,6 +22,19 @@ const formatDate = (isoString: string) => {
   return `${year}.${month}.${day}`;
 };
 export const LecturesForMeDetail = () => {
+  const { accessToken } = useAuthStore();
+  console.log('토큰값', accessToken);
+
+  const [isVoteUpClicked, setIsVoteUpClicked] = useState(false);
+  const handleVoteUpButton = (postId: number) => {
+    setIsVoteUpClicked(!isVoteUpClicked);
+    mutate(postId);
+    console.log('추천버튼클릭:', isVoteUpClicked);
+  };
+
+  // 추천 포스트 api
+  const { mutate } = usePostDemandLectureLikes();
+
   const { id } = useParams(); // ✅ URL에서 id 추출
   const {
     data: lecturesForMeData,
@@ -26,13 +43,13 @@ export const LecturesForMeDetail = () => {
     error,
   } = useDemandLecture();
   console.log(
-    lecturesForMeData.find((lecture: any) => lecture.id === Number(id))
+    lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
   );
   console.log('왜안나와?', lecturesForMeData);
   console.log('id', id);
   console.log(
     '되니?',
-    lecturesForMeData.find((lecture: any) => lecture.id === Number(id))
+    lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
   );
 
   if (isLoading) return <p>⏳ 로딩 중...</p>;
@@ -44,29 +61,10 @@ export const LecturesForMeDetail = () => {
   const lecture = lecturesForMeData.find(
     (lecture: any) => lecture.id === Number(id)
   );
+  console.log('강의데이터받아써?');
 
   if (!lecture) return <p>❌ 해당 강의를 찾을 수 없습니다.</p>;
 
-  // 댓글 생성하기
-  const { mutate, isPending } = useCreateDemandLectureComment(); // ✅ 댓글 등록 API 사용
-  const commentRef = useRef<HTMLTextAreaElement | null>(null); // ✅ `useRef`로 입력값 관리
-  const handleCommentSubmit = (postId: number) => {
-    if (!commentRef.current?.value.trim()) return; // ✅ 빈 문자열 방지
-
-    mutate(
-      { postId, data: { content: commentRef.current.value } }, // ✅ API 호출
-      {
-        // responseData은 서버에서 보내주는 응답, 내가 보낸게 아님
-        onSuccess: (responseData) => {
-          if (commentRef.current) commentRef.current.value = ''; // ✅ 성공 후 입력창 초기화
-          console.log('댓글 등록 성공!', responseData);
-        },
-        onError: (error) => {
-          console.error('댓글 등록 실패:', error);
-        },
-      }
-    );
-  };
   return (
     <>
       {/* 제목 영역 */}
@@ -108,12 +106,32 @@ export const LecturesForMeDetail = () => {
           </div>
         </header>
         {/* 본문 영역 */}
-        <section className="p-5 h-100">
+        <section className="relative p-5 h-100">
           <p>{lecture.content}</p>
+          {/* UpVote 버튼 */}
+          <aside>
+            <UpVoteButton
+              onClick={() => handleVoteUpButton(lecture.id)}
+              isVoteUpClicked={isVoteUpClicked}
+              postId={lecture.id}
+            />
+            {/* <button
+              onClick={handleVoteUpButton} 
+              className={`absolute left-[-60px] top-1/3 transform -translate-y-1/2 flex flex-col justify-center gap-1 items-center text-sm border-2 rounded-4xl py-5 px-2 cursor-pointer ${
+                isVoteUpClicked
+                  ? 'border-primary-default'
+                  : 'border-surface-line'
+              }`}
+            >
+              <UpIcon className="text-surface-line w-3" />
+              <span>102K</span>
+            </button> */}
+          </aside>
         </section>
         {/* 댓글 영역 */}
         <section>
           {/* 댓글 리스트 */}
+          <CommentList postId={lecture.id} />
           {/* 댓글 입력 */}
           <CommentInput postId={lecture.id} />
         </section>

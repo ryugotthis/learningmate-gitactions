@@ -24,7 +24,7 @@ export const apiClient = axios.create({
 //   console.log(lectures);
 // }, []); // ✅ 마운트될 때 한 번 실행
 
-export const platform = async (): Promise<any> => {
+export const fetchPlatforms = async (): Promise<any> => {
   console.log('플랫폼 요청 URL:', `${apiClient.defaults.baseURL}/platforms`);
   const response = await apiClient.get('/platforms');
   console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력

@@ -2,13 +2,26 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SearchBar from './ui/SearchBar';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '../../shared/model/store';
+import { useLogout } from '../../entities/auth/hooks/useLogout';
 
 const Header = () => {
   const location = useLocation(); // 현재 페이지 경로 가져오기
   const isHome = location.pathname === '/'; // 현재 페이지가 홈페이지인지 확인
   const [showSearch, setShowSearch] = useState(!isHome); // 기본값 설정
-  const { accessToken } = useAuthStore();
+  const { mutate } = useLogout();
+  const { accessToken, isLoggedIn } = useAuthStore();
+
   const navigate = useNavigate();
+
+  const handleLoginButton = () => {
+    if (accessToken) {
+      console.log('엑세스토큰 있음 → 로그아웃 실행');
+      mutate(); // ✅ 로그아웃 실행
+    } else {
+      console.log('엑세스토큰 없음 → 로그인 페이지 이동');
+      navigate('/login'); // ✅ 로그인 페이지로 이동
+    }
+  };
 
   useEffect(() => {
     console.log('여긴홈페이지?', isHome);
@@ -16,7 +29,7 @@ const Header = () => {
     if (!isHome) return; // 홈페이지가 아니면 스크롤 이벤트 등록 안 함
 
     const handleScroll = () => {
-      console.log('현재좌표', window.scrollY);
+      // console.log('현재좌표', window.scrollY);
       if (window.scrollY > 400) {
         setShowSearch(true);
       } else {
@@ -60,10 +73,11 @@ const Header = () => {
           </div>
         </div>
         <button
-          onClick={() => navigate('/login')}
+          onClick={handleLoginButton}
           className="py-1 px-5 text-primary-default border-2 rounded-4xl text-sm font-black "
         >
-          {accessToken ? '로그아웃' : '로그인'}
+          {isLoggedIn ? '로그아웃' : '로그인'}
+          {accessToken ? accessToken : '토큰없음'}
         </button>
       </nav>
     </header>

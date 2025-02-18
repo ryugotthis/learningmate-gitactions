@@ -82,7 +82,7 @@ const SearchBar = () => {
             className=" w-full flex gap-1 justify-between items-center flex-1 text-sm text-gray-700 pl-3  py-3  border-gray-300 cursor-pointer focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 ">
               <img src={selected.imgSrc} alt={selected.label} />
               <span>{selected.label}</span>
             </div>
@@ -117,7 +117,7 @@ const SearchBar = () => {
             ref={inputRef} // input 요소에 ref 연결
             value={searchText}
             placeholder="검색어를 입력하거나 URL을 입력해봐!"
-            className=" px-3 py-1 w-full  text-gray-700 text-sm focus:outline-none"
+            className=" px-3 py-1 w-full bg-surface-dark text-gray-700 text-sm focus:outline-none"
             onChange={(e) => setSearchText(e.target.value)}
           />
           {/* X 버튼 */}

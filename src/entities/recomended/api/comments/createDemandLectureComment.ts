@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { AxiosError } from 'axios';
+// UX 개선 에러 알림 라이브러리
+
+import 'react-toastify/dist/ReactToastify.css';
 
 export const apiClient = axios.create({
   baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
@@ -59,6 +62,9 @@ export const useCreateDemandLectureComment = () => {
     onError: (error) => {
       const axiosError = error as AxiosError; // ✅ TypeScript가 AxiosError로 인식하게 변환
       console.log('포스트demandLecture2:', axiosError.response?.status);
+      if (axiosError.response?.status === 403) {
+        alert('로그인을 해주세요'); // ✅ 403일 때만 alert 표시
+      }
     },
   });
 };

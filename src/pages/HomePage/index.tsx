@@ -13,7 +13,7 @@ import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import { useState } from 'react';
 import FilterModal from '../../features/lectures/ui/FilterModal';
 import { useFilterList } from '../../entities/filter/model/store';
-import { usePlatforms } from '../../entities/lectures/hooks/usePlatforms';
+import { useFetchPlatforms } from '../../entities/lectures/hooks/usePlatforms';
 
 import { LectureCardList } from '../../features/lectures/ui/LectureCardList';
 
@@ -82,7 +82,7 @@ export const HomePage = () => {
   //필터 사이트 전역 리스트
   const { filterList } = useFilterList();
 
-  const { data: platforms, isLoading, isError, error } = usePlatforms();
+  const { data: platforms, isLoading, isError, error } = useFetchPlatforms();
   console.log('플랫폼데이터', platforms);
 
   return (

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 export const apiClientCustom = axios.create({
-  baseURL: 'http://15.164.2.37:8080/api/v1', // 가상의 API 기본 URL
+  baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
   headers: {
     'Content-Type': 'application/json',
   },
@@ -24,9 +24,13 @@ const getCookie = (name: string) => {
 };
 
 export const useApiClient = () => {
-  const { setAccessToken, clearAccessToken } = useAuthStore.getState();
+  const { setAccessToken, clearAccessToken, accessToken } =
+    useAuthStore.getState();
   const navigate = useNavigate();
-
+  console.log(
+    '토큰재발급시 엑세스토큰 확인!!!!!!!!!!!!!!!!!!!!!!!!!',
+    accessToken
+  );
   // Set up request interceptor
   apiClientCustom.interceptors.request.use((config) => {
     // const { accessToken } = useAuthStore.getState();
@@ -104,8 +108,10 @@ export const useApiClient = () => {
 };
 
 export const reissue = async (): Promise<any> => {
+  const { accessToken } = useAuthStore.getState();
   // 가상의 API URL을 사용하여 POST 요청
   try {
+    console.log('토큰재발급시 엑세스토큰 확인!!!!!!!', accessToken);
     const response = await apiClientCustom.post(`/re-issue`);
 
     // 서버로부터 받은 데이터 반환

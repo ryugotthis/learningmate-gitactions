@@ -7,6 +7,9 @@ import { LecturesForMe } from '../../pages/LecturesForMe';
 import { MyActivity } from '../../pages/MyActivity';
 import { LecturesForMeDetail } from '../../pages/LecturesForMeDetail';
 import ScrollToTop from '../../shared/ui/ScrollToTop';
+import { LecturesForMePost } from '../../pages/LecturesForMePost';
+import { TestTiptap } from '../../pages/TestTiptap/inedx';
+import { LectureDetail } from '../../pages/LectureDetail';
 
 export const RouterProvider = () => {
   return (
@@ -19,6 +22,14 @@ export const RouterProvider = () => {
           element={
             <App>
               <HomePage />
+            </App>
+          }
+        />
+        <Route
+          path="/lecture-detail"
+          element={
+            <App>
+              <LectureDetail />
             </App>
           }
         />
@@ -55,11 +66,28 @@ export const RouterProvider = () => {
             </App>
           }
         />
+        {/* 날강도 글 등록 라우트 추가 */}
+        <Route
+          path="/lectures-for-me/new"
+          element={
+            <App>
+              <LecturesForMePost />
+            </App>
+          }
+        />
         <Route
           path="/my-activity"
           element={
             <App>
               <MyActivity />
+            </App>
+          }
+        />
+        <Route
+          path="/test"
+          element={
+            <App>
+              <TestTiptap />
             </App>
           }
         />

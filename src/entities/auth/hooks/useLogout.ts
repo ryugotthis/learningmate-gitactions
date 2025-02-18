@@ -4,13 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 export const useLogout = () => {
-  const clearAuth = useAuthStore((state) => state.clearAccessToken);
+  const { clearAccessToken, setIsLoggedIn, isLoggedIn } = useAuthStore();
+  // const clearAuth = useAuthStore((state) => state.clearAccessToken);
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: logout, // 서버에 로그아웃 요청
+    mutationFn: async () => {
+      if (!isLoggedIn) {
+        throw new Error('🚨 이미 로그아웃된 상태입니다.');
+      }
+      return logout(); // 로그아웃 API 요청
+    },
     onSuccess: () => {
-      clearAuth(); // 엑세스 토큰 초기화
+      console.log('로그아웃 api 작동');
+      clearAccessToken(); // 엑세스 토큰 초기화
+      setIsLoggedIn(false); // 로그인 상태 false 변경
+      console.log('로그아웃후 로그인상태', isLoggedIn); //상태 업데이트가 비동기처리라 바로 반영안됨
       navigate('/login'); // 로그인 페이지로 이동
     },
     onError: (error) => {

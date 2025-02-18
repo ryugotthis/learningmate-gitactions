@@ -1,6 +1,48 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
+/* .tiptap {
+  @apply prose max-w-full focus:outline-none;
+}
+
+.tiptap h1 {
+  @apply text-3xl font-bold;
+}
+
+.tiptap h2 {
+  @apply text-2xl font-semibold;
+}
+
+.tiptap p {
+  @apply text-base;
+}
+
+.tiptap ul {
+  @apply list-disc list-inside;
+}
+
+.tiptap ol {
+  @apply list-decimal list-inside;
+}
+
+.tiptap pre {
+  @apply bg-gray-800 text-white p-4 rounded-md overflow-x-auto;
+}
+
+/* 블록 선택 메뉴 스타일 */
+/* .block-menu {
+  @apply absolute bg-white shadow-md p-2 rounded-md w-48 border border-gray-300;
+}
+
+.block-menu input {
+  @apply w-full border-b p-1 text-sm;
+}
+
+.block-menu-item {
+  @apply flex items-center gap-2 p-2 hover:bg-gray-200 cursor-pointer;
+} */
+/* @theme {
   --color-primary-50: #e5f5ed;
   --color-primary-100: #c1e6dd;
   --color-primary-200: #98d6b5;
@@ -23,7 +65,7 @@
   --color-font-default: #232527;
   --color-surface-dark: #f5f5f5;
   --color-surface-line: #e2e2e2;
-}
+} */
 
 body {
   height: 5000px;

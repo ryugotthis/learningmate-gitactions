@@ -1,0 +1,60 @@
+/* tiptap-editor.css */
+.tiptap {
+  @apply prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none w-full;
+}
+
+/* Tailwind 4에서 prose가 기본적으로 더 잘 작동하지만, 필요한 경우 추가 스타일 */
+.tiptap h1 {
+  @apply text-4xl font-bold mb-4;
+}
+
+.tiptap h2 {
+  @apply text-3xl font-bold mb-3;
+}
+
+.tiptap h3 {
+  @apply text-2xl font-bold mb-2;
+}
+
+.tiptap p {
+  @apply mb-4;
+}
+
+.tiptap ul {
+  @apply list-disc pl-6 mb-4;
+}
+
+.tiptap ol {
+  @apply list-decimal pl-6 mb-4;
+}
+
+.tiptap blockquote {
+  @apply border-l-4 border-gray-300 pl-4 italic my-4;
+}
+
+.tiptap code {
+  @apply font-mono bg-gray-100 px-1 rounded;
+}
+
+.tiptap pre {
+  @apply bg-gray-100 p-4 rounded my-4 font-mono;
+}
+
+.tiptap img {
+  @apply max-w-full h-auto my-4;
+}
+
+.tiptap hr {
+  @apply border-t border-gray-300 my-8;
+}
+
+/* 포커스된 상태의 스타일 */
+.tiptap:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-opacity-50;
+}
+
+/* 기본 에디터 콘텐츠가 비어있을 때 스타일 */
+.tiptap .is-empty:first-child::before {
+  content: attr(data-placeholder);
+  @apply text-gray-400 float-left h-0 pointer-events-none;
+}

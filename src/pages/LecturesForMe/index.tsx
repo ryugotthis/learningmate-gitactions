@@ -7,6 +7,8 @@ import { LecturesForMECardList } from '../../features/recommended/LectureForMeCa
 import { useDemandLecture } from '../../entities/recomended/hooks/useDemandLecture';
 // import { usePostDemandLecture } from '../../entities/recomended/api/createDemandLecture';
 import { usePostDemandLecture } from '../../entities/recomended/api/createDemandLecture';
+import { useAuthStore } from '../../shared/model/store';
+import { PostLectureForMeButton } from '../../features/recommended/PostLecturesForMeButton';
 interface Sort {
   name: string;
   id: number;
@@ -39,7 +41,8 @@ export const LecturesForMe = () => {
     content:
       'Javascript 기초보고 이론 동영상보고 이제 개인 프로젝트 해보려하는데 도움되는 강의 있을까요?',
   });
-
+  const { isLoggedIn } = useAuthStore();
+  console.log('로그인 체크', isLoggedIn);
   return (
     <>
       <Header />
@@ -80,30 +83,35 @@ export const LecturesForMe = () => {
         <main>
           {/* 필터 글 등록 버튼 */}
           <div className="flex justify-between items-center gap-3">
-            <div className="flex items-center gap-2">
-              {/* 내 글만 보기 토글버튼 */}
-              <button
-                onClick={() => setIsMyPosts(!isMyPosts)}
-                className="cursor-pointer"
-              >
-                {/* container */}
-                <div
-                  className={`relative w-[56px] h-[30px] transition-colors ${
-                    !isMyPosts ? 'bg-surface-dark ' : 'bg-primary-default'
-                  }  rounded-2xl`}
+            {isLoggedIn ? (
+              <div className="flex items-center gap-2">
+                {/* 내 글만 보기 토글버튼 */}
+
+                <button
+                  onClick={() => setIsMyPosts(!isMyPosts)}
+                  className="cursor-pointer"
                 >
-                  {/* circle */}
+                  {/* container */}
                   <div
-                    className={`absolute top-[5px] ${
-                      isMyPosts ? 'translate-x-[31px]' : 'translate-x-[5px]'
-                    } w-[20px] h-[20px] rounded-[50%] bg-white transition-transform duration-300`}
-                  ></div>
-                </div>
-              </button>
-              <span className="text-xs text-font-sub-default font-bold">
-                내 글만 보기
-              </span>
-            </div>
+                    className={`relative w-[56px] h-[30px] transition-colors ${
+                      !isMyPosts ? 'bg-surface-dark ' : 'bg-primary-default'
+                    }  rounded-2xl`}
+                  >
+                    {/* circle */}
+                    <div
+                      className={`absolute top-[5px] ${
+                        isMyPosts ? 'translate-x-[31px]' : 'translate-x-[5px]'
+                      } w-[20px] h-[20px] rounded-[50%] bg-white transition-transform duration-300`}
+                    ></div>
+                  </div>
+                </button>
+                <span className="text-xs text-font-sub-default font-bold">
+                  내 글만 보기
+                </span>
+              </div>
+            ) : (
+              <div></div>
+            )}
 
             <div className="flex justify-between items-center gap-3">
               <div className="relative">
@@ -130,16 +138,16 @@ export const LecturesForMe = () => {
                   </ul>
                 )}
               </div>
-
+              {/* 글 등록 버튼 */}
               <div>
-                <button
+                <PostLectureForMeButton />
+                {/* <button
                   onClick={() => mutate(testData)}
                   className="flex items-center px-4 py-3 text-white bg-primary-default rounded-4xl"
                 >
-                  {/* <img src={Add} alt="add" className="mr-1" /> */}
                   <PlusIcon className=" mr-1" />
                   <p className="text-sm font-bold cursor-pointer">글 등록</p>
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -147,28 +155,9 @@ export const LecturesForMe = () => {
           {demandIsError && (
             <p className="text-red-500">❌ 오류 발생: {demandError?.message}</p>
           )}
-          v
+
           <div className="mt-2">
             <LecturesForMECardList />
-            {/* 카드 */}
-            {/* <div className="flex p-5 border border-surface-line ">
-              <button className="flex flex-col items-center mr-5 text-sm border border-surface-line rounded-4xl py-4 px-2 gap-1">
-                <span>up</span>
-                <span>102K</span>
-              </button>
-              <div>
-                <h2>Javascript 기초보고 응용할 만한 영상</h2>
-                <p className="mt-2 mb-5 text-xs">
-                  Javascript 기초보고 이론 동영상보고 이제 개인 프로젝트
-                  해보려하는데 도움되는 강의 있을까요?
-                </p>
-                <div className="text-xs flex gap-5">
-                  <span>25.02.01</span>
-                  <span>1.2K</span>
-                  <span>2</span>
-                </div>
-              </div>
-            </div> */}
           </div>
         </main>
       </div>

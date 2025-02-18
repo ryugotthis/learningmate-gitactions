@@ -1,16 +1,21 @@
 import { CardData } from './LectureCardList';
 import Bookmark from '../../../shared/ui/icons/BookMark.svg';
+import { useNavigate } from 'react-router-dom';
 
 interface LectureCardProps {
   data: CardData;
 }
 
 export const LectureCard: React.FC<LectureCardProps> = ({ data }) => {
-  console.log(Bookmark);
+  // console.log(Bookmark);
+  const navigate = useNavigate();
   return (
     <>
       {/* 본문 카드 */}
-      <div className=" p-5 border border-surface-line rounded-3xl flex flex-col flex-wrap ">
+      <div
+        onClick={() => navigate('/lecture-detail')}
+        className=" p-5 border border-surface-line rounded-3xl flex flex-col flex-wrap cursor-pointer"
+      >
         <div className="flex justify-between">
           <img src={data.logoUrl} alt="fastcampus" className="w-10" />
           <button>

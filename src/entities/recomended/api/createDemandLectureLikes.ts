@@ -1,5 +1,5 @@
+import { useAuthStore } from '../../../shared/model/store';
 import axios from 'axios';
-import { useAuthStore } from '../../../../shared/model/store';
 
 export const apiClient = axios.create({
   baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
@@ -19,16 +19,18 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
-export const fetchDemandLectureComments = async (
-  postId: number
-): Promise<any> => {
-  console.log(
-    '플랫폼 요청 URL:',
-    `${apiClient.defaults.baseURL}/posts/${postId}/comments`
-  );
-  const response = await apiClient.get(`/posts/${postId}/comments`);
+export interface DemandLectureData {
+  title: string; // 제목
+  content: string; // 내용
+}
 
-  console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
-
-  return response.data.data; // ✅ 올바르게 `data`만 반환
+export const postDemandLectureLikes = async (postId: number): Promise<any> => {
+  try {
+    console.log('포스트날강도추천데이터');
+    const response = await apiClient.post(`/posts/${postId}/like`, null);
+    return response.data;
+  } catch (error) {
+    console.error('📌 포스트날강도 추천 실패1:', error);
+    throw error;
+  }
 };

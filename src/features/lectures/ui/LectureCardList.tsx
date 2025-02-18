@@ -1,5 +1,7 @@
+import { useFetchLectures } from '../../../entities/lectures/hooks/useFetchLectures';
 import Fastcampus from '../../../widgets/header/ui/icons/FastCampus.svg';
 import { LectureCard } from './LectureCard';
+import { useNavigate } from 'react-router-dom';
 
 // api 사용 데이터
 // 플랫폼 로고, 강의 이름, 강의설명, 추천수, 비추천수, 조회수
@@ -117,6 +119,9 @@ const cardData: CardData[] = [
 ];
 
 export const LectureCardList = () => {
+  const { data } = useFetchLectures();
+  console.log('강의데이터테스트:', data);
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
