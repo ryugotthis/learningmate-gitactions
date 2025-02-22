@@ -26,7 +26,7 @@ export const RouterProvider = () => {
           }
         />
         <Route
-          path="/lecture-detail"
+          path="/lecture-detail/:id"
           element={
             <App>
               <LectureDetail />

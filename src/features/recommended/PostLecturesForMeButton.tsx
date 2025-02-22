@@ -34,10 +34,10 @@ export const PostLectureForMeButton = () => {
     <>
       <button
         onClick={handlePostLectureForMeButton}
-        className="flex items-center px-4 py-3 text-white bg-primary-default rounded-4xl"
+        className="flex items-center h-[48px] gap[4px] px-[24px] py-[12px] text-white bg-primary-default rounded-4xl"
       >
         <PlusIcon className=" mr-1" />
-        <p className="text-sm font-bold cursor-pointer">글 등록</p>
+        <p className="text-[16px] font-semibold cursor-pointer">글 등록</p>
       </button>
     </>
   );

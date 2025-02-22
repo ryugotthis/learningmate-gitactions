@@ -49,6 +49,7 @@ export default {
         17: '4.25rem',
         140: '35rem',
       },
+
       borderRadius: {
         '4xl': '2rem',
       },

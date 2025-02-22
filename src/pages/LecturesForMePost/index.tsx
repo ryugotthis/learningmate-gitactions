@@ -1,55 +1,63 @@
 import { useState } from 'react';
 import { Left } from '../../shared/ui/icons/Left';
-import { TiptapEditor } from '../../shared/ui/TiptapEditor';
 import { useNavigate } from 'react-router-dom';
-
-interface Block {
-  id: number;
-  type:
-    | 'text'
-    | 'heading'
-    | 'image'
-    | 'code'
-    | 'bulletList'
-    | 'blockquote'
-    | null;
-  content: string;
-}
+import { ErrorIcon } from '../../shared/ui/icons/ErrorIcon';
+import { usePostDemandLecture } from '../../entities/recomended/hooks/usePostDemandLecture';
+import Editor from '../../shared/ui/icons//Editor'; // ✅ Editor 컴포넌트 가져오기
 
 export const LecturesForMePost = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState(''); // ✅ 제목 상태
-  const [blocks, setBlocks] = useState<Block[]>([
-    { id: 0, type: null, content: '' }, // ✅ 기본 블록 추가
-  ]);
+  const [content, setContent] = useState(''); // ✅ 본문 상태
+  const [errorTitle, setErrorTitle] = useState(false); // 제목 에러 상태
+  const [errorContent, setErrorContent] = useState(false); // 본문 에러 상태
 
-  // ✅ `TiptapEditor`에서 블록 데이터를 변경하면 업데이트
-  const handleContentChange = (newBlocks: Block[]) => {
-    setBlocks(newBlocks);
+  const { mutate } = usePostDemandLecture(); // ✅ API 요청 훅 사용
+
+  // ✅ Editor 데이터 변경 시 호출되는 함수
+  const handleEditorChange = (data: any) => {
+    // const contentText = data.blocks
+    //   .map((block: any) => block.data.text)
+    //   .join('\n');
+    // setContent(contentText);
+    setContent(JSON.stringify(data.blocks)); // ✅ 블록 전체 저장
   };
 
   // ✅ 등록 버튼 클릭 시 제목과 본문이 비어있는지 확인 후 처리
-  const handleSubmit = () => {
-    if (!title.trim()) {
-      alert('제목을 입력해주세요!');
-      return;
-    }
-    if (blocks.length === 0 || blocks.every((block) => !block.content.trim())) {
-      alert('본문을 입력해주세요!');
+  const handleSubmit = async () => {
+    const isContentEmpty = !content.trim();
+    const isTitleEmpty = !title.trim();
+
+    if (isTitleEmpty) {
+      setErrorTitle(true);
+      setErrorContent(false);
       return;
     }
 
-    console.log('📌 제목:', title);
-    console.log('📝 본문:', blocks);
+    if (isContentEmpty) {
+      setErrorContent(true);
+      return;
+    }
 
-    // API 연동 예제 (실제 API 요청이 필요할 경우 추가)
-    // fetch('/api/posts', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ title, blocks })
-    // }).then(response => response.json())
-    //   .then(data => console.log('Success:', data))
-    //   .catch(error => console.error('Error:', error));
+    // ✅ API 요청 실행
+    mutate(
+      {
+        title,
+        content: content, // ✅ JSON으로 저장
+      },
+      {
+        onSuccess: () => {
+          console.log('✅ 게시글 등록 성공!');
+          console.log('보낸제목:', title);
+          console.log('보낸내용:', content);
+          navigate('/lectures-for-me'); // ✅ 성공 후 이동
+        },
+        onError: (error) => {
+          console.error('❌ 게시글 등록 실패:', error);
+          alert('게시글 등록에 실패했어요. 다시 시도해주세요!');
+        },
+      }
+    );
   };
 
   return (
@@ -77,18 +85,41 @@ export const LecturesForMePost = () => {
           <h1>
             <input
               type="text"
-              className="w-full text-2xl border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-default"
-              placeholder="제목을 입력해 주세요"
+              className={`w-full text-2xl py-2 focus:outline-none focus:ring-2 ${
+                errorTitle
+                  ? 'focus:ring-red-500 border-red-500'
+                  : 'focus:ring-primary-default'
+              }`}
+              placeholder="제목을 입력해줘"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setErrorTitle(false);
+              }}
             />
           </h1>
 
           <div className="my-5 border-t border-surface-line" />
 
           {/* 본문 입력 (블록 에디터) */}
-          <TiptapEditor onChange={handleContentChange} />
+          <Editor onChange={handleEditorChange} readOnly={false} />
         </div>
+
+        {/* 제목 에러 메시지 */}
+        {errorTitle && (
+          <div className="flex gap-2 border-2 border-error rounded-4xl px-6 py-4">
+            <ErrorIcon className="text-error" />
+            <p className="font-bold">제목을 입력해줘</p>
+          </div>
+        )}
+
+        {/* 본문 에러 메시지 */}
+        {errorContent && !errorTitle && (
+          <div className="flex gap-2 border-2 border-error rounded-4xl px-6 py-4">
+            <ErrorIcon className="text-error" />
+            <p className="font-bold">본문을 입력해줘</p>
+          </div>
+        )}
       </main>
     </>
   );

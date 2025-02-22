@@ -7,11 +7,15 @@ import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
 import { CommentInput } from '../../features/recommended/CommentInput';
 import { CommentList } from '../../features/recommended/CommemtList';
-import { useAuthStore } from '../../shared/model/store';
+import { useAuthStore, useLikeStore } from '../../shared/model/store';
 import { UpIcon } from '../../shared/ui/icons/UpIcon';
 import { useState } from 'react';
 import { UpVoteButton } from '../../features/recommended/UpVoteButton';
 import { usePostDemandLectureLikes } from '../../entities/recomended/hooks/usePostDemandLectureLikes';
+import Editor from '../../shared/ui/icons/Editor';
+import { useFetchDemandLectureDetailItem } from '../../entities/recomended/hooks/useFetchDemandLectureDetailItem';
+import { LinkIcon } from '../../shared/ui/icons/LinkIcon';
+import { MoreIcon } from '../../shared/ui/icons/MoreIcon';
 
 // 날짜 형식 변경
 const formatDate = (isoString: string) => {
@@ -22,48 +26,50 @@ const formatDate = (isoString: string) => {
   return `${year}.${month}.${day}`;
 };
 export const LecturesForMeDetail = () => {
-  const { accessToken } = useAuthStore();
+  const { accessToken, accessName } = useAuthStore();
   console.log('토큰값', accessToken);
+  console.log('닉네임', accessName);
+  // const { isLikesToggled, setIsLikesToggled } = useLikeStore();
 
-  const [isVoteUpClicked, setIsVoteUpClicked] = useState(false);
-  const handleVoteUpButton = (postId: number) => {
-    setIsVoteUpClicked(!isVoteUpClicked);
-    mutate(postId);
-    console.log('추천버튼클릭:', isVoteUpClicked);
-  };
-
-  // 추천 포스트 api
-  const { mutate } = usePostDemandLectureLikes();
+  // const [isVoteUpClicked, setIsVoteUpClicked] = useState(false);
+  // const handleVoteUpButton = (postId: number) => {
+  //   setIsVoteUpClicked(!isVoteUpClicked);
+  //   mutate(postId);
+  //   console.log('추천버튼클릭:', isVoteUpClicked);
+  // };
 
   const { id } = useParams(); // ✅ URL에서 id 추출
+  const postId = Number(id); // 문자열을 숫자로 변환
   const {
     data: lecturesForMeData,
     isLoading,
     isError,
     error,
-  } = useDemandLecture();
-  console.log(
-    lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
-  );
+  } = useFetchDemandLectureDetailItem(postId);
+
+  // const { data: lectureForMe } = useFetchDemandLectureDetailItem(postId)
+  // console.log(
+  //   lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
+  // );
   console.log('왜안나와?', lecturesForMeData);
   console.log('id', id);
-  console.log(
-    '되니?',
-    lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
-  );
-
+  // console.log(
+  //   '되니?',
+  //   lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
+  // );
+  const [isMoreToggled, setIsMoreToggled] = useState(false);
   if (isLoading) return <p>⏳ 로딩 중...</p>;
   if (isError)
-    return <p className="text-red-500">❌ 오류 발생 {error.message}</p>;
-  if (!lecturesForMeData || !Array.isArray(lecturesForMeData))
-    return <p>❌ 데이터를 불러올 수 없습니다.</p>;
-  // ✅ 문자열 id를 숫자로 변환 후 해당 강의 찾기
-  const lecture = lecturesForMeData.find(
-    (lecture: any) => lecture.id === Number(id)
-  );
+    return <p className="text-red-500">❌ 오류 발생: {error.message}</p>;
+  if (!lecturesForMeData) return <p>❌ 데이터를 불러올 수 없습니다.</p>;
   console.log('강의데이터받아써?');
 
-  if (!lecture) return <p>❌ 해당 강의를 찾을 수 없습니다.</p>;
+  // ✅ `lecturesForMeData`는 객체이므로, 바로 `lecture`로 사용
+  const lecture = lecturesForMeData;
+
+  // const handleMoreButton = () => {
+  //   accessName === lecture.user.name?
+  // }
 
   return (
     <>
@@ -93,27 +99,55 @@ export const LecturesForMeDetail = () => {
           </div>
           <div className="flex justify-between">
             <div className="flex items-center gap-2">
-              <ProfileIcon />
-              <span>닉네임</span>
+              {lecture.user.profileImage ? (
+                lecture.user.profileImage
+              ) : (
+                <ProfileIcon />
+              )}
+              <span>{lecture.user.name}</span>
             </div>
-            <div className="flex gap-5">
+            <div className="flex gap-5 items-center">
               <button className="flex p-2 border border-surface-line rounded-4xl">
-                <div>링크아이콘</div>
+                <LinkIcon />
                 <span>링크 복사</span>
               </button>
-              <button>```</button>
+              <div className="relative">
+                <button onClick={() => setIsMoreToggled(!isMoreToggled)}>
+                  <MoreIcon />
+                </button>
+                {isMoreToggled && (
+                  <ul className="absolute w-[121px] mt-[7px] text-[16px] font-medium bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)]">
+                    {accessName === lecture.user.name ? (
+                      <>
+                        <li className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark">
+                          수정
+                        </li>
+                        <li className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark">
+                          삭제
+                        </li>
+                      </>
+                    ) : (
+                      <li className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark">
+                        신고
+                      </li>
+                    )}
+                  </ul>
+                )}
+              </div>
             </div>
           </div>
         </header>
         {/* 본문 영역 */}
         <section className="relative p-5 h-100">
-          <p>{lecture.content}</p>
+          <Editor initialData={lecture.content} readOnly={true} />
+
           {/* UpVote 버튼 */}
           <aside>
             <UpVoteButton
-              onClick={() => handleVoteUpButton(lecture.id)}
-              isVoteUpClicked={isVoteUpClicked}
+              // onClick={() => handleVoteUpButton(lecture.id)}
+              // isVoteUpClicked={isVoteUpClicked}
               postId={lecture.id}
+              likes={lecture.likes}
             />
             {/* <button
               onClick={handleVoteUpButton} 

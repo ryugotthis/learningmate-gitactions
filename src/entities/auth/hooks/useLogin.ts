@@ -8,7 +8,7 @@ import { useErrorstore } from '../model/store';
 
 // 로그인 훅
 export const useLogin = () => {
-  const { setAccessToken, setIsLoggedIn } = useAuthStore(); // ✅ 상태 한 번에 가져오기
+  const { setAccessToken, setIsLoggedIn, setAccessName } = useAuthStore(); // ✅ 상태 한 번에 가져오기
   // const setAccessToken = useAuthStore((state) => state.setAccessToken); //상태 업데이트 함수 가져오기
   // const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn); // 로그인 상태 업데이트
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ export const useLogin = () => {
       console.log(data, '로그인성공후 홈페이지이동');
 
       setAccessToken(data.data.accessToken);
+      setAccessName(data.data.name);
       setIsLoggedIn(true);
       navigate('/');
     },

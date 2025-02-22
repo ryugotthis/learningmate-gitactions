@@ -75,40 +75,40 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="relative flex w-140 items-center border border-line rounded-4xl bg-surface-dark flex-grow">
+      <div className="relative flex gap-[18px] w-[640px] h-[56px] px-[16px] py-[12px] items-center border border-line rounded-4xl bg-surface-dark flex-grow">
         {/* 플랫폼 드롭다운 버튼 */}
-        <div ref={dropdownRef} className="relative flex-3">
+        <div ref={dropdownRef} className=" w-[120px]">
           <button
-            className=" w-full flex gap-1 justify-between items-center flex-1 text-sm text-gray-700 pl-3  py-3  border-gray-300 cursor-pointer focus:outline-none"
+            className=" w-[120px] flex justify-between items-center text-sm text-gray-700   border-gray-300 cursor-pointer focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <div className="flex items-center gap-1 ">
+            <div className="flex items-center gap-[6px] ">
               <img src={selected.imgSrc} alt={selected.label} />
-              <span>{selected.label}</span>
+              <span className="text-[14px]">{selected.label}</span>
             </div>
 
             <img src={Dropdown} alt="dropdown" />
           </button>
 
           {/* 플랫폼 드롭다운 리스트 */}
-          {isOpen && (
-            <ul className="absolute mt-5 text-sm l-0 w-full bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)] ">
-              {options.map((option) => (
-                <li
-                  key={option.value}
-                  className="flex gap-1 py-3 px-3 cursor-pointer hover:bg-surface-dark"
-                  onClick={() => {
-                    SetSelected(option);
-                    setIsOpen(false);
-                  }}
-                >
-                  <img src={option.imgSrc} alt={option.label} />
-                  <span>{option.label}</span>
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
+        {isOpen && (
+          <ul className="absolute top-[66px] text-[14px] left-0 w-[136px] bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)] ">
+            {options.map((option) => (
+              <li
+                key={option.value}
+                className="flex gap-1 py-3 px-3 cursor-pointer hover:bg-surface-dark"
+                onClick={() => {
+                  SetSelected(option);
+                  setIsOpen(false);
+                }}
+              >
+                <img src={option.imgSrc} alt={option.label} />
+                <span>{option.label}</span>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {/* 입력 필드 */}
         <div className="flex-8 flex">

@@ -17,7 +17,7 @@ export const SignupPage = () => {
     useState<boolean>(false);
 
   const onSubmit = (data: any) => {
-    const { confirmPassword, nickname, terms, ...filteredData } = data;
+    const { confirmPassword, terms, ...filteredData } = data;
     // const modifiedData = {
     //   ...filteredData,
     //   userId: email,
@@ -36,7 +36,7 @@ export const SignupPage = () => {
   } = useForm({ mode: 'onChange' });
 
   const isTermsAccepted = watch('terms'); // 약관 동의 체크 여부 확인
-  const nicknameValue = watch('nickname'); // 닉네임 입력 값 감지
+  const nameValue = watch('name'); // 닉네임 입력 값 감지
   const emailValue = watch('email'); // 이메일 입력 값 감지
   const passwordValue = watch('password'); // 비밀번호 입력 값 감지
   const confirmPasswordValue = watch('confirmPassword'); // 비밀번호 확인 입력 값 감지
@@ -66,16 +66,16 @@ export const SignupPage = () => {
         >
           <div>
             <label
-              htmlFor="nickname"
+              htmlFor="name"
               className="block text-sm font-bold text-gray-700 mb-1"
             >
               닉네임
             </label>
             <input
               type="text"
-              id="nickname"
+              id="name"
               placeholder="한글, 영문 소문자, 숫자 2-20자"
-              {...register('nickname', {
+              {...register('name', {
                 required: '닉네임을 입력해주세요!',
                 pattern: {
                   value: /^[a-z0-9가-힣]{2,20}$/,
@@ -84,16 +84,16 @@ export const SignupPage = () => {
               })}
               className={`w-full py-3 pl-5 border rounded-4xl placeholder-placeholder outline-none transition
               ${
-                !nicknameValue
+                !nameValue
                   ? 'bg-white border-surface-line'
-                  : errors.nickname
+                  : errors.name
                   ? 'border-error bg-white'
                   : 'border-surface-line bg-surface-dark'
               }`}
             />
-            {errors.nickname && (
+            {errors.name && (
               <p className="text-error text-sm mt-1 pl-2">
-                {String(errors.nickname.message)}
+                {String(errors.name.message)}
               </p>
             )}
           </div>

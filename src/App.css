@@ -70,3 +70,58 @@
 body {
   height: 5000px;
 }
+
+.ce-toolbar__content {
+  max-width: 750px !important;
+}
+.ce-block__content {
+  max-width: 750px !important;
+}
+
+/* Editor.js의 + 버튼을 항상 왼쪽에 유지 */
+/* .ce-toolbar__plus {
+  position: absolute !important;
+  left: -40px !important;
+  top: 50% !important;
+  transform: translateY(-50%);
+} */
+
+/* 모바일 환경에서도 동일한 위치 유지 */
+@media (max-width: 768px) {
+  /* .ce-toolbar__plus {
+    left: 0 !important;
+  }   */
+
+  /* .ce-toolbar {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  } */
+
+  .ce-toolbar__plus {
+    @apply absolute left-[-40px] top-[-17px] transform -translate-y-1/2;
+  }
+}
+
+/* Editor.js 툴바 스타일 수정 */
+/* .ce-toolbar {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+} */
+
+/* `+` 버튼을 `ce-block` 왼쪽으로 이동 */
+
+/* `ce-block`이 상대적 위치를 가지도록 설정 */
+/* .ce-block {
+  @apply relative;
+} */
+
+/* 모바일에서도 동일한 위치 유지 */
+/* @screen md {
+  .ce-toolbar__plus {
+    @apply left-[-40px];
+  }
+} */

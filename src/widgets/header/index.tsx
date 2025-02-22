@@ -50,34 +50,33 @@ const Header = () => {
           : 'relative  bg-white'
       }`}
     >
-      <nav className="flex justify-between mx-auto px-6 mt-3 items-center">
-        <div className="left flex items-center">
+      <nav className="h-[84px] flex justify-between mx-auto px-[32px] items-center">
+        <div className="left flex gap-[32px] items-center">
           <a className="Logo cursor-pointer">logo</a>
-          <div className=" flex gap-5 items-center ml-5">
-            <a className="cursor-pointer" onClick={() => navigate('/')}>
-              강의
-            </a>
-            <a
-              className="cursor-pointer"
-              onClick={() => navigate('/lectures-for-me')}
-            >
-              날.강.도
-            </a>
-            <a
-              className="cursor-pointer"
-              onClick={() => navigate('/my-activity')}
-            >
-              내 활동
-            </a>
-            {showSearch && <SearchBar />}
-          </div>
+
+          <a className="cursor-pointer" onClick={() => navigate('/')}>
+            강의
+          </a>
+          <a
+            className="cursor-pointer"
+            onClick={() => navigate('/lectures-for-me')}
+          >
+            날.강.도
+          </a>
+          <a
+            className="cursor-pointer"
+            onClick={() => navigate('/my-activity')}
+          >
+            내 활동
+          </a>
+          {showSearch && <SearchBar />}
         </div>
         <button
           onClick={handleLoginButton}
-          className="py-1 px-5 text-primary-default border-2 rounded-4xl text-sm font-black "
+          className="min-w-[80px] h-[40px] px-[24px] text-primary-default border-2 rounded-4xl text-sm font-black "
         >
           {isLoggedIn ? '로그아웃' : '로그인'}
-          {accessToken ? accessToken : '토큰없음'}
+          {accessToken ? '토큰있음' : '토큰없음'}
         </button>
       </nav>
     </header>

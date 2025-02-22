@@ -6,11 +6,11 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <TanStackQueryProvider>
-      <ThemeProvider theme={theme}>
-        <RouterProvider />
-      </ThemeProvider>
-    </TanStackQueryProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <TanStackQueryProvider>
+    <ThemeProvider theme={theme}>
+      <RouterProvider />
+    </ThemeProvider>
+  </TanStackQueryProvider>
+  // </React.StrictMode>
 );

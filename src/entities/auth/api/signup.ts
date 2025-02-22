@@ -9,6 +9,7 @@ import { apiClient } from '../../../shared/api/axios';
 // }
 
 export interface SignupPayload {
+  name: string; // 사용자 닉네임
   email: string; // 사용자 ID
   // username: string; // 사용자 이름
   password: string; // 비밀번호

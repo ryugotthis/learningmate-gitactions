@@ -48,7 +48,6 @@ const sortList: Sort[] = [
 
 export const HomePage = () => {
   const { accessToken } = useAuthStore();
-  const useCustomGetApiMutation = useCustomGetApi();
   const useLogoutMutation = useLogout();
 
   // 정렬 선택
@@ -58,11 +57,6 @@ export const HomePage = () => {
   const logout = () => {
     if (accessToken) useLogoutMutation.mutate();
     else console.log('엑세스 토큰없음 로그인안했음');
-  };
-  // getCustomApi 테스트
-  const tryGetCustomApi = (url: string) => {
-    if (accessToken) useCustomGetApiMutation.mutate(url);
-    else console.log('엑세스 토큰없어서 접근불가');
   };
 
   const testReissue = async () => {
@@ -92,7 +86,7 @@ export const HomePage = () => {
       <div>{isError && <p>❌ 오류 발생: {error.message}</p>}</div>
 
       {/* 데이터가 올바르게 로드되었는지 확인 */}
-      {platforms && Array.isArray(platforms) ? (
+      {/* {platforms && Array.isArray(platforms) ? (
         <div>
           {platforms.map((platform) => (
             <div key={platform.id}>
@@ -106,14 +100,18 @@ export const HomePage = () => {
         </div>
       ) : (
         <p>⚠️ 데이터가 올바르게 로드되지 않았습니다.</p>
-      )}
+      )} */}
 
-      <div className="container w-2/3 flex flex-col mx-auto">
-        <header className="flex items-center justify-between h-100 mt-10 bg-white">
+      <div className="container w-[1152px] flex flex-col mx-auto">
+        <header className="flex items-center gap-[72px] h-100 my-[120px] bg-white">
           <div>
-            <img src={HomeLogo} alt="homeLogo" className="max-w-90" />
+            <img
+              src={HomeLogo}
+              alt="homeLogo"
+              className="w-[440px] h-[338px]"
+            />
           </div>
-          <div className="flex flex-col items-center">
+          <div className="w-[640px] flex flex-col items-center">
             <p className="mb-8 font-bold text-2xl">
               너에게 꼭 맞는 강의를 찾아줄게!
             </p>

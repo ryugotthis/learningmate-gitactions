@@ -119,14 +119,14 @@ const cardData: CardData[] = [
 ];
 
 export const LectureCardList = () => {
-  const { data } = useFetchLectures();
-  console.log('강의데이터테스트:', data);
+  const { data: lectureData } = useFetchLectures();
+  console.log('강의데이터테스트:', lectureData);
 
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {cardData.map((card) => (
-          <LectureCard key={card.id} data={card} />
+        {lectureData?.map((lecture: any) => (
+          <LectureCard key={lecture.id} data={lecture} />
         ))}
       </div>
     </>

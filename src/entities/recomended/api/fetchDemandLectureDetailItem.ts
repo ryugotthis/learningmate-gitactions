@@ -8,9 +8,11 @@ export const apiClient = axios.create({
   withCredentials: true, // 쿠키를 포함한 요청 허용
 });
 
-export const fetchLectures = async (): Promise<any> => {
-  console.log('강의데이터 요청 URL:', `${apiClient.defaults.baseURL}/lectures`);
-  const response = await apiClient.get(`/lectures`);
+export const fetchDemandLectureDetailItem = async (
+  postId: number
+): Promise<any> => {
+  console.log('플랫폼 요청 URL:', `${apiClient.defaults.baseURL}/platforms`);
+  const response = await apiClient.get(`/demand-lectures/${postId}`);
 
   console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
 

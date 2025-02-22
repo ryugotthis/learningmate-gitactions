@@ -13,7 +13,7 @@ export const LectureCard: React.FC<LectureCardProps> = ({ data }) => {
     <>
       {/* 본문 카드 */}
       <div
-        onClick={() => navigate('/lecture-detail')}
+        onClick={() => navigate(`/lecture-detail/${data.id}`)}
         className=" p-5 border border-surface-line rounded-3xl flex flex-col flex-wrap cursor-pointer"
       >
         <div className="flex justify-between">

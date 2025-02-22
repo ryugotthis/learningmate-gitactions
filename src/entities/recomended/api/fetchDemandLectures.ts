@@ -42,9 +42,20 @@ export const apiClient = axios.create({
   withCredentials: true, // 쿠키를 포함한 요청 허용
 });
 
-export const demandLecture = async (): Promise<any> => {
+export const demandLecture = async ({
+  page,
+  size,
+  sort,
+}: {
+  page: number;
+  size: number;
+  sort: string;
+}): Promise<any> => {
   console.log('플랫폼 요청 URL:', `${apiClient.defaults.baseURL}/platforms`);
-  const response = await apiClient.get('/demand-lectures');
+  const response = await apiClient.get(
+    `/demand-lectures?page=${page}&size?${size}&sort=${sort}`
+  );
+  console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
 
   console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
 
