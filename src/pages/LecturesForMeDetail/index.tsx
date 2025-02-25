@@ -7,15 +7,13 @@ import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
 import { CommentInput } from '../../features/recommended/CommentInput';
 import { CommentList } from '../../features/recommended/CommemtList';
-import { useAuthStore, useLikeStore } from '../../shared/model/store';
-import { UpIcon } from '../../shared/ui/icons/UpIcon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UpVoteButton } from '../../features/recommended/UpVoteButton';
-import { usePostDemandLectureLikes } from '../../entities/recomended/hooks/usePostDemandLectureLikes';
 import Editor from '../../shared/ui/icons/Editor';
 import { useFetchDemandLectureDetailItem } from '../../entities/recomended/hooks/useFetchDemandLectureDetailItem';
-import { LinkIcon } from '../../shared/ui/icons/LinkIcon';
-import { MoreIcon } from '../../shared/ui/icons/MoreIcon';
+import { OptionsMenu } from '../../widgets/menu/ui/recommand/OptionsMenu';
+import { useLocation } from 'react-router-dom';
+import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
 
 // 날짜 형식 변경
 const formatDate = (isoString: string) => {
@@ -26,18 +24,6 @@ const formatDate = (isoString: string) => {
   return `${year}.${month}.${day}`;
 };
 export const LecturesForMeDetail = () => {
-  const { accessToken, accessName } = useAuthStore();
-  console.log('토큰값', accessToken);
-  console.log('닉네임', accessName);
-  // const { isLikesToggled, setIsLikesToggled } = useLikeStore();
-
-  // const [isVoteUpClicked, setIsVoteUpClicked] = useState(false);
-  // const handleVoteUpButton = (postId: number) => {
-  //   setIsVoteUpClicked(!isVoteUpClicked);
-  //   mutate(postId);
-  //   console.log('추천버튼클릭:', isVoteUpClicked);
-  // };
-
   const { id } = useParams(); // ✅ URL에서 id 추출
   const postId = Number(id); // 문자열을 숫자로 변환
   const {
@@ -46,13 +32,26 @@ export const LecturesForMeDetail = () => {
     isError,
     error,
   } = useFetchDemandLectureDetailItem(postId);
+  // 글 등록후 메시지 표시
+  const location = useLocation();
+  const [submitStatus, setSubmitStatus] = useState<string | null>(
+    location.state?.submitStatus || null
+  );
 
-  // const { data: lectureForMe } = useFetchDemandLectureDetailItem(postId)
-  // console.log(
-  //   lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
-  // );
   console.log('왜안나와?', lecturesForMeData);
   console.log('id', id);
+
+  // 1초 후에 메시지 제거
+  // 컴포넌트가 마운트될 때 submitStatus가 있다면 일정 시간 후 제거
+  useEffect(() => {
+    if (submitStatus) {
+      const timer = setTimeout(() => {
+        setSubmitStatus(null);
+      }, 1000); // 1000ms = 1초 후 메시지 제거
+      return () => clearTimeout(timer);
+    }
+  }, [submitStatus]);
+
   // console.log(
   //   '되니?',
   //   lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
@@ -106,35 +105,8 @@ export const LecturesForMeDetail = () => {
               )}
               <span>{lecture.user.name}</span>
             </div>
-            <div className="flex gap-5 items-center">
-              <button className="flex p-2 border border-surface-line rounded-4xl">
-                <LinkIcon />
-                <span>링크 복사</span>
-              </button>
-              <div className="relative">
-                <button onClick={() => setIsMoreToggled(!isMoreToggled)}>
-                  <MoreIcon />
-                </button>
-                {isMoreToggled && (
-                  <ul className="absolute w-[121px] mt-[7px] text-[16px] font-medium bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)]">
-                    {accessName === lecture.user.name ? (
-                      <>
-                        <li className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark">
-                          수정
-                        </li>
-                        <li className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark">
-                          삭제
-                        </li>
-                      </>
-                    ) : (
-                      <li className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark">
-                        신고
-                      </li>
-                    )}
-                  </ul>
-                )}
-              </div>
-            </div>
+            {/* 옵션 메뉴 */}
+            <OptionsMenu name={lecture.user.name} postId={lecture.id} />
           </div>
         </header>
         {/* 본문 영역 */}
@@ -142,28 +114,27 @@ export const LecturesForMeDetail = () => {
           <Editor initialData={lecture.content} readOnly={true} />
 
           {/* UpVote 버튼 */}
-          <aside>
+          <aside className="absolute left-[-60px] top-1/3 transform -translate-y-1/2 ">
             <UpVoteButton
               // onClick={() => handleVoteUpButton(lecture.id)}
               // isVoteUpClicked={isVoteUpClicked}
               postId={lecture.id}
               likes={lecture.likes}
             />
-            {/* <button
-              onClick={handleVoteUpButton} 
-              className={`absolute left-[-60px] top-1/3 transform -translate-y-1/2 flex flex-col justify-center gap-1 items-center text-sm border-2 rounded-4xl py-5 px-2 cursor-pointer ${
-                isVoteUpClicked
-                  ? 'border-primary-default'
-                  : 'border-surface-line'
-              }`}
-            >
-              <UpIcon className="text-surface-line w-3" />
-              <span>102K</span>
-            </button> */}
           </aside>
         </section>
+
         {/* 댓글 영역 */}
-        <section>
+        <section className="relative">
+          {/* 하단에 등록 성공 메시지 표시 */}
+          <div className="absolute w-full flex justify-center  ">
+            {submitStatus === 'success' && (
+              <div className=" flex justify-end bg-white gap-[6px] border-2 border-primary-default rounded-4xl px-[24px] py-[12px]">
+                <CheckIcon className="text-primary-default" />
+                <p className="font-bold text-success">글 등록 성공!</p>
+              </div>
+            )}
+          </div>
           {/* 댓글 리스트 */}
           <CommentList postId={lecture.id} />
           {/* 댓글 입력 */}

@@ -10,6 +10,7 @@ import ScrollToTop from '../../shared/ui/ScrollToTop';
 import { LecturesForMePost } from '../../pages/LecturesForMePost';
 import { TestTiptap } from '../../pages/TestTiptap/inedx';
 import { LectureDetail } from '../../pages/LectureDetail';
+import { LecturesForMePut } from '../../pages/LecturesForMePut';
 
 export const RouterProvider = () => {
   return (
@@ -72,6 +73,14 @@ export const RouterProvider = () => {
           element={
             <App>
               <LecturesForMePost />
+            </App>
+          }
+        />
+        <Route
+          path="/lectures-for-me/edit/:id"
+          element={
+            <App>
+              <LecturesForMePut />
             </App>
           }
         />

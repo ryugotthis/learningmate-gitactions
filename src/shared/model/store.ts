@@ -5,12 +5,13 @@ import { persist } from 'zustand/middleware';
 // Zustand를 통해 관리할 인증 상태 타입 정의
 interface AuthState {
   accessToken: string | null; // JWT Access Token
-  accessName: string | null;
+  // accessName: string | null;
   isLoggedIn: boolean; // 로그인 상태 여부
   setAccessToken: (token: string) => void; // Access Token 설정 함수
-  setAccessName: (name: string) => void;
+  // setAccessName: (name: string) => void;
   clearAccessToken: () => void; // Access Token 초기화 함수(로그아웃)
   setIsLoggedIn: (status: boolean) => void; // 로그인 상태를 직접 변경할 수 있는 함수
+  // clearAccessName: () => void; // Access name 초기화 함수(로그아웃)
 }
 
 // Zustand를 사용한 전역 상태 관리
@@ -29,14 +30,14 @@ export const useAuthStore = create<AuthState>()(
         console.log('🚨 accessToken 초기화됨 (로그아웃)');
         set({ accessToken: null, isLoggedIn: false });
       },
-      setAccessName: (name) => {
-        console.log('✅ accessName 저장됨:', name);
-        set({ accessName: name }); // ✅ token이 있으면 isLoggedIn = true
-      },
-      clearAccessName: () => {
-        console.log('🚨 accessToken 초기화됨 (로그아웃)');
-        set({ accessName: null, isLoggedIn: false });
-      },
+      // setAccessName: (name) => {
+      //   console.log('✅ accessName 저장됨:', name);
+      //   set({ accessName: name }); // ✅ token이 있으면 isLoggedIn = true
+      // },
+      // clearAccessName: () => {
+      //   console.log('🚨 accessToken 초기화됨 (로그아웃)');
+      //   set({ accessName: null, isLoggedIn: false });
+      // },
       setIsLoggedIn: (status) => {
         console.log('✅ 로그인 상태 변경:', status);
         set({ isLoggedIn: status });

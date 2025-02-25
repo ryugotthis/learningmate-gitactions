@@ -6,8 +6,14 @@ import { AxiosError } from 'axios'; // AxiosError 타입 추가
 let isReissuing = false; // 중복 요청 방지 플래그
 
 export const useReissue = () => {
-  const { setAccessToken, clearAccessToken, setIsLoggedIn, isLoggedIn } =
-    useAuthStore();
+  const {
+    setAccessToken,
+    setAccessName,
+    clearAccessToken,
+    clearAccessName,
+    setIsLoggedIn,
+    isLoggedIn,
+  } = useAuthStore();
 
   return useMutation({
     mutationFn: async () => {
@@ -17,7 +23,9 @@ export const useReissue = () => {
 
       try {
         const { accessToken } = await reissue();
+        // const { accessToken,name } = await reissue();
         setAccessToken(accessToken);
+        // setAccessName(name)
         return accessToken;
       } finally {
         isReissuing = false; // 요청 완료 후 다시 요청 가능하게 변경
@@ -26,6 +34,7 @@ export const useReissue = () => {
     onError: (error) => {
       console.error('🚨 토큰 갱신 실패:', error);
       clearAccessToken();
+      // clearAccessName
       setIsLoggedIn(false);
 
       // AxiosError로 캐스팅하여 response 속성 접근 가능하도록 처리

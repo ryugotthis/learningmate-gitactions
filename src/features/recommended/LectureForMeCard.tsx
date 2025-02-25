@@ -7,6 +7,8 @@ import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
 import { useLikeStore } from '../../shared/model/store';
 import { usePostDemandLectureLikes } from '../../entities/recomended/hooks/usePostDemandLectureLikes';
 import { useDeleteLikes } from '../../entities/recomended/hooks/useDeleteLikes';
+import { UpVoteButton } from './UpVoteButton';
+import { useFetchPostLikeStatus } from '../../entities/lectures/hooks/useFetchPostLikeStatus';
 
 // interface LectureCardForMeProps {
 //   data: CardData;
@@ -30,42 +32,17 @@ export const LecturesForMECard: React.FC<LectureCardForMeProps> = ({
   data,
   onClick,
 }) => {
-  const { mutate: likeMutate } = usePostDemandLectureLikes();
-  const { mutate: unlikeMutate } = useDeleteLikes();
-  // const { isLikesToggled, setIsLikesToggled } = useLikeStore();
-  const { likedPosts, toggleLike } = useLikeStore();
-  const likedPostsSet =
-    likedPosts instanceof Set ? likedPosts : new Set(likedPosts);
-  const isLiked = likedPostsSet.has(data.id);
-  const handleVoteUpButton = (event: React.MouseEvent, postId: number) => {
-    console.log('추천버튼클릭상태:', isLiked);
-    event.stopPropagation(); // ✅ 부모 요소의 onClick 이벤트 실행 방지
-    console.log('추천버튼 클릭 전 상태:', isLiked);
-    if (isLiked) {
-      console.log('좋아요해제');
-      unlikeMutate(postId);
-    } else {
-      likeMutate(postId);
-    }
-    toggleLike(postId);
-    console.log('추천버튼클릭상태 처리후:', isLiked);
-  };
   return (
     <>
-      <div> {`상태보여줘 ${isLiked}`}</div>
       <div
         onClick={onClick}
         className="flex px-[32px] py-[24px] gap-[32px] group hover:bg-surface-dark cursor-pointer transition"
       >
-        <button
-          onClick={(e) => handleVoteUpButton(e, data.id)}
-          className={`w-[64px] h-[92px] py-[20px] flex flex-col justify-center items-center text-sm border-2 ${
-            isLiked ? 'border-primary-default' : 'border-surface-line'
-          } rounded-4xl py-0 px-2 cursor-pointer bg-white group-hover:bg-white`}
-        >
-          <UpIcon className="text-surface-line text-[24px] mb-2" />
-          <span className="font-bold">{data.likes}</span>
-        </button>
+        {/* 추천버튼 */}
+        <div onClick={(e) => e.stopPropagation()}>
+          <UpVoteButton postId={data.id} likes={data.likes} />
+        </div>
+
         <div className="flex flex-col gap-[24px]">
           <div className="flex flex-col h-[79px] gap-[12px]">
             <h2 className="font-semibold text-[20px]">{data.title}</h2>

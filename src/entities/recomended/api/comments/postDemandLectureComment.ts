@@ -1,8 +1,8 @@
 import { useAuthStore } from '../../../../shared/model/store';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+
 import axios from 'axios';
-import { AxiosError } from 'axios';
+
 // UX 개선 에러 알림 라이브러리
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,7 +29,7 @@ export interface DemandLectureCommentData {
   content: string; // 내용
 }
 
-export const createDemandLectureComment = async (
+export const postDemandLectureComment = async (
   postId: number,
   data: DemandLectureCommentData
 ): Promise<any> => {
@@ -41,30 +41,4 @@ export const createDemandLectureComment = async (
     console.error('📌 포스트demandLecture 실패1:', error);
     throw error;
   }
-};
-
-export const useCreateDemandLectureComment = () => {
-  // const navigate = useNavigate();
-
-  return useMutation({
-    // mutationFn은 하나의 인자만 받을 수 있음
-    mutationFn: ({
-      postId,
-      data,
-    }: {
-      postId: number;
-      data: DemandLectureCommentData;
-    }) => createDemandLectureComment(postId, data),
-
-    onSuccess: (data) => {
-      console.log(data, '포스트demandLecture 성공');
-    },
-    onError: (error) => {
-      const axiosError = error as AxiosError; // ✅ TypeScript가 AxiosError로 인식하게 변환
-      console.log('포스트demandLecture2:', axiosError.response?.status);
-      if (axiosError.response?.status === 403) {
-        alert('로그인을 해주세요'); // ✅ 403일 때만 alert 표시
-      }
-    },
-  });
 };

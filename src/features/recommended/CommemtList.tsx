@@ -97,7 +97,7 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
       {/* (CommentListData || []).map((comment:CommentData) */}
       {(CommentListData || []).map((comment: CommentData) => {
         console.log('🔍 comment.id:', comment.id); // ✅ 콘솔 출력으로 확인
-        return <CommentCard key={comment.id} data={comment} />;
+        return <CommentCard key={comment.id} data={comment} postId={postId} />;
       })}
     </>
   );

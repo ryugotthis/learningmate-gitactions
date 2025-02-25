@@ -20,11 +20,7 @@ import Infren from '../../widgets/header/ui/icons/Infren.svg';
 export const LectureDetail = () => {
   const { id } = useParams(); // ✅ URL에서 id 추출
   const postId = Number(id); // 문자열을 숫자로 변환
-  const { data: lecturesData } = useFetchLectures({
-    page: 15,
-    size: 10,
-    sort: 'desc',
-  });
+  const { data: lecturesData } = useFetchLectures();
 
   const lecture = lecturesData.find((lecture: any) => lecture.id === postId);
   return (
