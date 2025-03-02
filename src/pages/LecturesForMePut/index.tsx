@@ -310,8 +310,8 @@ import { Left } from '../../shared/ui/icons/Left';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorIcon } from '../../shared/ui/icons/ErrorIcon';
 import Editor from '../../shared/ui/icons/Editor'; // forwardRef가 적용된 Editor 컴포넌트
-import { usePutDemandLecture } from '../../entities/recomended/hooks/usePutDemandLecture';
-import { useFetchDemandLectureDetailItem } from '../../entities/recomended/hooks/useFetchDemandLectureDetailItem';
+import { useUpdateDemandLecture } from '../../entities/recomended/hooks/useUpdateDemandLecture';
+import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
 
 export const LecturesForMePut = () => {
   const navigate = useNavigate();
@@ -325,12 +325,12 @@ export const LecturesForMePut = () => {
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorContent, setErrorContent] = useState(false);
 
-  const { mutate } = usePutDemandLecture();
+  const { mutate } = useUpdateDemandLecture();
   const {
     data: postData,
     isLoading,
     error,
-  } = useFetchDemandLectureDetailItem(postId);
+  } = useGetDemandLectureDetailItem(postId);
 
   // Editor 인스턴스에 접근하기 위한 ref
   const editorRef = useRef<any>(null);

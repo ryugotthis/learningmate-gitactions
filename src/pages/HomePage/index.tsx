@@ -1,8 +1,5 @@
 import { useAuthStore } from '../../shared/model/store';
 import { useLogout } from '../../entities/auth/hooks/useLogout';
-import { useCustomGetApi } from '../../entities/auth/hooks/useCustomApi';
-// import { useReissue } from '../../entities/auth/hooks/useReissue';
-import { useReissue } from '../../entities/auth/api/test';
 import { reissue } from '../../entities/auth/api/reissue';
 
 import Header from '../../widgets/header';
@@ -13,7 +10,7 @@ import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import { useState } from 'react';
 import FilterModal from '../../features/lectures/ui/FilterModal';
 import { useFilterList } from '../../entities/filter/model/store';
-import { useFetchPlatforms } from '../../entities/lectures/hooks/usePlatforms';
+import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
 
 import { LectureCardList } from '../../features/lectures/ui/LectureCardList';
 
@@ -76,68 +73,52 @@ export const HomePage = () => {
   //필터 사이트 전역 리스트
   const { filterList } = useFilterList();
 
-  const { data: platforms, isLoading, isError, error } = useFetchPlatforms();
+  const { data: platforms, isLoading, isError, error } = useGetPlatforms();
   console.log('플랫폼데이터', platforms);
 
   return (
     <>
-      <Header />
       <div>{isLoading && <p>⏳ 로딩 중...</p>}</div>
       <div>{isError && <p>❌ 오류 발생: {error.message}</p>}</div>
-
-      {/* 데이터가 올바르게 로드되었는지 확인 */}
-      {/* {platforms && Array.isArray(platforms) ? (
-        <div>
-          {platforms.map((platform) => (
-            <div key={platform.id}>
-              <h3>{platform.title}</h3>
-              <img src={platform.logoUrl} alt={platform.title} />
-              <a href={platform.url} target="_blank" rel="noopener noreferrer">
-                {platform.url}
-              </a>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>⚠️ 데이터가 올바르게 로드되지 않았습니다.</p>
-      )} */}
-
-      <div className="container w-[1152px] flex flex-col mx-auto">
-        <header className="flex items-center gap-[72px] h-100 my-[120px] bg-white">
+      <Header />
+      <header className="flex flex-col items-center bg-blue-300">
+        <div className=" flex justify-between items-center gap-[72px] h-100 my-[120px] bg-pink-400">
           <div>
             <img
               src={HomeLogo}
               alt="homeLogo"
-              className="w-[440px] h-[338px]"
+              className="hidden lg:block w-[440px] h-[338px]"
             />
           </div>
-          <div className="w-[640px] flex flex-col items-center">
+          <div className=" flex flex-col items-center bg-green-300">
             <p className="mb-8 font-bold text-2xl">
               너에게 꼭 맞는 강의를 찾아줄게!
             </p>
-            <div className="border-[0.15rem] border-secondary-default p-[0.05rem] rounded-full">
-              <div className="border-[0.15rem] border-secondary-default p-[0.05rem] rounded-full">
-                <div className="border-[0.15rem] border-secondary-default  rounded-full">
-                  <SearchBar />
-                </div>
-              </div>
-            </div>
+
+            <SearchBar />
+            {/* </div> */}
+            {/* </div> */}
+            {/* </div> */}
           </div>
-        </header>
-        <main className="mt-25">
-          <div className="flex justify-between mb-7">
-            <div className="font-bold text-2xl">추천강의</div>
-            <div className="flex items-center gap-3 ">
+        </div>
+      </header>
+
+      <div className="w-full flex flex-col items-center  pb-[120px]">
+        <main className="w-[328px] md:w-[624px] lg:w-[1152px] flex flex-col gap-[40px]">
+          {/* 추천강의 및 사이트 필터, 정렬 버튼 */}
+          <div className="flex justify-between items-center">
+            <div className="font-bold text-[32px] tracking-[-0.1em]">
+              추천 강의
+            </div>
+            <div className="flex items-center gap-[8px] ">
               {/* 사이트 필터 버튼 */}
               <div>
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="flex items-center px-4 py-3 border border-surface-line rounded-4xl"
+                  className="flex items-center h-[48px] px-[24px] gap-[4px] border border-surface-line rounded-4xl"
                 >
-                  <img src={FilterSiteIcon} alt="filter" className="mr-1" />
-                  <p className="text-font-sub-default text-sm font-bold cursor-pointer">
-                    사이트
-                  </p>
+                  <img src={FilterSiteIcon} alt="filter" />
+                  <p className="text-font-sub font-semibold">사이트</p>
                 </button>
                 {/* 모달 열기 */}
                 {isModalOpen && (
@@ -153,12 +134,12 @@ export const HomePage = () => {
                 <button
                   onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
                   // disabled={isModalOpen}
-                  className=" flex focus-within:outline-none items-center px-4 py-3 border border-surface-line border-opacity-100  text-font-sub-default rounded-4xl"
+                  className="flex items-center h-[48px] px-[24px] gap-[4px] border border-surface-line rounded-4xl"
                 >
-                  <p className="text-font-sub-default text-sm font-bold cursor-pointer">
+                  <p className="text-font-sub font-semibold">
                     {sortSelected.name}
                   </p>
-                  <img src={SortIcon} alt="sort" className="pl-1" />
+                  <img src={SortIcon} alt="sort" />
                 </button>
                 {isSortDropdownOpen && (
                   <ul className="absolute mt-5 text-sm l-0 bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)]">
@@ -166,7 +147,7 @@ export const HomePage = () => {
                       <li
                         key={sort.id}
                         onClick={() => setSortSelected(sort)}
-                        className="gap-1 py-3 px-3 cursor-pointer text-font-sub-default font-bold hover:bg-surface-dark"
+                        className="gap-1 py-3 px-3 cursor-pointer text-font-sub font-bold hover:bg-surface-dark"
                       >
                         {sort.name}
                       </li>
@@ -190,10 +171,11 @@ export const HomePage = () => {
           {/* 본문 카드 */}
 
           <LectureCardList />
+          <button>더보기</button>
         </main>
       </div>
 
-      <div>{accessToken}</div>
+      {/* <div>{accessToken}</div> */}
       <button onClick={logout}>{accessToken ? '로그아웃' : '로그인'}</button>
       <button onClick={testReissue}>사용자정보가져오기</button>
     </>

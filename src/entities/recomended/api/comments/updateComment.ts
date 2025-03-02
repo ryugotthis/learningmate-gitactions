@@ -20,7 +20,6 @@ apiClient.interceptors.request.use((config) => {
 });
 
 export interface DemandLectureData {
-  title: string; // 제목
   content: string; // 내용
 }
 
@@ -34,6 +33,7 @@ export const updateComment = async (
     console.log('데이터형태', data);
     return response.data;
   } catch (error) {
+    console.log('수정 댓글 데이터 형태', data);
     console.error('📌 수정 댓글 실패1:', error);
     throw error;
   }

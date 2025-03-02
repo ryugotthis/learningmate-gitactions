@@ -3,7 +3,6 @@ import { useDeleteLectureForMe } from '../../../../entities/recomended/hooks/use
 import { MoreOptionsButton } from '../../../../features/recommended/MoreOptionsButton';
 import { LinkIcon } from '../../../../shared/ui/icons/LinkIcon';
 import { useReissue } from '../../../../entities/auth/hooks/useReissue';
-import { useState } from 'react';
 
 export const OptionsMenu = ({
   name,

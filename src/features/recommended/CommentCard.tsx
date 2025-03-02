@@ -47,12 +47,13 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
     setEditMode(true);
   };
   const handleEditCommentRegister = () => {
+    console.log('수정데이터', editedComment);
     // put API로 댓글 수정 요청
     try {
       mutateAsync();
 
       updateCommentMutate(
-        { postId, data: editedComment, commentId: data.id },
+        { postId, data: { content: editedComment }, commentId: data.id },
         {
           onSuccess: () => {
             setEditMode(false); // 성공 시 수정 모드 종료

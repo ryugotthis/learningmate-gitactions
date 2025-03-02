@@ -4,12 +4,12 @@ import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import PlusIcon from '../../widgets/header/ui/icons/PlusIcon';
 import { useState } from 'react';
 import { LecturesForMECardList } from '../../features/recommended/LectureForMeCardList';
-import { useDemandLecture } from '../../entities/recomended/hooks/useDemandLecture';
+import { useGetDemandLecture } from '../../entities/recomended/hooks/useGetDemandLecture';
 // import { usePostDemandLecture } from '../../entities/recomended/api/createDemandLecture';
 
 import { useAuthStore } from '../../shared/model/store';
 import { PostLectureForMeButton } from '../../features/recommended/PostLecturesForMeButton';
-import { usePostDemandLecture } from '../../entities/recomended/hooks/usePostDemandLecture';
+import { useCreateDemandLecture } from '../../entities/recomended/hooks/useCreateDemandLecture';
 import Pagination from '../../features/recommended/Pagination';
 interface Sort {
   name: string;

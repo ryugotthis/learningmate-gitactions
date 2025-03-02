@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { updateComment } from '../api/comments/updateComment';
 
 // export interface DemandLectureCommentData {
@@ -11,6 +10,8 @@ export const useUpdateComment = (commentId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
+    // mutationKey를 통해 업데이트하고자 하는 댓글을 명시적으로 식별합니다.
+    mutationKey: ['updateComment', commentId],
     // mutationFn은 하나의 인자만 받을 수 있음
     mutationFn: ({
       commentId,
@@ -41,7 +42,9 @@ export const useUpdateComment = (commentId: number) => {
           console.log('여기 아이디', commentId);
           if (!oldData) return oldData;
           return oldData.map((comment: any) =>
-            comment.id === commentId ? { ...comment, content: data } : comment
+            comment.id === commentId
+              ? { ...comment, content: data.content }
+              : comment
           );
         }
       );

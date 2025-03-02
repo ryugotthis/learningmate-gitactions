@@ -8,9 +8,9 @@ let isReissuing = false; // 중복 요청 방지 플래그
 export const useReissue = () => {
   const {
     setAccessToken,
-    setAccessName,
+
     clearAccessToken,
-    clearAccessName,
+
     setIsLoggedIn,
     isLoggedIn,
   } = useAuthStore();

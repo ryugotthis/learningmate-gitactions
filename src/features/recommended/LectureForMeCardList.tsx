@@ -1,11 +1,11 @@
-import { useDemandLecture } from '../../entities/recomended/hooks/useDemandLecture';
-import { useFetchDemandLectureDetailItem } from '../../entities/recomended/hooks/useFetchDemandLectureDetailItem';
+import { useGetDemandLecture } from '../../entities/recomended/hooks/useGetDemandLecture';
+import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
 
 import { LecturesForMECard } from './LectureForMeCard';
 import { useNavigate } from 'react-router-dom';
 import Pagination from './Pagination';
 import { useEffect, useState } from 'react';
-import { useFetchMyDemandLectures } from '../../entities/recomended/hooks/useFetchMyDemandLectures';
+import { useGetMyDemandLectures } from '../../entities/recomended/hooks/useGetMyDemandLectures';
 export interface CardData {
   id: number;
   vote: number;
@@ -149,14 +149,14 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
     isLoading,
     isError,
     error,
-  } = useDemandLecture({
+  } = useGetDemandLecture({
     page: currentPage - 1,
     size: 10,
     sort: 'desc',
   });
   console.log('날강도뎅이터', demandLecturesData);
 
-  const { data: myDemandLecturesData } = useFetchMyDemandLectures({
+  const { data: myDemandLecturesData } = useGetMyDemandLectures({
     page: currentPage - 1,
     size: 10,
     sort: 'desc',

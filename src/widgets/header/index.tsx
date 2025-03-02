@@ -3,6 +3,8 @@ import SearchBar from './ui/SearchBar';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '../../shared/model/store';
 import { useLogout } from '../../entities/auth/hooks/useLogout';
+import Logo from './ui/icons/Logo';
+import { HamburgerIcon } from '../../shared/ui/icons/HamburgerIcon';
 
 const Header = () => {
   const location = useLocation(); // 현재 페이지 경로 가져오기
@@ -11,6 +13,7 @@ const Header = () => {
   const { mutate } = useLogout();
   const { accessToken, isLoggedIn } = useAuthStore();
 
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLoginButton = () => {
@@ -52,24 +55,33 @@ const Header = () => {
     >
       <nav className="h-[84px] flex justify-between mx-auto px-[32px] items-center">
         <div className="left flex gap-[32px] items-center">
-          <a className="Logo cursor-pointer">logo</a>
+          {/* 햄버거 버튼 (모바일/태블릿 전용) */}
+          <button className="lg:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+            <HamburgerIcon />
+          </button>
+          <button onClick={() => navigate('/')}>
+            <Logo />
+          </button>
 
-          <a className="cursor-pointer" onClick={() => navigate('/')}>
-            강의
-          </a>
-          <a
-            className="cursor-pointer"
-            onClick={() => navigate('/lectures-for-me')}
-          >
-            날.강.도
-          </a>
-          <a
-            className="cursor-pointer"
-            onClick={() => navigate('/my-activity')}
-          >
-            내 활동
-          </a>
-          {showSearch && <SearchBar />}
+          {/* PC 버전 메뉴 */}
+          <div className="hidden lg:flex lg:gap-[32px] ">
+            <a className="cursor-pointer" onClick={() => navigate('/')}>
+              강의
+            </a>
+            <a
+              className="cursor-pointer"
+              onClick={() => navigate('/lectures-for-me')}
+            >
+              날.강.도
+            </a>
+            <a
+              className="cursor-pointer"
+              onClick={() => navigate('/my-activity')}
+            >
+              내 활동
+            </a>
+            {showSearch && <SearchBar />}
+          </div>
         </div>
         <button
           onClick={handleLoginButton}

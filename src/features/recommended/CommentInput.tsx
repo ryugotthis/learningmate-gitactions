@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
-import { usePostDemandLectureComment } from '../../entities/recomended/hooks/usePostDemandLectureComment';
+import { useCreateDemandLectureComment } from '../../entities/recomended/hooks/useCreateDemandLectureComment';
 import { useQueryClient } from '@tanstack/react-query'; //
 
 import { useGetUser } from '../../entities/auth/hooks/useGetUser ';
@@ -12,7 +12,7 @@ interface CommentInputProps {
 }
 
 export const CommentInput: React.FC<CommentInputProps> = ({ postId }) => {
-  const { mutate, isPending } = usePostDemandLectureComment();
+  const { mutate, isPending } = useCreateDemandLectureComment();
   const commentRef = useRef<HTMLTextAreaElement | null>(null); // ✅ `useRef`로 입력값 관리
   const [hasComment, setHasComment] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<string | null>(null); // 성공/실패 상태 관리

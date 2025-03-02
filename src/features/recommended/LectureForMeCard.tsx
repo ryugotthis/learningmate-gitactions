@@ -1,14 +1,9 @@
-import { useState } from 'react';
-import { UpIcon } from '../../shared/ui/icons/UpIcon';
-import { CardData, LectureData } from './LectureForMeCardList';
+import { LectureData } from './LectureForMeCardList';
 import { DateIcon } from '../../shared/ui/icons/DateIcon';
 import { ViewsIcon } from '../../shared/ui/icons/ViewsIcon';
 import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
-import { useLikeStore } from '../../shared/model/store';
-import { usePostDemandLectureLikes } from '../../entities/recomended/hooks/usePostDemandLectureLikes';
-import { useDeleteLikes } from '../../entities/recomended/hooks/useDeleteLikes';
-import { UpVoteButton } from './UpVoteButton';
-import { useFetchPostLikeStatus } from '../../entities/lectures/hooks/useFetchPostLikeStatus';
+
+import { UpVoteButtonContainer } from './UpVoteButtonContainer';
 
 // interface LectureCardForMeProps {
 //   data: CardData;
@@ -40,7 +35,7 @@ export const LecturesForMECard: React.FC<LectureCardForMeProps> = ({
       >
         {/* 추천버튼 */}
         <div onClick={(e) => e.stopPropagation()}>
-          <UpVoteButton postId={data.id} likes={data.likes} />
+          <UpVoteButtonContainer postId={data.id} likes={data.likes} />
         </div>
 
         <div className="flex flex-col gap-[24px]">

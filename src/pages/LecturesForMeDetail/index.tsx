@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import Header from '../../widgets/header';
-import { useDemandLecture } from '../../entities/recomended/hooks/useDemandLecture';
+
 import { DateIcon } from '../../shared/ui/icons/DateIcon';
 import { ViewsIcon } from '../../shared/ui/icons/ViewsIcon';
 import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
@@ -8,12 +8,13 @@ import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
 import { CommentInput } from '../../features/recommended/CommentInput';
 import { CommentList } from '../../features/recommended/CommemtList';
 import { useEffect, useState } from 'react';
-import { UpVoteButton } from '../../features/recommended/UpVoteButton';
+
 import Editor from '../../shared/ui/icons/Editor';
-import { useFetchDemandLectureDetailItem } from '../../entities/recomended/hooks/useFetchDemandLectureDetailItem';
+import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
 import { OptionsMenu } from '../../widgets/menu/ui/recommand/OptionsMenu';
 import { useLocation } from 'react-router-dom';
 import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
+import { UpVoteButtonContainer } from '../../features/recommended/UpVoteButtonContainer';
 
 // 날짜 형식 변경
 const formatDate = (isoString: string) => {
@@ -31,7 +32,7 @@ export const LecturesForMeDetail = () => {
     isLoading,
     isError,
     error,
-  } = useFetchDemandLectureDetailItem(postId);
+  } = useGetDemandLectureDetailItem(postId);
   // 글 등록후 메시지 표시
   const location = useLocation();
   const [submitStatus, setSubmitStatus] = useState<string | null>(
@@ -115,7 +116,7 @@ export const LecturesForMeDetail = () => {
 
           {/* UpVote 버튼 */}
           <aside className="absolute left-[-60px] top-1/3 transform -translate-y-1/2 ">
-            <UpVoteButton
+            <UpVoteButtonContainer
               // onClick={() => handleVoteUpButton(lecture.id)}
               // isVoteUpClicked={isVoteUpClicked}
               postId={lecture.id}

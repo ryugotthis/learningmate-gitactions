@@ -128,7 +128,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { Left } from '../../shared/ui/icons/Left';
 import { useNavigate } from 'react-router-dom';
 import { ErrorIcon } from '../../shared/ui/icons/ErrorIcon';
-import { usePostDemandLecture } from '../../entities/recomended/hooks/usePostDemandLecture';
+import { useCreateDemandLecture } from '../../entities/recomended/hooks/useCreateDemandLecture';
 import Editor from '../../shared/ui/icons/Editor'; // Editor 컴포넌트 가져오기
 import { useReissue } from '../../entities/auth/hooks/useReissue';
 
@@ -141,7 +141,7 @@ export const LecturesForMePost = () => {
   const [errorContent, setErrorContent] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<string | null>(null); // 성공/실패 상태 관리
 
-  const { mutate } = usePostDemandLecture();
+  const { mutate } = useCreateDemandLecture();
   const { mutateAsync: reissueToken } = useReissue();
   // const [isEditable, setIsEditable] = useState<Boolean | undefined>(undefined);
 

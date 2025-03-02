@@ -1,4 +1,4 @@
-import { useFetchDemandLectureComments } from '../../entities/recomended/hooks/useFetchDemandLectureCommets';
+import { useGetDemandLectureComments } from '../../entities/recomended/hooks/useGetDemandLectureCommets';
 
 import { CommentCard } from './CommentCard';
 
@@ -80,7 +80,7 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
     isLoading,
     isError,
     error,
-  } = useFetchDemandLectureComments(postId);
+  } = useGetDemandLectureComments(postId);
   console.log('댓글데이터확인', CommentListData);
   return (
     <>
