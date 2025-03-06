@@ -54,15 +54,15 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black/40"
+      className="fixed inset-0 flex items-end lg:items-center justify-center bg-black/40"
       onClick={onClose}
     >
       <div
-        className="relative w-[560px] bg-white rounded-[12px] shadow-lg"
+        className="relative w-full lg:w-[560px] bg-white rounded-[12px] shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-[24px] border-b-2">
-          <h2 className="text-lg font-semibold">사이트</h2>
+        <div className="flex items-center justify-between p-[16px] md:p-[24px] border-b-2">
+          <h2 className="title-sm-600 md:title-md-600">사이트</h2>
           <button className="text-gray-600 text-xl" onClick={onClose}>
             <img src={DeleteClose} />
           </button>
@@ -104,7 +104,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
                 <li
                   key={id}
                   onClick={() => toggleLecture(lecture.id)}
-                  className="flex items-center gap-[4px] border border-primary-default rounded-4xl mx-1 my-1 text-[16px] font-medium text-primary-default px-[16px] py-[4px] cursor-pointer"
+                  className="h-[28px] md:h-[35px] flex items-center gap-[4px] text-sm-500 md:text-md-500 border border-primary-default rounded-4xl text-primary-default px-[16px] cursor-pointer"
                 >
                   <p>{lecture.name}</p>
                   <CloseIcon className="w-[16px] h-[16px]" />
@@ -117,12 +117,12 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
         {/* <div className="border-t-2 border-gray-300 my-4 w-full"></div> */}
 
         {/* ✅ 강의 리스트 (검색 결과 or 기본 리스트) */}
-        <ul className="flex px-[32px] py-[12px] gap-[10px] border-t ">
+        <ul className="flex h-[160px] lg:h-auto px-[32px] py-[12px] gap-[10px] border-t flex-wrap content-start">
           {filteredLectures.map((lecture) => (
             <li
               key={lecture.id}
               onClick={() => toggleLecture(lecture.id)}
-              className={`h-[35px] border rounded-4xl text-[16px] tracking-[-0.1em] text-font-sub px-[16px] py-[4px] cursor-pointer `}
+              className={`h-[28px] md:h-[35px] border rounded-4xl text-sm-500 md:text-md-500 text-font-sub px-[16px] py-[4px] cursor-pointer `}
             >
               {lecture.name}
             </li>

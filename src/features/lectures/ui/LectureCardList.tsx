@@ -1,7 +1,3 @@
-import { useGetLectures } from '../../../entities/lectures/home/hooks/useGetLectures';
-// import Fastcampus from '../../../widgets/header/ui/icons/FastCampus.svg';
-import { LectureCard } from './LectureCard';
-
 // api 사용 데이터
 // 플랫폼 로고, 강의 이름, 강의설명, 추천수, 비추천수, 조회수
 // api/v1/lectures
@@ -117,14 +113,18 @@ import { LectureCard } from './LectureCard';
 //   },
 // ];
 
-export const LectureCardList = () => {
-  const { data: lectureData } = useGetLectures();
-  console.log('강의데이터테스트:', lectureData);
+// import { useGetLectures } from '../../../entities/lectures/home/hooks/useGetLectures';
+// import Fastcampus from '../../../widgets/header/ui/icons/FastCampus.svg';
+import { LectureCard } from './LectureCard';
+
+export const LectureCardList = (data: any) => {
+  // const { data: lectureData } = useGetLectures();
+  console.log('강의데이터테스트:', data);
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
-        {lectureData?.map((lecture: any) => (
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
+        {data?.data?.map((lecture: any) => (
           <LectureCard key={lecture.id} data={lecture} />
         ))}
       </div>

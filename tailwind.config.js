@@ -57,6 +57,10 @@ export default {
         3: '3',
         8: '8',
       },
+      fontFamily: {
+        // Pretendard 폰트 등록
+        pretendard: ['Pretendard', 'sans-serif'],
+      },
       colors: {
         primary: {
           50: '#e5f5ed',

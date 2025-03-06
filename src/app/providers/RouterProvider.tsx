@@ -11,6 +11,7 @@ import { LecturesForMePost } from '../../pages/LecturesForMePost';
 import { TestTiptap } from '../../pages/TestTiptap/inedx';
 import { LectureDetail } from '../../pages/LectureDetail';
 import { LecturesForMePut } from '../../pages/LecturesForMePut';
+import { MyPage } from '../../pages/MyPage';
 
 export const RouterProvider = () => {
   return (
@@ -23,6 +24,14 @@ export const RouterProvider = () => {
           element={
             <App>
               <HomePage />
+            </App>
+          }
+        />
+        <Route
+          path="/my-page"
+          element={
+            <App>
+              <MyPage />
             </App>
           }
         />

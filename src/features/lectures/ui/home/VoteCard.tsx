@@ -5,6 +5,7 @@ import { UpVoteIcon } from '../../../../shared/ui/icons/UpVoteIcon';
 import { VoteCardItem } from './VoteCardItem';
 import { UpVoteOpinionModal } from './UpVoteOpinionModal';
 import { DownVoteOpinionModal } from './DownVoteOpinionModal';
+import Hangul from 'hangul-js'; // 한글 자음 단위로 필터링하기 위해
 
 export const VoteCard = ({
   title,
@@ -12,12 +13,14 @@ export const VoteCard = ({
   postId,
   opinionData,
   visibleCount,
+  searchText,
 }: {
   title: string;
   color: string;
   postId: number;
   opinionData: any;
   visibleCount: number;
+  searchText: string;
 }) => {
   // 모달의 열림/닫힘 상태를 저장할 state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,9 +36,17 @@ export const VoteCard = ({
   };
   console.log('확인!!!', opinionData);
   console.log('토글상태', isModalOpen);
-
+  console.log('z검색데이터 확인', searchText);
+  const filteredOpinionData = opinionData?.filter((opinion: any) => {
+    // opinion.title을 분해해서 하나의 문자열로 합침 (예: '한글' -> 'ㅎㅏㄴㄱㅡㄹ')
+    const disassembledTitle = Hangul.disassemble(opinion.title).join('');
+    // 검색어도 동일하게 분해
+    const disassembledSearch = Hangul.disassemble(searchText).join('');
+    // 분해된 문자열에서 검색어가 포함되어 있는지 확인
+    return disassembledTitle.includes(disassembledSearch);
+  });
   return (
-    <div className="border rounded-lg w-[564.5px] p-[24px]">
+    <div className="flex flex-col border rounded-lg  lg:w-[564.5px] p-[24px]">
       <div
         className={`flex gap-[16px] items-center pb-[16px] border-b-4 border-${color}`}
       >
@@ -57,18 +68,44 @@ export const VoteCard = ({
       </div>
 
       {/* 카드 리스트를 보여주는 부분 */}
-      <ul className="divide-y">
-        {Array.isArray(opinionData) &&
-          opinionData
-            ?.slice(0, visibleCount)
-            .map((opinion: any) => (
-              <VoteCardItem
-                key={opinion.id}
-                opinion={opinion}
-                postId={postId}
-                title={title}
-              />
-            ))}
+      <ul className="divide-y flex-1">
+        {opinionData?.length > 0 ? (
+          searchText ? (
+            filteredOpinionData.length > 0 ? (
+              filteredOpinionData
+                .slice(0, visibleCount)
+                .map((opinion: any) => (
+                  <VoteCardItem
+                    key={opinion.id}
+                    opinion={opinion}
+                    postId={postId}
+                    title={title}
+                  />
+                ))
+            ) : (
+              <div
+                className={`flex justify-center items-center h-full pt-[16px]`}
+              >
+                <p className="text-md-500 text-font-sub">검색어 없음</p>
+              </div>
+            )
+          ) : (
+            opinionData
+              ?.slice(0, visibleCount)
+              .map((opinion: any) => (
+                <VoteCardItem
+                  key={opinion.id}
+                  opinion={opinion}
+                  postId={postId}
+                  title={title}
+                />
+              ))
+          )
+        ) : (
+          <div className={`flex justify-center items-center h-full pt-[16px]`}>
+            <p className="text-md-500 text-font-sub">의견을 추가 해줘!</p>
+          </div>
+        )}
       </ul>
 
       {/* <button className="absolute w-full bottom-0 bg-pink-200">

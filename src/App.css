@@ -2,6 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  /* Figma에서 "Title-md-600"으로 정의한 스타일 */
+  .title-lg-600 {
+    @apply font-pretendard text-[32px] leading-[120%] tracking-[-0.1em] font-semibold;
+  }
+  .title-md-600 {
+    @apply font-pretendard text-[24px] leading-[120%] tracking-[-0.1em] font-semibold;
+  }
+  .title-sm-600 {
+    @apply font-pretendard text-[20px] leading-[120%] tracking-[-0.1em] font-semibold;
+  }
+  .title-sm-500 {
+    @apply font-pretendard text-[20px] leading-[120%] tracking-[-0.1em] font-medium;
+  }
+  .text-lg-600 {
+    @apply font-pretendard text-[18px] leading-[120%] tracking-[-0.075em] font-semibold;
+  }
+  .text-lg-500 {
+    @apply font-pretendard text-[18px] leading-[120%] tracking-[-0.075em] font-medium;
+  }
+  .text-md-600 {
+    @apply font-pretendard text-[16px] leading-[140%] tracking-[-0.05em] font-semibold;
+  }
+  .text-md-500 {
+    @apply font-pretendard text-[16px] leading-[140%] tracking-[-0.05em] font-medium;
+  }
+  .text-md-400 {
+    @apply font-pretendard text-[16px] leading-[140%] tracking-[-0.05em];
+  }
+  .text-sm-600 {
+    @apply font-pretendard text-[14px] leading-[140%] tracking-[-0.05em] font-semibold;
+  }
+  .text-sm-500 {
+    @apply font-pretendard text-[14px] leading-[140%] tracking-[-0.05em] font-medium;
+  }
+  .text-sm-400 {
+    @apply font-pretendard text-[14px] leading-[140%] tracking-[-0.05em];
+  }
+  .text-xsm-400 {
+    @apply font-pretendard text-[12px] leading-[140%] tracking-[-0.05em];
+  }
+  .ino-md-400 {
+    @apply font-pretendard text-[16px] leading-[160%] tracking-[-0.05em];
+  }
+
+  /* 필요하다면 추가로 다른 텍스트 스타일들도 정의할 수 있습니다.
+  .title-sm-400 {
+    @apply font-pretendard text-[16px] leading-[150%] tracking-[-0.01em] font-medium;
+  }
+  */
+}
 /* .tiptap {
   @apply prose max-w-full focus:outline-none;
 }
@@ -68,7 +119,7 @@
 } */
 
 body {
-  height: 5000px;
+  /* height: 5000px; */
 }
 
 .ce-toolbar__content {
@@ -103,25 +154,3 @@ body {
     @apply absolute left-[-40px] top-[-17px] transform -translate-y-1/2;
   }
 }
-
-/* Editor.js 툴바 스타일 수정 */
-/* .ce-toolbar {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-} */
-
-/* `+` 버튼을 `ce-block` 왼쪽으로 이동 */
-
-/* `ce-block`이 상대적 위치를 가지도록 설정 */
-/* .ce-block {
-  @apply relative;
-} */
-
-/* 모바일에서도 동일한 위치 유지 */
-/* @screen md {
-  .ce-toolbar__plus {
-    @apply left-[-40px];
-  }
-} */

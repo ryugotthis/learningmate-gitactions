@@ -5,9 +5,11 @@ import { VoteCard } from './VoteCard';
 export const DownVoteCard = ({
   postId,
   visibleCount,
+  searchText,
 }: {
   postId: number;
   visibleCount: number;
+  searchText: string;
 }) => {
   const { data: downVoteData } = useGetDownVoteOpinion(postId);
   console.log('비추천 글확인!!:', downVoteData);
@@ -21,6 +23,7 @@ export const DownVoteCard = ({
         opinionData={downVoteData?.content}
         // 더보기 버튼 수 관리
         visibleCount={visibleCount}
+        searchText={searchText} // 검색어 관리
       />
     </>
   );

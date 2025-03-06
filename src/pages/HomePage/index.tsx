@@ -13,6 +13,7 @@ import { useFilterList } from '../../entities/filter/model/store';
 import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
 
 import { LectureCardList } from '../../features/lectures/ui/LectureCardList';
+import { LectureCardListHomeContainer } from '../../features/lectures/ui/home/LectureCardHomeContainer';
 
 interface Lecture {
   name: string;
@@ -81,21 +82,17 @@ export const HomePage = () => {
       <div>{isLoading && <p>⏳ 로딩 중...</p>}</div>
       <div>{isError && <p>❌ 오류 발생: {error.message}</p>}</div>
       <Header />
-      <header className="flex flex-col items-center bg-blue-300">
-        <div className=" flex justify-between items-center gap-[72px] h-100 my-[120px] bg-pink-400">
-          <div>
-            <img
-              src={HomeLogo}
-              alt="homeLogo"
-              className="hidden lg:block w-[440px] h-[338px]"
-            />
+      <header className="flex flex-col items-center">
+        <div className=" flex justify-between items-center gap-[72px] my-[120px]">
+          <div className="hidden lg:block w-[440px] h-[338px]">
+            <img src={HomeLogo} alt="homeLogo" className="" />
           </div>
-          <div className=" flex flex-col items-center bg-green-300">
-            <p className="mb-8 font-bold text-2xl">
+          <div className="flex flex-col gap-[40px] items-center">
+            <p className="title-md-600 md:title-lg-600">
               너에게 꼭 맞는 강의를 찾아줄게!
             </p>
 
-            <SearchBar />
+            <SearchBar isNaveBar={false} />
             {/* </div> */}
             {/* </div> */}
             {/* </div> */}
@@ -106,19 +103,21 @@ export const HomePage = () => {
       <div className="w-full flex flex-col items-center  pb-[120px]">
         <main className="w-[328px] md:w-[624px] lg:w-[1152px] flex flex-col gap-[40px]">
           {/* 추천강의 및 사이트 필터, 정렬 버튼 */}
-          <div className="flex justify-between items-center">
-            <div className="font-bold text-[32px] tracking-[-0.1em]">
+          <div className="flex flex-col md:flex-row justify-between md:items-center gap-[8px] md:gap-[0]">
+            <div className="title-md-600 md:title-md-600 lg:title-lg-600">
               추천 강의
             </div>
-            <div className="flex items-center gap-[8px] ">
+            <div className="flex justify-end items-center gap-[8px] ">
               {/* 사이트 필터 버튼 */}
               <div>
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="flex items-center h-[48px] px-[24px] gap-[4px] border border-surface-line rounded-4xl"
+                  className="flex items-center h-[40px] px-[15px] md:h-[48px] md:px-[24px] gap-[4px] border border-surface-line rounded-4xl"
                 >
                   <img src={FilterSiteIcon} alt="filter" />
-                  <p className="text-font-sub font-semibold">사이트</p>
+                  <p className="text-font-sub text-sm-600 md:text-md-600">
+                    사이트
+                  </p>
                 </button>
                 {/* 모달 열기 */}
                 {isModalOpen && (
@@ -134,9 +133,9 @@ export const HomePage = () => {
                 <button
                   onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
                   // disabled={isModalOpen}
-                  className="flex items-center h-[48px] px-[24px] gap-[4px] border border-surface-line rounded-4xl"
+                  className="flex items-center h-[40px] md:h-[48px] px-[15px] md:px-[24px] gap-[4px] border border-surface-line rounded-4xl"
                 >
-                  <p className="text-font-sub font-semibold">
+                  <p className="text-font-sub text-sm-600 md:text-md-600">
                     {sortSelected.name}
                   </p>
                   <img src={SortIcon} alt="sort" />
@@ -169,8 +168,8 @@ export const HomePage = () => {
             </ul>
           )}
           {/* 본문 카드 */}
-
-          <LectureCardList />
+          <LectureCardListHomeContainer />
+          {/* <LectureCardList /> */}
           <button>더보기</button>
         </main>
       </div>

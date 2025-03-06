@@ -4,9 +4,11 @@ import { VoteCard } from './VoteCard';
 export const UpVoteCard = ({
   postId,
   visibleCount,
+  searchText,
 }: {
   postId: number;
   visibleCount: number;
+  searchText: string;
 }) => {
   const { data: upVoteData } = useGetUpVoteOpinion(postId);
   console.log('강의id', postId);
@@ -22,6 +24,7 @@ export const UpVoteCard = ({
         opinionData={opinionData}
         // 더보기 버튼 수 관리
         visibleCount={visibleCount}
+        searchText={searchText} // 검색어 관리
       />
     </>
   );
