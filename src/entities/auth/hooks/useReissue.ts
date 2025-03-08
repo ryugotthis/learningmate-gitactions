@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '../../../shared/model/store';
 import { reissue } from '../api/reissue';
-import { AxiosError } from 'axios'; // AxiosError 타입 추가
+// import { AxiosError } from 'axios'; // AxiosError 타입 추가
 
 let isReissuing = false; // 중복 요청 방지 플래그
 

@@ -44,6 +44,8 @@ export const useUpdateDownVoteOpinion = (postId: number) => {
     },
 
     onError: (error, variables, context) => {
+      console.log('에러:', error);
+      console.log('변수:', variables);
       // 에러 발생 시 이전 캐시로 롤백
       queryClient.setQueryData(
         ['downVoteOpinion', postId],

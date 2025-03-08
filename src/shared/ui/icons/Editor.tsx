@@ -81,12 +81,7 @@
 
 // export default Editor;
 // Editor.tsx
-import React, {
-  useEffect,
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';

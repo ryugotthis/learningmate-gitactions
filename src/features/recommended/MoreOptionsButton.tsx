@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { MoreIcon } from '../../shared/ui/icons/MoreIcon';
-import { useAuthStore } from '../../shared/model/store';
+// import { useAuthStore } from '../../shared/model/store';
 import { useNavigate } from 'react-router-dom';
-import { useDeleteLectureForMe } from '../../entities/recomended/hooks/useDeleteLecturesForMe';
+// import { useDeleteLectureForMe } from '../../entities/recomended/hooks/useDeleteLecturesForMe';
 import { useGetUser } from '../../entities/auth/hooks/useGetUser ';
 
 export const MoreOptionsButton = ({

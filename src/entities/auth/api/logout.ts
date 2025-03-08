@@ -1,5 +1,5 @@
-import axios, { AxiosError } from 'axios';
-import { useAuthStore } from '../../../shared/model/store';
+import axios from 'axios';
+// import { useAuthStore } from '../../../shared/model/store';
 
 // export const apiClient3 = axios.create({
 //   baseURL: 'http://15.164.2.37/api/v1', // API 기본 URL

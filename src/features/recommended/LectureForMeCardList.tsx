@@ -1,5 +1,5 @@
 import { useGetDemandLecture } from '../../entities/recomended/hooks/useGetDemandLecture';
-import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
+// import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
 
 import { LecturesForMECard } from './LectureForMeCard';
 import { useNavigate } from 'react-router-dom';
@@ -146,9 +146,9 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
   console.log('클릭확인', isMyPost);
   const {
     data: demandLecturesData,
-    isLoading,
-    isError,
-    error,
+    // isLoading,
+    // isError,
+    // error,
   } = useGetDemandLecture({
     page: currentPage - 1,
     size: 10,

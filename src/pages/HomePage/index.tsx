@@ -12,7 +12,7 @@ import FilterModal from '../../features/lectures/ui/FilterModal';
 import { useFilterList } from '../../entities/filter/model/store';
 import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
 
-import { LectureCardList } from '../../features/lectures/ui/LectureCardList';
+// import { LectureCardList } from '../../features/lectures/ui/LectureCardList';
 import { LectureCardListHomeContainer } from '../../features/lectures/ui/home/LectureCardHomeContainer';
 
 interface Lecture {
@@ -76,6 +76,7 @@ export const HomePage = () => {
 
   const { data: platforms, isLoading, isError, error } = useGetPlatforms();
   console.log('플랫폼데이터', platforms);
+  console.log('test');
 
   return (
     <>

@@ -1,5 +1,5 @@
 // 로그인 페이지 구현
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useLogin } from '../../entities/auth/hooks/useLogin';
 import Logo from '../../entities/auth/ui/icons/Logo.svg';
 import Visible from '../../entities/auth/ui/icons/Visible.svg';

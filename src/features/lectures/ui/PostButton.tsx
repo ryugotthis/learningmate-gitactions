@@ -1,8 +1,8 @@
-import { useReissue } from '../../../entities/auth/hooks/useReissue';
+// import { useReissue } from '../../../entities/auth/hooks/useReissue';
 import PlusIcon from '../../../widgets/header/ui/icons/PlusIcon';
 
 export const PostButton = () => {
-  const reissue = useReissue();
+  // const reissue = useReissue();
 
   return;
   <>

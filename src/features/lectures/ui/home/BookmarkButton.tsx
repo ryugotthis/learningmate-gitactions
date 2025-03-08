@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Bookmark from '../../../../shared/ui/icons/BookMark.svg';
+// import Bookmark from '../../../../shared/ui/icons/BookMark.svg';
 import { BookmarkIcon } from '../../../../shared/ui/icons/BookmarkIcon';
 import { BookmarkFiledIcon } from '../../../../shared/ui/icons/BookmarkFiledIcon';
 import { useCreateBookMark } from '../../../../entities/lectures/home/hooks/useCreateBookMark';

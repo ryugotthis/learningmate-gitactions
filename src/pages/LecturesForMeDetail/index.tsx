@@ -16,7 +16,7 @@ import { useLocation } from 'react-router-dom';
 import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
 import { UpVoteButtonContainer } from '../../features/recommended/UpVoteButtonContainer';
 import { useFormatDate } from '../../shared/util/useFormatDate';
-import { UpVoteIcon } from '../../shared/ui/icons/UpVoteIcon';
+// import { UpVoteIcon } from '../../shared/ui/icons/UpVoteIcon';
 import { UpVoteButton2 } from '../../features/recommended/UpVoteButton2';
 
 // 날짜 형식 변경
@@ -54,7 +54,7 @@ export const LecturesForMeDetail = () => {
   //   '되니?',
   //   lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
   // );
-  const [isMoreToggled, setIsMoreToggled] = useState(false);
+  // const [isMoreToggled, setIsMoreToggled] = useState(false);
   if (isLoading) return <p>⏳ 로딩 중...</p>;
   if (isError)
     return <p className="text-red-500">❌ 오류 발생: {error.message}</p>;

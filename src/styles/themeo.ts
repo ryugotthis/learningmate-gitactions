@@ -1,5 +1,5 @@
-import { error } from 'console';
-import styled from 'styled-components';
+// import { error } from 'console';
+// import styled from 'styled-components';
 
 const PrimitiveToken = {
   color: {

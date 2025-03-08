@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useGetLectures } from '../../entities/lectures/home/hooks/useGetLectures';
+// import { useGetLectures } from '../../entities/lectures/home/hooks/useGetLectures';
 import { CommentList } from '../../features/recommended/CommemtList';
 import { CommentInput } from '../../features/recommended/CommentInput';
-import { BookmarkIcon } from '../../shared/ui/icons/BookmarkIcon';
+// import { BookmarkIcon } from '../../shared/ui/icons/BookmarkIcon';
 import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
 import { DateIcon } from '../../shared/ui/icons/DateIcon';
 import { DownIcon } from '../../shared/ui/icons/DownIcon';
@@ -15,7 +15,7 @@ import { ViewsIcon } from '../../shared/ui/icons/ViewsIcon';
 import Header from '../../widgets/header';
 import Infren from '../../widgets/header/ui/icons/Infren.svg';
 
-import { useGetUpVoteOpinion } from '../../entities/lectures/home/opinion/hooks/useGetUpVoteOpinion';
+// import { useGetUpVoteOpinion } from '../../entities/lectures/home/opinion/hooks/useGetUpVoteOpinion';
 import { UpVoteCard } from '../../features/lectures/ui/home/UpVoteCard';
 import { DownVoteCard } from '../../features/lectures/ui/home/DownVoteCard';
 import { UpVoteIcon } from '../../shared/ui/icons/UpVoteIcon';
@@ -24,7 +24,7 @@ import { useGetLectureDetail } from '../../entities/lectures/home/hooks/useGetLe
 import { useEffect, useRef, useState } from 'react';
 import { BookmarkButton } from '../../features/lectures/ui/home/BookmarkButton';
 import { LectureReportModal } from '../../features/reports/LectureReportModal';
-import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
+// import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
 import { AlertMessage } from '../../shared/ui/Components/AlertMessage';
 import { useFormatDate } from '../../shared/util/useFormatDate';
 

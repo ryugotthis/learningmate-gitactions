@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { AxiosError } from 'axios';
+// import { AxiosError } from 'axios';
 import { deleteLikes } from '../api/deleteLikes';
 
 export const useDeleteLikes = () => {
@@ -76,6 +76,8 @@ export const useDeleteLikes = () => {
       };
     },
     onError: (err, postId, context) => {
+      console.log('에러:', err);
+
       // 에러 발생 시 이전 상태로 롤백
       queryClient.setQueryData(
         ['demandLecture'],

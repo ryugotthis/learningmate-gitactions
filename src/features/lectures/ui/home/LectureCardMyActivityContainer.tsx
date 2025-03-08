@@ -1,5 +1,5 @@
 import { useGetBookMark } from '../../../../entities/lectures/home/hooks/useGetBookMark';
-import { useGetLectures } from '../../../../entities/lectures/home/hooks/useGetLectures';
+// import { useGetLectures } from '../../../../entities/lectures/home/hooks/useGetLectures';
 import { LectureCardList } from '../LectureCardList';
 
 export const LectureCardListMyActivityContainer = () => {

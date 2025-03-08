@@ -1,4 +1,4 @@
-import { useCreateUpVoteOpinion } from '../../../../entities/lectures/home/opinion/hooks/useCreateUpVoteOpinion';
+// import { useCreateUpVoteOpinion } from '../../../../entities/lectures/home/opinion/hooks/useCreateUpVoteOpinion';
 import { useUpdateUpVoteOpinion } from '../../../../entities/lectures/home/opinion/hooks/useUpdateUpVoteOpinion';
 import { OpinionModal } from './OpinionModal';
 

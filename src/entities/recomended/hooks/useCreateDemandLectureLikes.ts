@@ -73,6 +73,7 @@ export const useCreateLikes = () => {
     },
     // context는 onMutate의 반환값이 onError의 매개변수
     onError: (err, postId, context) => {
+      console.log('에러:', err);
       // 에러 발생 시 이전 상태로 롤백
       queryClient.setQueryData(
         ['demandLecture'],

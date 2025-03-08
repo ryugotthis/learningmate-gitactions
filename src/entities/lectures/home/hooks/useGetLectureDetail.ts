@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getLectures } from '../api/getLectures';
+// import { getLectures } from '../api/getLectures';
 import { getLectureDetail } from '../api/getLectureDetail';
 // import { fetchLectures } from '../api/FetchLectures';
 

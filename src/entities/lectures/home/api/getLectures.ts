@@ -9,8 +9,11 @@ export const apiClient = axios.create({
 });
 
 export const getLectures = async (): Promise<any> => {
-  console.log('강의데이터 요청 URL:', `${apiClient.defaults.baseURL}/lectures`);
-  const response = await apiClient.get(`/lectures`);
+  console.log(
+    '강의데이터 요청 URL:',
+    `${apiClient.defaults.baseURL}/lectures?`
+  );
+  const response = await apiClient.get(`/lectures?page=2`);
 
   console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
 

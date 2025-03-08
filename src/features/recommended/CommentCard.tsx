@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { MoreIcon } from '../../shared/ui/icons/MoreIcon';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
-import { useAuthStore } from '../../shared/model/store';
+// import { useAuthStore } from '../../shared/model/store';
 import { useDeleteComment } from '../../entities/recomended/hooks/useDeleteComment';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useGetUser } from '../../entities/auth/hooks/useGetUser ';
 import { useUpdateComment } from '../../entities/recomended/hooks/useUpdateComment';
 import { useReissue } from '../../entities/auth/hooks/useReissue';
@@ -43,9 +43,9 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
       return () => clearTimeout(timer);
     }
   }, [submitStatus]);
-  const handleEdit = () => {
-    setEditMode(true);
-  };
+  // const handleEdit = () => {
+  //   setEditMode(true);
+  // };
   const handleEditCommentRegister = () => {
     console.log('수정데이터', editedComment);
     // put API로 댓글 수정 요청

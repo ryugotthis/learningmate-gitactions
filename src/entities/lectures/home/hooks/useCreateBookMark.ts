@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useErrorstore } from '../../../auth/model/store';
+// import { useErrorstore } from '../../../auth/model/store';
 import { BookMarkData, createBookMark } from '../api/createBookMark';
-import { AxiosError } from 'axios';
+// import { AxiosError } from 'axios';
 
 export const useCreateBookMark = () => {
   const queryClient = useQueryClient();
-  const { setErrorState } = useErrorstore();
+  // const { setErrorState } = useErrorstore();
   return useMutation({
     mutationFn: (data: BookMarkData) => createBookMark(data),
 
@@ -26,6 +26,7 @@ export const useCreateBookMark = () => {
     },
     onError: (err, postId, context) => {
       // 에러 발생 시 이전 상태로 롤백
+      console.log('에러:', err);
       queryClient.setQueryData(
         ['bookmarkState', postId],
         context?.previousBookmarkState

@@ -55,6 +55,7 @@ export const useUpdateComment = (commentId: number) => {
       };
     },
     onError: (err, postId, context) => {
+      console.log('에러:', err);
       // 에러 발생 시 이전 상태로 롤백
       queryClient.setQueryData(
         ['demandLectureComments', postId],

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useSignup } from '../../entities/auth/hooks/useSignup';
 import '../../App.css';
 import Visible from '../../entities/auth/ui/icons/Visible.svg';
@@ -16,6 +16,12 @@ export const SignupPage = () => {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState<boolean>(false);
 
+  // 이메일 인증 관련 상태
+  // const [isVerificationRequested, setIsVerificationRequested] = useState<boolean>(false);
+  // const [verificationTimer, setVerificationTimer] = useState<number>(0);
+  // const [inputVerificationCode, setInputVerificationCode] = useState<string>('');
+  // const [isCodeVerified, setIsCodeVerified] = useState<boolean>(false);
+
   const onSubmit = (data: any) => {
     const { confirmPassword, terms, ...filteredData } = data;
     // const modifiedData = {
@@ -32,7 +38,7 @@ export const SignupPage = () => {
     handleSubmit,
     reset,
     watch,
-    formState: { isValid, isSubmitting, errors },
+    formState: { isValid, errors },
   } = useForm({ mode: 'onChange' });
 
   const isTermsAccepted = watch('terms'); // 약관 동의 체크 여부 확인

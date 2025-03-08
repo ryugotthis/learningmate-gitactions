@@ -1,5 +1,5 @@
 // import { CardData } from './LectureCardList';
-import Bookmark from '../../../shared/ui/icons/BookMark.svg';
+// import Bookmark from '../../../shared/ui/icons/BookMark.svg';
 import { useNavigate } from 'react-router-dom';
 import Infren from '../../../widgets/header/ui/icons/Infren.svg';
 import { BookmarkButton } from './home/BookmarkButton';

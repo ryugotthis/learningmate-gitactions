@@ -6,11 +6,11 @@ import Class101 from './icons/Class101.svg';
 import Coloso from './icons/Coloso.svg';
 import Dropdown from './icons/Polygon 1.svg';
 import Notice from './icons/Notice.svg';
-import Plus from './icons/Plus.svg';
+// import Plus from './icons/Plus.svg';
 import PlusIcon from './icons/PlusIcon';
 import Search from './icons/Search.svg';
 import DeleteClose from './icons/DeleteClose.svg';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useCreateLecture } from '../../../entities/lectures/home/hooks/useCreateLecture';
 
 interface Option {

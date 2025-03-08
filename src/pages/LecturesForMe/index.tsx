@@ -22,9 +22,9 @@ export const LecturesForMe = () => {
   const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]);
   const [isMyPosts, setIsMyPosts] = useState(false);
 
-  const handleMyPost = () => {
-    () => setIsMyPosts(!isMyPosts);
-  };
+  // const handleMyPost = () => {
+  //   () => setIsMyPosts(!isMyPosts);
+  // };
 
   // 강의 데이터 조회
 

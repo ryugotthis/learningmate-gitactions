@@ -2,10 +2,10 @@ import { useMutation } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 import { createLecture } from '../api/createLecture';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 export const useCreateLecture = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return useMutation({
     mutationFn: (searchText: string) => createLecture({ url: searchText }),
 

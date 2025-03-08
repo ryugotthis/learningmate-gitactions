@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { CloseIcon } from '../../../../shared/ui/icons/CloseIcon';
-import { useCreateUpVoteOpinion } from '../../../../entities/lectures/home/opinion/hooks/useCreateUpVoteOpinion';
+// import { useCreateUpVoteOpinion } from '../../../../entities/lectures/home/opinion/hooks/useCreateUpVoteOpinion';
 
 export const OpinionModal = ({
   onClose,

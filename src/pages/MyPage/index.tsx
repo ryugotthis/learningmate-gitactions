@@ -6,7 +6,8 @@ import { PhotoRegisterIcon } from '../../features/lectures/ui/home/PhotoRegister
 import Visible from '../../entities/auth/ui/icons/Visible.svg';
 import Invisible from '../../entities/auth/ui/icons/Unvisible.svg';
 import { useForm } from 'react-hook-form';
-import { log } from 'console';
+import { useCreateProfileImage } from '../../entities/auth/hooks/useCreateProfileImage';
+// import { log } from 'console';
 
 export const MyPage = () => {
   const [isToggled, setIsToggled] = useState(false); // 프로필 이미지 바꾸기 토글
@@ -19,6 +20,35 @@ export const MyPage = () => {
   const [user, setUser] = useState(data);
   // 버튼 요소에 접근하기 위한 ref 생성
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
+  // 파일 input 요소에 접근하기 위한 ref
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { mutate } = useCreateProfileImage();
+
+  // "이미지 등록" li 클릭 시 파일 선택 창 열기
+  const handleImageRegisterClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  // 파일 선택 후 처리
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // FormData 객체 생성 및 파일 추가
+      const formData = new FormData();
+      formData.append('profileImage', file);
+
+      // FormData의 내용을 확인하기 위한 코드
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+      }
+
+      // useMutation의 mutate 함수 호출하여 이미지 업로드 API 요청
+      mutate(formData);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -64,37 +94,37 @@ export const MyPage = () => {
     setUser(data);
   }, [user]);
 
-  const handleChangePassword = () => {
-    // 비밀번호 변경 로직
-    // console.log(
-    //   '비밀번호 변경:',
-    //   currentPassword,
-    //   newPassword,
-    //   confirmPassword
-    // );
-  };
+  // const handleChangePassword = () => {
+  // 비밀번호 변경 로직
+  // console.log(
+  //   '비밀번호 변경:',
+  //   currentPassword,
+  //   newPassword,
+  //   confirmPassword
+  // );
+  // };
 
-  const handleWithdraw = () => {
-    // 회원탈퇴 로직
-    console.log('회원탈퇴 처리');
-  };
-  const onSubmit = (data: any) => {
-    const { newPassword } = data;
+  // const handleWithdraw = () => {
+  //   // 회원탈퇴 로직
+  //   console.log('회원탈퇴 처리');
+  // };
+  // const onSubmit = (data: any) => {
+  //   const { newPassword } = data;
 
-    console.log('회원가입보낸데이터', newPassword);
-    // e.preventDefault();
+  //   console.log('회원가입보낸데이터', newPassword);
+  //   // e.preventDefault();
 
-    console.log('비밀번호 변경 요청');
-  };
+  //   console.log('비밀번호 변경 요청');
+  // };
   const {
     register,
-    handleSubmit,
-    reset,
+    // handleSubmit,
+    // reset,
     watch,
-    formState: { isValid, isSubmitting, errors },
+    formState: { isValid, errors },
   } = useForm({ mode: 'onChange' });
-  const newPasswordValue = watch('newPassword'); // 비밀번호 입력 값 감지
-  const confirmNewPasswordValue = watch('confirmNewPassword'); // 비밀번호 확인 입력 값 감지
+  // const newPasswordValue = watch('newPassword'); // 비밀번호 입력 값 감지
+  // const confirmNewPasswordValue = watch('confirmNewPassword'); // 비밀번호 확인 입력 값 감지
 
   return (
     <div>
@@ -129,17 +159,34 @@ export const MyPage = () => {
                     onClick={() => setIsToggled(true)}
                     className="absolute bottom-0 right-0"
                   >
+                    {/* 숨긴 파일 input */}
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                      style={{ display: 'none' }}
+                      accept="image/*"
+                    />
+
                     <PhotoRegisterIcon className=" text-font-sub" />
                     {isToggled && (
-                      <ul className="absolute top-0 left-0 ml-[40px] w-[121px] py-[8px] rounded-[12px] text-font-sub tracking-[-0.05em] bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
-                        <li className="px-[16px] py-[10px]">이미지 등록</li>
-                        <li
-                          // onClick={()=>setProfileImage('')}
-                          className="px-[16px] py-[10px]"
-                        >
-                          기본 이미지
-                        </li>
-                      </ul>
+                      <>
+                        <ul className="absolute top-0 left-0 ml-[40px] w-[121px] py-[8px] rounded-[12px] text-font-sub tracking-[-0.05em] bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
+                          {/* "이미지 등록" li 클릭 시 파일 선택 창을 트리거 */}
+                          <li
+                            onClick={handleImageRegisterClick}
+                            className="px-[16px] py-[10px]"
+                          >
+                            이미지 등록
+                          </li>
+                          <li
+                            // onClick={()=>setProfileImage('')}
+                            className="px-[16px] py-[10px]"
+                          >
+                            기본 이미지
+                          </li>
+                        </ul>
+                      </>
                     )}
                   </button>
                 </div>

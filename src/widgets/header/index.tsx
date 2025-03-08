@@ -153,7 +153,9 @@ const Header = () => {
           <button
             onClick={handleLoginButton}
             className={`${
-              isLoggedIn ? '' : 'px-[24px] border-2 rounded-4xl'
+              isLoggedIn
+                ? ''
+                : 'px-[24px] border-2 border-primary-default rounded-4xl'
             } h-[40px] text-primary-default text-sm font-black`}
           >
             {isLoggedIn ? <ProfileIcon /> : '로그인'}

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { DownIcon } from '../../../../shared/ui/icons/DownIcon';
 
 import { UpVoteButtonContainer } from './UpVoteButtonConainer';
-import { UpIcon } from '../../../../shared/ui/icons/UpIcon';
+// import { UpIcon } from '../../../../shared/ui/icons/UpIcon';
 import { ProfileIcon } from '../../../../shared/ui/icons/ProfileIcon';
 
 // 상대적 경과시간 라이브러리
@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko'; // 한국어 로케일 불러오기
 import { useDeleteUpVoteOpinion } from '../../../../entities/lectures/home/opinion/hooks/useDeleteUpVoteOpinion';
-import { UpVoteOpinionModal } from './UpVoteOpinionModal';
+// import { UpVoteOpinionModal } from './UpVoteOpinionModal';
 import { UpVoteEditOpinionModal } from './UpVoteOpinionEditModal';
 import { DownVoteButtonContainer } from './DownVoteButtonContainer';
 import { DownVoteEditOpinionModal } from './DownVoteEditOpinionModal';
