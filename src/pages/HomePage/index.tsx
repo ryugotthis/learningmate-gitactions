@@ -76,7 +76,6 @@ export const HomePage = () => {
 
   const { data: platforms, isLoading, isError, error } = useGetPlatforms();
   console.log('플랫폼데이터', platforms);
-  console.log('test');
 
   return (
     <>
