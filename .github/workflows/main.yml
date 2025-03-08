@@ -1,0 +1,40 @@
+name: AWS_CICD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+
+      - name: S3 Deploy
+        run: aws s3 sync ./dist s3://my-test-gitactions/ --acl bucket-owner-full-control
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+
+      - name: Invalidate CloudFront Cache
+        uses: chetan/invalidate-cloudfront-action@master
+        env:
+          AWS_DISTRIBUTION_ID: ${{ secrets.AWS_DISTRIBUTION_ID }}
+          PATHS: '/index.html'
+        continue-on-error: true
