@@ -15,15 +15,12 @@ import { OptionsMenu } from '../../widgets/menu/ui/recommand/OptionsMenu';
 import { useLocation } from 'react-router-dom';
 import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
 import { UpVoteButtonContainer } from '../../features/recommended/UpVoteButtonContainer';
+import { useFormatDate } from '../../shared/util/useFormatDate';
+import { UpVoteIcon } from '../../shared/ui/icons/UpVoteIcon';
+import { UpVoteButton2 } from '../../features/recommended/UpVoteButton2';
 
 // 날짜 형식 변경
-const formatDate = (isoString: string) => {
-  const date = new Date(isoString);
-  const year = date.getFullYear().toString().slice(2); // '2025' → '25'
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // 1월 → '01'
-  const day = String(date.getDate()).padStart(2, '0'); // 9일 → '09'
-  return `${year}.${month}.${day}`;
-};
+
 export const LecturesForMeDetail = () => {
   const { id } = useParams(); // ✅ URL에서 id 추출
   const postId = Number(id); // 문자열을 숫자로 변환
@@ -75,14 +72,14 @@ export const LecturesForMeDetail = () => {
     <>
       {/* 제목 영역 */}
       <Header />
-      <div className="w-2/3 mx-auto">
-        <header className="mt-30 flex flex-col gap-3 border-b border-gray-300 p-5 ">
-          <h1 className="text-3xl font-bold">{lecture.title}</h1>
-          <div className="text-xs text-font-sub-default flex gap-5">
-            <div className="flex items-center gap-1">
+      <div className="w-[326px] md:w-[624px] lg:w-[1152px] first-line: my-[100px] mx-auto">
+        <header className=" flex flex-col border-b border-gray-300 px-[16px] md:px-[24px] pb-[16px] md:pb-[24px] ">
+          <h1 className="title-md-600 md:title-lg-600">{lecture.title}</h1>
+          <div className="md:text-sm-500 text-font-sub flex gap-[12px] pt-[4px] pb-[16px]">
+            <div className="flex items-center gap-[4px] text-sm-500">
               <DateIcon />
 
-              <span>{formatDate(lecture.createTime)}</span>
+              <span>{useFormatDate(lecture.createTime)}</span>
             </div>
 
             <div className="flex items-center gap-1">
@@ -98,13 +95,15 @@ export const LecturesForMeDetail = () => {
             </div>
           </div>
           <div className="flex justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-[16px]">
               {lecture.user.profileImage ? (
                 lecture.user.profileImage
               ) : (
                 <ProfileIcon />
               )}
-              <span>{lecture.user.name}</span>
+              <span className="text-sm-400 text-font-default">
+                {lecture.user.name}
+              </span>
             </div>
             {/* 옵션 메뉴 */}
             <OptionsMenu name={lecture.user.name} postId={lecture.id} />
@@ -115,13 +114,19 @@ export const LecturesForMeDetail = () => {
           <Editor initialData={lecture.content} readOnly={true} />
 
           {/* UpVote 버튼 */}
-          <aside className="absolute left-[-60px] top-1/3 transform -translate-y-1/2 ">
+          <aside className="hidden lg:block absolute left-[-60px] top-1/3 transform -translate-y-1/2 ">
             <UpVoteButtonContainer
               // onClick={() => handleVoteUpButton(lecture.id)}
               // isVoteUpClicked={isVoteUpClicked}
               postId={lecture.id}
               likes={lecture.likes}
             />
+          </aside>
+          <aside className="lg:hidden fixed right-[16px] md:right-[120px] bottom-[50px] z-50">
+            <UpVoteButton2 postId={lecture.id} />
+            {/* <button className="fixed flex justify-center items-center w-[64px] h-[64px] rounded-full border-2 border-primary-default bg-white right-[100px] bottom-[100px] z-50">
+              <UpVoteIcon className="text-primary-default w-[24px] h-[24px]" />
+            </button> */}
           </aside>
         </section>
 

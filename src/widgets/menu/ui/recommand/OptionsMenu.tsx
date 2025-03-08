@@ -40,11 +40,11 @@ export const OptionsMenu = ({
   };
 
   return (
-    <div className="flex gap-5 items-center">
-      <button className="flex p-2 border border-surface-line rounded-4xl">
-        <LinkIcon />
+    <div className="flex justify-end items-center gap-[24px] text-sm-600 text-font-sub">
+      <button className="flex lg:gap-[4px] lg:h-[40px] items-center border border-line p-[12px] lg:px-[24px] lg:py-0 rounded-full lg:rounded-4xl">
+        <LinkIcon className="w-[24px] h-[24px]" />
 
-        <span>링크 복사</span>
+        <span className="hidden lg:inline">링크 복사</span>
       </button>
       <MoreOptionsButton
         handleDelete={handleDelete}

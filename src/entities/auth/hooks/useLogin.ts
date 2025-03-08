@@ -26,6 +26,7 @@ export const useLogin = () => {
     },
     onError: (error) => {
       setIsLoggedIn(false);
+      console.log('에러확인', error);
       const axiosError = error as AxiosError; // ✅ TypeScript가 AxiosError로 인식하게 변환
       console.log('로그인 실패2:', axiosError.response?.status);
       setErrorState(String(axiosError.response?.status));

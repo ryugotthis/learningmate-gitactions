@@ -37,62 +37,71 @@ export const LoginPage = () => {
   return (
     <>
       <Header />
-      <div className="container flex flex-col items-center mx-auto mt-10 max-w-md py-10 px-6 ">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">로그인</h2>
+      <div className="flex flex-col w-[360px] md:w-[400px] items-center mx-auto gap-[20px] md:gap-[24px] mt-[62.5px] md:mt-[100px]">
+        <h1 className="title-sm-600 md:title-md-600">로그인</h1>
 
-        <button className="flex justify-center w-full py-3 px-4 bg-logo text-black rounded-4xl">
+        <button className="flex justify-center gap-[8px] items-center w-full h-[48px] bg-kakao  text-black rounded-4xl">
           <img src={Logo} alt="logo" />
-          <span className="ml-3 font-bold">카카오로 3초만에 로그인하기</span>
+          <span className="tracking-[-0.1em] font-semibold">
+            카카오로 3초만에 로그인하기
+          </span>
         </button>
 
         <div className="relative flex items-center w-full my-6">
-          <div className="flex-grow border-t border-gray-300"></div>
-          <span className="mx-4 text-xs text-gray-500">또는</span>
-          <div className="flex-grow border-t border-gray-300"></div>
+          <div className="flex-grow border-t border-line"></div>
+          <span className="mx-4 text-xs text-gray99 tracking-[-0.1em]">
+            또는
+          </span>
+          <div className="flex-grow border-t border-line"></div>
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col w-full gap-4"
+          className="flex flex-col w-full gap-[14px]"
         >
-          <div>
+          <div className="flex flex-col gap-[4px]">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm-500 md:font-medium text-font-default md:tracking-[-0.05em]"
             >
               이메일
             </label>
-            <div className="flex items-center flex-grow border border-surface-line bg-surface-dark rounded-4xl">
+            <div className="w-full h-[48px] px-[20px] py-[12px] flex items-center flex-grow border border-surface-line bg-surface-default rounded-4xl focus-within:border-primary-default">
               {/* 이메일 입력 필드 + X 버튼 */}
               <input
                 type="text"
                 id="email"
                 {...register('email')}
-                className="w-full pl-5 py-3 border-none outline-none flex-1"
+                className=" border-none outline-none flex-1"
               />
               <button
                 type="button"
                 onClick={() => reset({ email: '' })}
-                className="px-5"
+                className=""
               >
                 <img src={DeleteClose} alt="deleteClose" />
               </button>
             </div>
           </div>
 
-          <div>
-            <label htmlFor="password">비밀번호</label>
-            <div className="flex w-full rounded-4xl border border-surface-line bg-surface-dark flex-grow">
+          <div className="flex flex-col gap-[4px]">
+            <label
+              htmlFor="password"
+              className="block text-sm-500 md:font-medium text-font-default md:tracking-[-0.05em]"
+            >
+              비밀번호
+            </label>
+            <div className="w-full h-[48px] px-[20px] py-[12px] flex items-center flex-grow border border-surface-line bg-surface-default rounded-4xl focus-within:border-primary-default">
               <input
                 type={isPasswordVisible ? 'text' : 'password'}
                 // placeholder="Password"
                 id="password"
                 {...register('password')}
-                className="pl-5 py-3 border-none outline-none flex-1"
+                className="border-none outline-none flex-1"
               />
               <button
                 type="button"
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                className="px-5"
+                className=""
               >
                 <img
                   src={isPasswordVisible ? Invisible : Visible}
@@ -107,7 +116,7 @@ export const LoginPage = () => {
               onClick={() => {
                 console.log('비밀번호 찾기');
               }}
-              className="text-xs text-tertiary-default"
+              className="text-sm-400 text-tertiary-default"
             >
               비밀번호 찾기
             </button>
@@ -115,7 +124,7 @@ export const LoginPage = () => {
 
           <button
             type="submit"
-            className="rounded-4xl bg-primary-default px-4 py-3 mt-2 text-white font-bold"
+            className="h-[48px] rounded-4xl bg-primary-default text-white text-md-600"
           >
             로그인
           </button>
@@ -123,7 +132,7 @@ export const LoginPage = () => {
             type="button"
             disabled={isPending}
             onClick={() => navigate('/signup')}
-            className="rounded-4xl px-4 py-3 border border-tertiary-default text-tertiary-default font-bold"
+            className="h-[48px] rounded-4xl mt-[6px] md:mt-[10px] border border-surface-line text-tertiary-default text-md-600"
           >
             회원가입
           </button>
@@ -133,9 +142,11 @@ export const LoginPage = () => {
           </button> */}
         </form>
         {errorState && (
-          <button className="flex mt-10 rounded-4xl px-4 py-3 border-2 border-error text-font-default font-bold">
-            <img src={Failed} alt="failed" className="mr-2" />
-            <p>로그인 정보가 정확하지 않은 것 같아</p>
+          <button className="fixed bottom-[50px] flex gap-[6px] md:gap-[6px] items-center rounded-4xl px-[20px] md:px-[24px] py-[8px] md:py-[12px] border-2 border-error text-font-default bg-white">
+            <img src={Failed} alt="failed" />
+            <p className="text-sm-500 md:text-md-500">
+              로그인 정보가 정확하지 않은 것 같아
+            </p>
           </button>
         )}
       </div>

@@ -34,9 +34,7 @@ export const VoteCard = ({
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  console.log('확인!!!', opinionData);
-  console.log('토글상태', isModalOpen);
-  console.log('z검색데이터 확인', searchText);
+
   const filteredOpinionData = opinionData?.filter((opinion: any) => {
     // opinion.title을 분해해서 하나의 문자열로 합침 (예: '한글' -> 'ㅎㅏㄴㄱㅡㄹ')
     const disassembledTitle = Hangul.disassemble(opinion.title).join('');
@@ -56,12 +54,12 @@ export const VoteCard = ({
           ) : (
             <DownVoteIcon className={`text-${color}`} />
           )}
-          <span className="text-[24px] font-bold">{title}</span>
+          <span className="title-sm-600 md:title-md-600">{title}</span>
         </div>
         {/* 의견 추가 버튼 */}
         <button
           onClick={handleAddOpinion}
-          className={`flex w-auto h-[48px] px-[24px] rounded-full bg-${color} text-white text-[16px] font-bold justify-center items-center whitespace-nowrap`}
+          className={`flex w-auto h-[40px] md:h-[48px] px-[24px] rounded-full bg-${color} text-white text-sm-600 md:text-md-600 justify-center items-center whitespace-nowrap`}
         >
           의견 추가
         </button>

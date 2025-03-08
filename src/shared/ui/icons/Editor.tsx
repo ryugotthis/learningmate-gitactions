@@ -184,7 +184,7 @@ const Editor = forwardRef<EditorJS | null, EditorProps>(
     return (
       <div
         id="editorjs"
-        className={`h-140 prose max-w-none w-full ${
+        className={`h-[400px] md:h-[600px] prose max-w-none w-full p-[16px] md:p-[24px] ${
           readOnly ? 'cursor-default' : ''
         }`}
       />

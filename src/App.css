@@ -43,7 +43,7 @@
   .text-xsm-400 {
     @apply font-pretendard text-[12px] leading-[140%] tracking-[-0.05em];
   }
-  .ino-md-400 {
+  .info-md-400 {
     @apply font-pretendard text-[16px] leading-[160%] tracking-[-0.05em];
   }
 
@@ -53,80 +53,15 @@
   }
   */
 }
-/* .tiptap {
-  @apply prose max-w-full focus:outline-none;
-}
-
-.tiptap h1 {
-  @apply text-3xl font-bold;
-}
-
-.tiptap h2 {
-  @apply text-2xl font-semibold;
-}
-
-.tiptap p {
-  @apply text-base;
-}
-
-.tiptap ul {
-  @apply list-disc list-inside;
-}
-
-.tiptap ol {
-  @apply list-decimal list-inside;
-}
-
-.tiptap pre {
-  @apply bg-gray-800 text-white p-4 rounded-md overflow-x-auto;
-}
-
-/* 블록 선택 메뉴 스타일 */
-/* .block-menu {
-  @apply absolute bg-white shadow-md p-2 rounded-md w-48 border border-gray-300;
-}
-
-.block-menu input {
-  @apply w-full border-b p-1 text-sm;
-}
-
-.block-menu-item {
-  @apply flex items-center gap-2 p-2 hover:bg-gray-200 cursor-pointer;
-} */
-/* @theme {
-  --color-primary-50: #e5f5ed;
-  --color-primary-100: #c1e6dd;
-  --color-primary-200: #98d6b5;
-  --color-primary-300: #6cc798;
-  --color-primary-400: #48bb83;
-  --color-primary-default: #17af6d;
-  --color-primary-600: #0eaf6d;
-  --color-primary-dark: #038356;
-  --color-primary-800: #007c4a;
-  --color-primary-900: #005345;
-  --color-secondary-default: #cb363e;
-  --color-error: #ff485e;
-  --color-logo: #fae100;
-  --color-surface-dark: #f5f5f5;
-  --color-tertiary-default: #777;
-  --color-line: #d9d9d9;
-  --color-placeholder: #bfbfbf;
-  --color-disabled: #e2e2e2;
-  --color-font-sub-default: #777;
-  --color-font-default: #232527;
-  --color-surface-dark: #f5f5f5;
-  --color-surface-line: #e2e2e2;
-} */
-
-body {
-  /* height: 5000px; */
-}
 
 .ce-toolbar__content {
-  max-width: 750px !important;
+  max-width: 1152px !important;
+}
+.ce-toolbar__actions {
+  padding-right: 24px !important;
 }
 .ce-block__content {
-  max-width: 750px !important;
+  max-width: 1152px !important;
 }
 
 /* Editor.js의 + 버튼을 항상 왼쪽에 유지 */
@@ -150,7 +85,12 @@ body {
     justify-content: flex-start !important;
   } */
 
-  .ce-toolbar__plus {
-    @apply absolute left-[-40px] top-[-17px] transform -translate-y-1/2;
+  .ce-toolbar__actions {
+    /* @apply absolute left-[-100px] top-[-17px] transform -translate-y-1/2; */
+  }
+}
+@media (min-width: 651px) {
+  .codex-editor--narrow .ce-toolbar__actions {
+    /* right: auto; */
   }
 }

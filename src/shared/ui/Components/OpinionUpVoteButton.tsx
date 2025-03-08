@@ -36,12 +36,12 @@ export const OpinionUpVoteButton = ({
     <>
       <button
         onClick={handleVoteUpButton}
-        className={`flex w-[64px] h-[92px] flex-col justify-center gap-1 items-center border-2 rounded-4xl cursor-pointer ${
+        className={`flex w-[52px] md:w-[64px] h-[68px] md:h-[92px] flex-col justify-center gap-1 items-center border-2 rounded-4xl cursor-pointer ${
           isLikeClicked ? 'border-primary-default' : 'border-surface-line'
         }`}
       >
         <UpIcon className="text-surface-line w-[24px]" />
-        <span className="font-semibold tracking-[-0.05em]">{likes}</span>
+        <span className="text-sm-600 md:text-md-600">{likes}</span>
       </button>
     </>
   );

@@ -15,6 +15,7 @@ import { UpVoteEditOpinionModal } from './UpVoteOpinionEditModal';
 import { DownVoteButtonContainer } from './DownVoteButtonContainer';
 import { DownVoteEditOpinionModal } from './DownVoteEditOpinionModal';
 import { useDeleteDownVoteOpinion } from '../../../../entities/lectures/home/opinion/hooks/useDeleteDownVoteOpinion';
+import { UpArrowIcon } from '../../../../shared/ui/icons/UpArrowIcon';
 
 // 플러그인을 전역에 확장 (한 번만 호출)
 dayjs.extend(relativeTime);
@@ -58,7 +59,7 @@ export const VoteCardItem = ({
         isToggledDetail && 'py-[16px] flex flex-col gap-[8px]'
       }`}
     >
-      <div className="flex justify-between items-center gap-[8px] py-[16px]">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-[8px] py-[16px]">
         <div className="flex items-center gap-[20px]">
           {/* <button className="border flex flex-col justify-center items-center gap-2 px-3 py-5 rounded-4xl">
           <UpIcon />
@@ -79,16 +80,18 @@ export const VoteCardItem = ({
             />
           )}
 
-          {/* <div className="flex justify-between pl-1 w-full"> */}
-          {/* <p>핑구</p> */}
-          <p className="font-medium- text-[20px] tracking-[-0.12em]">
-            {opinion?.title}
-          </p>
+          <p className="text-lg-500 md:title-sm-500">{opinion?.title}</p>
           {/* </div> */}
         </div>
-        <button onClick={() => setIsToggledDetail(!isToggledDetail)}>
-          {isToggledDetail ? <UpIcon /> : <DownIcon />}
-        </button>
+        <div className="w-full md:w-auto flex justify-center">
+          <button onClick={() => setIsToggledDetail(!isToggledDetail)}>
+            {isToggledDetail ? (
+              <UpArrowIcon />
+            ) : (
+              <DownIcon className="text-font-sub" />
+            )}
+          </button>
+        </div>
       </div>
       {isToggledDetail && (
         <>

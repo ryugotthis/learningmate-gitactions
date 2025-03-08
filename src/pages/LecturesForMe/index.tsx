@@ -1,16 +1,12 @@
 import Header from '../../widgets/header';
 import LecturesForME from '../../entities/lectures/ui/icons/lecturesForMe.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
-import PlusIcon from '../../widgets/header/ui/icons/PlusIcon';
+
 import { useState } from 'react';
 import { LecturesForMECardList } from '../../features/recommended/LectureForMeCardList';
-import { useGetDemandLecture } from '../../entities/recomended/hooks/useGetDemandLecture';
-// import { usePostDemandLecture } from '../../entities/recomended/api/createDemandLecture';
 
 import { useAuthStore } from '../../shared/model/store';
 import { PostLectureForMeButton } from '../../features/recommended/PostLecturesForMeButton';
-import { useCreateDemandLecture } from '../../entities/recomended/hooks/useCreateDemandLecture';
-import Pagination from '../../features/recommended/Pagination';
 interface Sort {
   name: string;
   id: number;

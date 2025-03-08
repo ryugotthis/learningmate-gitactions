@@ -45,7 +45,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
 
         {/* 신고 사유 선택 (라디오 버튼) */}
 
-        <ul className="flex flex-col gap-[24px] m-[24px] text-md-500 md:text-lg-500">
+        <ul className="flex flex-col gap-[24px] m-[24px] text-font-default text-md-500 md:text-lg-500">
           {data?.map((report: any) => (
             <label
               key={report.id}

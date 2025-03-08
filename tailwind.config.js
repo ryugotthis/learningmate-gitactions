@@ -82,6 +82,7 @@ export default {
         surface: {
           dark: '#f5f5f5',
           line: '#e2e2e2',
+          default: '#ffffff',
         },
         tertiary: {
           default: '#777',
@@ -89,6 +90,8 @@ export default {
         line: '#d9d9d9',
         placeholder: '#bfbfbf',
         disabled: '#e2e2e2',
+        kakao: '#FAE100',
+        gray99: '#999999',
         font: {
           sub: '#777',
           default: '#232527',
