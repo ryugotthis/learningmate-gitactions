@@ -169,8 +169,11 @@ export const HomePage = () => {
             </ul>
           )}
           {/* 본문 카드 */}
-          <LectureCardListHomeContainer />
-          {/* <LectureCardList /> */}
+          <div className="mb-[100px]">
+            <LectureCardListHomeContainer />
+            {/* <LectureCardList /> */}
+          </div>
+
           <button>더보기</button>
         </main>
       </div>

@@ -7,12 +7,14 @@ import Logo from './ui/icons/Logo';
 import { HamburgerIcon } from '../../shared/ui/icons/HamburgerIcon';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
 import { SearchIcon } from '../../shared/ui/icons/SearchIcon';
+import { useGetUser } from '../../entities/auth/hooks/useGetUser ';
 
 const Header = () => {
   const location = useLocation(); // 현재 페이지 경로 가져오기
   const isHome = location.pathname === '/'; // 현재 페이지가 홈페이지인지 확인
   const [showSearch, setShowSearch] = useState(!isHome); // 기본값 설정
-  const { mutate } = useLogout();
+  const { mutate } = useLogout(); // 로그아웃
+  const { data: userData } = useGetUser();
   const { accessToken, isLoggedIn } = useAuthStore();
 
   // 메뉴와 검색 패널 상태를 각각 관리
@@ -33,6 +35,7 @@ const Header = () => {
       navigate('/login'); // ✅ 로그인 페이지로 이동
     }
   };
+  console.log('보자보자', userData);
 
   useEffect(() => {
     console.log('여긴홈페이지?', isHome);
@@ -158,7 +161,19 @@ const Header = () => {
                 : 'px-[24px] border-2 border-primary-default rounded-4xl'
             } h-[40px] text-primary-default text-sm font-black`}
           >
-            {isLoggedIn ? <ProfileIcon /> : '로그인'}
+            {isLoggedIn ? (
+              userData?.profileImage ? (
+                <img
+                  src={userData.profileImage}
+                  alt="profileImage"
+                  className="w-[40px] h-[40px]"
+                />
+              ) : (
+                <ProfileIcon />
+              )
+            ) : (
+              '로그인'
+            )}
           </button>
           {isProfileClicked && (
             <ul

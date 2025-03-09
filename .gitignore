@@ -25,4 +25,4 @@ dist-ssr
 
 # 개발용 https ssl 인증
 key.pem
-cer.crt
+cert.crt

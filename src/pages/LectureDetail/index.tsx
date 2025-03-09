@@ -69,7 +69,7 @@ export const LectureDetail = () => {
   }, []);
 
   // console.log('보자', upvoteData);
-  console.log('강의데이터', lecture);
+  console.log('🟨강의상세데이터', lecture);
   console.log('검색데이터', searchText);
   return (
     <>

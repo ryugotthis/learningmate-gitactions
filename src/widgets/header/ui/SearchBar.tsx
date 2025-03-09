@@ -1,4 +1,4 @@
-import All from './icons/Xlg.svg';
+import All from './icons/White.svg';
 import Udemy from './icons/Udemy.svg';
 import Infren from './icons/Infren.svg';
 import FastCampus from './icons/FastCampus.svg';
@@ -104,14 +104,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
             } `}
           >
             {/* 플랫폼 드롭다운 버튼 */}
-            <div ref={dropdownRef} className=" w-[120px]">
+            <div ref={dropdownRef} className=" ">
               <button
-                className={` w-[120px] flex justify-between items-center text-sm text-font-default border-line  cursor-pointer focus:outline-none`}
+                className={`w-[42px] md:w-[120px] flex justify-between items-center text-sm text-font-default border-line  cursor-pointer focus:outline-none`}
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <div className="flex items-center gap-[6px] ">
                   <img src={selected.imgSrc} alt={selected.label} />
-                  <span className="text-[14px]">{selected.label}</span>
+                  <span className="hidden md:block md:text-sm-400">
+                    {selected.label}
+                  </span>
                 </div>
 
                 <img src={Dropdown} alt="dropdown" />
@@ -138,13 +140,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
             )}
 
             {/* 입력 필드 */}
-            <div className="flex-8 flex">
+            <div className="flex-1 flex">
               <input
                 type="text"
                 ref={inputRef} // input 요소에 ref 연결
                 value={searchText}
                 placeholder="강의명 또는 URL을 입력해봐!"
-                className=" px-3 py-1 w-full bg-surface-dark text-gray-700 text-sm focus:outline-none"
+                className=" w-full placeholder:text-font-sub tracking-[-0.1em] text-font-default bg-surface-dark  focus:outline-none"
                 onChange={(e) => setSearchText(e.target.value)}
                 onFocus={() => setIsInputFocused(true)}
                 onBlur={() => setIsInputFocused(false)}

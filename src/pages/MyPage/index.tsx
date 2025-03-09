@@ -7,6 +7,8 @@ import Visible from '../../entities/auth/ui/icons/Visible.svg';
 import Invisible from '../../entities/auth/ui/icons/Unvisible.svg';
 import { useForm } from 'react-hook-form';
 import { useCreateProfileImage } from '../../entities/auth/hooks/useCreateProfileImage';
+import { useUpdatePassword } from '../../entities/auth/hooks/useUpdatePassword';
+import { useLogout } from '../../entities/auth/hooks/useLogout';
 // import { log } from 'console';
 
 export const MyPage = () => {
@@ -23,7 +25,9 @@ export const MyPage = () => {
   // 파일 input 요소에 접근하기 위한 ref
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { mutate } = useCreateProfileImage();
+  const { mutate: createProfileImage } = useCreateProfileImage(); // 프로파일 이미지 변경 mutate
+  const { mutate: updatePassword } = useUpdatePassword();
+  const { mutate: logout } = useLogout();
 
   // "이미지 등록" li 클릭 시 파일 선택 창 열기
   const handleImageRegisterClick = () => {
@@ -46,7 +50,7 @@ export const MyPage = () => {
       }
 
       // useMutation의 mutate 함수 호출하여 이미지 업로드 API 요청
-      mutate(formData);
+      createProfileImage(formData);
     }
   };
 
@@ -92,7 +96,7 @@ export const MyPage = () => {
   useEffect(() => {
     console.log('유저데이터', data);
     setUser(data);
-  }, [user]);
+  }, [data]);
 
   // const handleChangePassword = () => {
   // 비밀번호 변경 로직
@@ -108,17 +112,19 @@ export const MyPage = () => {
   //   // 회원탈퇴 로직
   //   console.log('회원탈퇴 처리');
   // };
-  // const onSubmit = (data: any) => {
-  //   const { newPassword } = data;
+  const onSubmit = (data: any) => {
+    const { newPassword } = data;
 
-  //   console.log('회원가입보낸데이터', newPassword);
-  //   // e.preventDefault();
+    console.log('회원가입보낸데이터', newPassword);
+    // e.preventDefault();
+    updatePassword({ password: newPassword });
+    logout();
 
-  //   console.log('비밀번호 변경 요청');
-  // };
+    console.log('비밀번호 변경 요청');
+  };
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
     // reset,
     watch,
     formState: { isValid, errors },
@@ -131,25 +137,29 @@ export const MyPage = () => {
       {/* <div onClick={() => setIsToggled(false)}> */}
       <Header />
       <div className="flex flex-col items-center">
-        <div className="flex flex-col justify-between w-[600px] h-[800px] my-10 p-[40px] bg-white border rounded-[12px] shadow-sm">
-          <div className="flex flex-col gap-[60px]">
-            <h1 className="text-[32px] font-semibold">마이페이지</h1>
+        <div className="flex flex-col gap-[40px] md:gap-0 justify-between w-[328px] md:w-[600px] md:h-[800px] mt-[40px] md:mt-[100px] px-[16px] py-[40px] md:px-[40px] bg-white border-0 md:border md:border-line md:rounded-[12px] md:shadow-sm">
+          <div className="flex flex-col gap-[40px] md:gap-[60px]">
+            <h1 className="title-md-600 md:title-lg-600">마이페이지</h1>
 
             {/* 프로필 이미지 섹션 */}
-            <div className="flex items-center gap-[32px]">
-              <span>프로필 이미지</span>
+            <div className="flex flex-col md:flex-row md:items-center gap-[8px] md:gap-[32px]">
+              <span className="text-sm-400 md:text-lg-500 text-font-default">
+                프로필 이미지
+              </span>
               <div
-                className="w-[100px]"
+                className=""
 
                 // onClick={handleProfileClick}
               >
-                <div className="relative">
+                <div className="relative w-[100px]">
                   {user?.profileImage ? (
-                    <img
-                      src={user?.profileImage}
-                      alt="프로필 이미지"
-                      className="object-cover w-full h-full"
-                    />
+                    <div className="w-[100px] h-[100px] rounded-full overflow-hidden ">
+                      <img
+                        src={user?.profileImage}
+                        alt="프로필 이미지"
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
                   ) : (
                     // 기본 이미지가 없을 때 ProfileIcon을 사용
                     <ProfileIcon className="object-cover w-full h-full" />
@@ -194,8 +204,11 @@ export const MyPage = () => {
             </div>
 
             {/* 닉네임 / 이메일 입력 섹션 */}
-            <div className="flex flex-col gap-[12px]">
-              <div className="flex gap-[32px] h-[48px] items-center">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-[16px] md:gap-[12px]"
+            >
+              <div className="flex flex-col md:flex-row gap-[8px] md:gap-[32px] h-[48px] md:items-center">
                 <label className="w-[120px] tracking-[-0.05em] text-font-sub">
                   닉네임
                 </label>
@@ -203,7 +216,7 @@ export const MyPage = () => {
                   {user?.name}
                 </span>
               </div>
-              <div className="flex gap-[32px] h-[48px] items-center">
+              <div className="flex flex-col md:flex-row gap-[8px] md:gap-[32px] h-[48px] md:items-center">
                 <label className="w-[120px] tracking-[-0.05em] text-font-sub">
                   이메일
                 </label>
@@ -211,7 +224,7 @@ export const MyPage = () => {
                   {user?.email}
                 </span>
               </div>
-              <div className="flex gap-[32px] h-[48px] items-center">
+              <div className="flex flex-col md:flex-row gap-[8px] md:gap-[32px] md:h-[48px] md:items-center">
                 <label
                   htmlFor="password"
                   className="w-[120px] tracking-[-0.05em] text-font-sub"
@@ -239,7 +252,7 @@ export const MyPage = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex gap-[32px] items-center">
+              <div className="flex flex-col md:flex-row gap-[8px] md:gap-[32px] md:h-[48px]  md:items-center">
                 <label
                   htmlFor="new-password"
                   className="w-[120px] tracking-[-0.05em] text-font-sub"
@@ -297,7 +310,7 @@ export const MyPage = () => {
                   )}
                 </div>
               </div>
-              <div className="flex gap-[32px] items-center">
+              <div className="flex flex-col md:flex-row gap-[8px] md:gap-[32px] md:h-[48px] md:items-center">
                 <label
                   htmlFor="confirm-password"
                   className="w-[120px] tracking-[-0.05em] text-font-sub"
@@ -316,7 +329,7 @@ export const MyPage = () => {
                       {...register('confirmNewPassword', {
                         required: '비밀번호 확인은 필수 입력이야!',
                         validate: (value) =>
-                          value === watch('password') ||
+                          value === watch('newPassword') ||
                           '비밀번호를 다시 한 번 확인해줘 😀',
                       })}
                     />
@@ -354,7 +367,7 @@ export const MyPage = () => {
                   비밀번호 변경
                 </button>
               </div>
-            </div>
+            </form>
           </div>
           {/* 회원탈퇴 버튼 */}
           <div className="flex items-center justify-end">

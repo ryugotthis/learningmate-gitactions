@@ -12,7 +12,7 @@ export const useLogin = () => {
   // const setAccessToken = useAuthStore((state) => state.setAccessToken); //상태 업데이트 함수 가져오기
   // const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn); // 로그인 상태 업데이트
   const navigate = useNavigate();
-  const { setErrorState } = useErrorstore();
+  const { setErrorState, clearErrorState } = useErrorstore();
   return useMutation({
     mutationFn: (data: LoginPayload) => login(data),
 
@@ -20,6 +20,7 @@ export const useLogin = () => {
       console.log(data, '로그인성공후 홈페이지이동');
 
       setAccessToken(data.data.accessToken);
+      clearErrorState();
 
       setIsLoggedIn(true);
       navigate('/');
