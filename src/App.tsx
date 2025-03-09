@@ -1,7 +1,7 @@
 // App 컴포넌트
 import './App.css';
 import { useReissue } from './entities/auth/hooks/useReissue';
-import { useErrorstore } from './entities/auth/model/store';
+// import { useErrorstore } from './entities/auth/model/store';
 import { useAuthStore } from './shared/model/store';
 import { useEffect } from 'react';
 const App = ({ children }: { children: React.ReactNode }) => {
@@ -33,6 +33,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
 
     refreshTokenOnLoad();
   }, [accessToken]); // ✅ accessToken이 없을 때 실행
+  console.log('test');
 
   return (
     <div>
