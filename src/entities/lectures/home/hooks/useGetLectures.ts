@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { getLectures } from '../api/getLectures';
 // import { fetchLectures } from '../api/FetchLectures';
 export const useGetLectures = (platform?: string, title?: string) => {
