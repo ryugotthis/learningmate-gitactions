@@ -7,17 +7,22 @@ import path from 'path';
 // import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ command }) => {
+  // 개발 서버에서만 HTTPS 설정 적용
+  const serverConfig =
+    command === 'serve'
+      ? {
+          https: {
+            key: fs.readFileSync(path.resolve(__dirname, 'key.pem')),
+            cert: fs.readFileSync(path.resolve(__dirname, 'cert.crt')),
+          },
+          host: 'localhost',
+          port: 4000,
+        }
+      : {};
 
-  //개발 서버를 실행할때만 적용됨
-  server: {
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, 'key.pem')), // 경로 수정
-      cert: fs.readFileSync(path.resolve(__dirname, 'cert.crt')), // 경로 수정생성한 인증서 파일
-    },
-    host: 'localhost', // 로컬에서 실행
-    // 로컬 포트 4000번
-    port: 4000,
-  },
+  return {
+    plugins: [react()],
+    server: serverConfig,
+  };
 });
