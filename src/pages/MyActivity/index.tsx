@@ -38,10 +38,12 @@ export const MyActivity = () => {
             <div>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="flex items-center h-[48px] px-[24px] gap-[4px] border border-surface-line rounded-4xl"
+                className="flex items-center h-[40px] px-[15px] md:h-[48px] md:px-[24px] gap-[4px] border border-surface-line rounded-4xl"
               >
                 <img src={FilterSiteIcon} alt="filter" />
-                <p className="text-font-sub font-semibold">사이트</p>
+                <p className="text-font-sub text-sm-600 md:text-md-600">
+                  사이트
+                </p>
               </button>
               {/* 모달 열기 */}
               {isModalOpen && (
@@ -57,9 +59,9 @@ export const MyActivity = () => {
               <button
                 onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
                 // disabled={isModalOpen}
-                className="flex items-center h-[48px] px-[24px] gap-[4px] border border-surface-line rounded-4xl"
+                className="flex items-center h-[40px] md:h-[48px] px-[15px] md:px-[24px] gap-[4px] border border-surface-line rounded-4xl"
               >
-                <p className="text-font-sub font-semibold">
+                <p className="text-font-sub text-sm-600 md:text-md-600">
                   {sortSelected.name}
                 </p>
                 <img src={SortIcon} alt="sort" />
