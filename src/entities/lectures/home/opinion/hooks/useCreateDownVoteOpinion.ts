@@ -8,6 +8,8 @@ export interface OpinionData {
   title: string; // 제목
   reason: string; // 내용
 }
+
+// postId 다 없애기!
 export const useCreateDownVoteOpinion = (postId: number) => {
   const queryClient = useQueryClient();
 
@@ -18,17 +20,28 @@ export const useCreateDownVoteOpinion = (postId: number) => {
       await queryClient.cancelQueries({
         queryKey: ['downVoteOpinion', postId],
       });
+      await queryClient.cancelQueries({
+        queryKey: ['lecturesDetail', postId],
+      });
 
       const previousDownVoteOpinions = queryClient.getQueriesData({
         queryKey: ['downVoteOpinion', postId],
       });
+      const previousLecturesDetail = queryClient.getQueriesData({
+        queryKey: ['lecturesDetail', postId],
+      });
+
       queryClient.setQueryData(['downVoteOpinion', postId], (oldData: any) => {
         if (Array.isArray(oldData)) {
           return [...oldData, data];
         }
         return [data];
       });
-      return { previousDownVoteOpinions };
+      queryClient.setQueryData(['lecturesDetail', postId], (oldData: any) => {
+        return { ...oldData, dislikes: oldData.dislikes + 1 };
+      });
+
+      return { previousDownVoteOpinions, previousLecturesDetail };
     },
 
     onError: (error, variables, context) => {
@@ -39,11 +52,20 @@ export const useCreateDownVoteOpinion = (postId: number) => {
         ['downVoteOpinion', postId],
         context?.previousDownVoteOpinions
       );
+      queryClient.setQueryData(
+        ['lecturesDetail', postId],
+        context?.previousLecturesDetail
+      );
     },
 
-    onSettled: () => {
+    onSettled: (_, __, variables) => {
       // 서버의 최신 데이터를 다시 불러옵니다.
-      queryClient.invalidateQueries({ queryKey: ['downVoteOpinion', postId] });
+      queryClient.invalidateQueries({
+        queryKey: ['downVoteOpinion', postId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['lecturesDetail', variables.postId],
+      });
     },
   });
 };

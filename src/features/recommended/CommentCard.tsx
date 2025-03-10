@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MoreIcon } from '../../shared/ui/icons/MoreIcon';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
 // import { useAuthStore } from '../../shared/model/store';
@@ -9,6 +9,9 @@ import { useUpdateComment } from '../../entities/recomended/hooks/useUpdateComme
 import { useReissue } from '../../entities/auth/hooks/useReissue';
 import { ErrorIcon } from '../../shared/ui/icons/ErrorIcon';
 import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
+import { useFormatDate } from '../../shared/util/useFormatDate';
+import { LectureForMEReportModal } from '../reports/LectureForMeReportModal';
+import { AlertMessage } from '../../shared/ui/Components/AlertMessage';
 interface CommentCardProps {
   data: any;
   postId: number;
@@ -23,6 +26,10 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
   const [editMode, setEditMode] = useState(false);
   const [editedComment, setEditedComment] = useState(data.content); // 기존 댓글 내용을 초기값으로 저장
   const [submitStatus, setSubmitStatus] = useState<string | null>(null); // 성공/실패 상태 관리
+  // const [isMoreToggled, setIsMoreToggled] = useState(false); // 더보기 버튼 상태 관리
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [reportSuccess, setReportSuccess] = useState(false); // 신고 성공 메시지 상태 관리
+  const menuRef = useRef<HTMLDivElement>(null);
   const { data: userData } = useGetUser();
   const { mutateAsync } = useReissue();
   const { mutate: deleteCommentMutate } = useDeleteComment();
@@ -33,6 +40,8 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
       [commentId]: !prev[commentId], // ✅ 해당 댓글의 신고 상태만 토글
     }));
   };
+
+  console.log('hello', data.user.profileImage);
 
   // 1초 후에 메시지 제거
   useEffect(() => {
@@ -46,6 +55,30 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
   // const handleEdit = () => {
   //   setEditMode(true);
   // };
+
+  const handleReportSuccess = () => {
+    setReportSuccess(true);
+    // 2초 후에 성공 메시지 숨김
+    setTimeout(() => {
+      setReportSuccess(false);
+    }, 2000);
+  };
+  // 메뉴 외부 클릭 감지 로직
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setReportedComments((prev) => ({
+          ...prev,
+          [data.id]: false, // ✅ 해당 댓글의 신고 상태만 토글
+        }));
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   const handleEditCommentRegister = () => {
     console.log('수정데이터', editedComment);
     // put API로 댓글 수정 요청
@@ -97,7 +130,15 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
             className="flex flex-col gap-[12px] p-[16px] border border-line rounded-[8px]"
           >
             <div className="flex items-center gap-[10px]">
-              <ProfileIcon />
+              {data.user.profileImage ? (
+                <img
+                  src={data.user.profileImage}
+                  alt="프로필이미지"
+                  className="w-[40px] h-[40px] rounded-full"
+                />
+              ) : (
+                <ProfileIcon />
+              )}
               <span className="text-[14px]">{data.user.name}</span>
             </div>
 
@@ -133,22 +174,29 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
         <div key={data.id} className="flex flex-col gap-[16px] p-[16px]">
           <div className="flex w-full">
             <div className="flex flex-1 items-center gap-[12px]">
-              <ProfileIcon />
+              {data.user.profileImage ? (
+                <img
+                  src={data.user.profileImage}
+                  alt="프로필이미지"
+                  className="w-[40px] h-[40px] rounded-full"
+                />
+              ) : (
+                <ProfileIcon />
+              )}
               <div className="flex gap-[4px] text-[14px]">
                 <span className="text-font-default">{data.user.name}</span>
                 <span>·</span>
-                <span className="text-font-sub">{data.createTime}</span>
+                <span className="text-font-sub">
+                  {useFormatDate(data.createTime)}
+                </span>
               </div>
             </div>
-            <div className="flex relative items-start">
-              <button
-                onClick={() => toggleReport(data.id)}
-                className="hover:cursor-pointer"
-              >
+            <div ref={menuRef} className="flex relative items-start">
+              <button onClick={() => toggleReport(data.id)} className="">
                 <MoreIcon className="text-tertiary-default" />
               </button>
               {reportedComments[data.id] && (
-                <ul className="absolute top-2 right-0  mt-5 text-sm l-0 bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)]">
+                <ul className="absolute top-2 right-0 mt-5 text-sm l-0 bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)]">
                   {userData?.name === data.user.name ? (
                     <>
                       <li
@@ -165,11 +213,25 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
                       </li>
                     </>
                   ) : (
-                    <li className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark">
+                    <li
+                      onClick={() => setIsReportModalOpen(!isReportModalOpen)}
+                      className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark"
+                    >
                       신고
                     </li>
                   )}
                 </ul>
+              )}
+              {isReportModalOpen && (
+                <LectureForMEReportModal
+                  onClose={() => setIsReportModalOpen(false)}
+                  onReportSuccess={handleReportSuccess}
+                  title="comment"
+                />
+              )}
+              {/* 신고 성공 메시지 오버레이 */}
+              {reportSuccess && (
+                <AlertMessage type="success" message="신고 접수 완료" />
               )}
             </div>
           </div>

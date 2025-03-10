@@ -31,7 +31,7 @@ export const LecturesForMECard: React.FC<LectureCardForMeProps> = ({
     <>
       <div
         onClick={onClick}
-        className="flex px-[32px] py-[24px] gap-[32px] group hover:bg-surface-dark cursor-pointer transition"
+        className="flex px-[16px] md:px-[32px] py-[24px] gap-[24px] md:gap-[32px] hover:bg-surface-dark cursor-pointer transition"
       >
         {/* 추천버튼 */}
         <div onClick={(e) => e.stopPropagation()}>
@@ -39,12 +39,14 @@ export const LecturesForMECard: React.FC<LectureCardForMeProps> = ({
         </div>
 
         <div className="flex flex-col gap-[24px]">
-          <div className="flex flex-col h-[79px] gap-[12px]">
-            <h2 className="font-semibold text-[20px]">{data.title}</h2>
-            <p className="text-[16px] text-font-sub-default">{data.content}</p>
+          <div className="flex flex-col md:h-[79px] gap-[12px]">
+            <h2 className="text-lg-600 md:title-sm-600">{data.title}</h2>
+            <p className="hidden md:block text-md-400 text-font-sub">
+              {data.content}
+            </p>
           </div>
 
-          <div className="text-[14px] font-medium text-font-sub flex gap-[16px]">
+          <div className="text-sm-500 text-font-sub flex gap-[16px]">
             <div className="flex items-center gap-[4px]">
               <DateIcon />
               <span>{formatDate(data.createTime)}</span>

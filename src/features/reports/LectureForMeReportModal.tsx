@@ -4,24 +4,26 @@ interface ReportModalProps {
   // isOpen: boolean;
   onClose: () => void;
   onReportSuccess: () => void;
+  title: string;
 }
 export const lectureReportData = [
-  { id: 0, title: '잘못된 정보' },
-  { id: 1, title: '개인 정보 침해' },
-  { id: 2, title: '폭력적이거나 혐오스러운 정보' },
+  { id: 0, title: '욕설 또는 인신공격' },
+  { id: 1, title: '음란성 또는 선정성' },
+  { id: 2, title: '개인정보노출' },
 ];
 
-export const LectureReportModal: React.FC<ReportModalProps> = ({
+export const LectureForMEReportModal: React.FC<ReportModalProps> = ({
   // isOpen,
   onClose,
   onReportSuccess,
+  title,
 }) => {
   return (
     <ReportModal
       onClose={onClose}
       data={lectureReportData}
       onReportSuccess={onReportSuccess}
-      title="lecture"
+      title={title}
     />
   );
 };

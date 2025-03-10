@@ -69,7 +69,15 @@ export const CommentInput: React.FC<CommentInputProps> = ({ postId }) => {
   return (
     <div className="flex flex-col gap-3 p-5 border border-surface-line rounded-lg">
       <div className="flex items-center gap-2">
-        <ProfileIcon />
+        {userData?.profileImage ? (
+          <img
+            src={userData.profileImage}
+            alt="프로필이미지"
+            className="w-[40px] h-[40px] rounded-full"
+          />
+        ) : (
+          <ProfileIcon />
+        )}
         <span className="text-[14px]">{userData?.name}</span>
       </div>
 

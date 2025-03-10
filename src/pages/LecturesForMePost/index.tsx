@@ -1,129 +1,3 @@
-// import { useState } from 'react';
-// import { Left } from '../../shared/ui/icons/Left';
-// import { useNavigate } from 'react-router-dom';
-// import { ErrorIcon } from '../../shared/ui/icons/ErrorIcon';
-// import { usePostDemandLecture } from '../../entities/recomended/hooks/usePostDemandLecture';
-// import Editor from '../../shared/ui/icons//Editor'; // ✅ Editor 컴포넌트 가져오기
-
-// export const LecturesForMePost = () => {
-//   const navigate = useNavigate();
-//   const [title, setTitle] = useState(''); // ✅ 제목 상태
-//   const [content, setContent] = useState(''); // ✅ 본문 상태
-//   const [errorTitle, setErrorTitle] = useState(false); // 제목 에러 상태
-//   const [errorContent, setErrorContent] = useState(false); // 본문 에러 상태
-
-//   const { mutate } = usePostDemandLecture(); // ✅ API 요청 훅 사용
-
-//   // ✅ Editor 데이터 변경 시 호출되는 함수
-//   const handleEditorChange = (data: any) => {
-//     // const contentText = data.blocks
-//     //   .map((block: any) => block.data.text)
-//     //   .join('\n');
-//     // setContent(contentText);
-//     setContent(JSON.stringify(data.blocks)); // ✅ 블록 전체 저장
-//   };
-
-//   // ✅ 등록 버튼 클릭 시 제목과 본문이 비어있는지 확인 후 처리
-//   const handleSubmit = async () => {
-//     const isContentEmpty = !content.trim();
-//     const isTitleEmpty = !title.trim();
-
-//     if (isTitleEmpty) {
-//       setErrorTitle(true);
-//       setErrorContent(false);
-//       return;
-//     }
-
-//     if (isContentEmpty) {
-//       setErrorContent(true);
-//       return;
-//     }
-
-//     // ✅ API 요청 실행
-//     mutate(
-//       {
-//         title,
-//         content: content, // ✅ JSON으로 저장
-//       },
-//       {
-//         onSuccess: () => {
-//           console.log('✅ 게시글 등록 성공!');
-//           console.log('보낸제목:', title);
-//           console.log('보낸내용:', content);
-//           navigate('/lectures-for-me'); // ✅ 성공 후 이동
-//         },
-//         onError: (error) => {
-//           console.error('❌ 게시글 등록 실패:', error);
-//           alert('게시글 등록에 실패했어요. 다시 시도해주세요!');
-//         },
-//       }
-//     );
-//   };
-
-//   return (
-//     <>
-//       {/* 헤더 */}
-//       <header className="flex justify-center items-center py-5 bg-surface-dark">
-//         <div className="w-2/3 flex justify-between items-center">
-//           <Left
-//             className="cursor-pointer"
-//             onClick={() => navigate('/lectures-for-me')}
-//           />
-//           <button
-//             onClick={handleSubmit}
-//             className="bg-primary-default rounded-4xl px-7 py-2 text-white hover:bg-primary-dark transition"
-//           >
-//             등록
-//           </button>
-//         </div>
-//       </header>
-
-//       {/* 본문 */}
-//       <main className="flex flex-col justify-center items-center py-15">
-//         <div className="w-2/3">
-//           {/* 제목 입력 */}
-//           <h1>
-//             <input
-//               type="text"
-//               className={`w-full text-2xl py-2 focus:outline-none focus:ring-2 ${
-//                 errorTitle
-//                   ? 'focus:ring-red-500 border-red-500'
-//                   : 'focus:ring-primary-default'
-//               }`}
-//               placeholder="제목을 입력해줘"
-//               value={title}
-//               onChange={(e) => {
-//                 setTitle(e.target.value);
-//                 setErrorTitle(false);
-//               }}
-//             />
-//           </h1>
-
-//           <div className="my-5 border-t border-surface-line" />
-
-//           {/* 본문 입력 (블록 에디터) */}
-//           <Editor onChange={handleEditorChange} readOnly={false} />
-//         </div>
-
-//         {/* 제목 에러 메시지 */}
-//         {errorTitle && (
-//           <div className="flex gap-2 border-2 border-error rounded-4xl px-6 py-4">
-//             <ErrorIcon className="text-error" />
-//             <p className="font-bold">제목을 입력해줘</p>
-//           </div>
-//         )}
-
-//         {/* 본문 에러 메시지 */}
-//         {errorContent && !errorTitle && (
-//           <div className="flex gap-2 border-2 border-error rounded-4xl px-6 py-4">
-//             <ErrorIcon className="text-error" />
-//             <p className="font-bold">본문을 입력해줘</p>
-//           </div>
-//         )}
-//       </main>
-//     </>
-//   );
-// };
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Left } from '../../shared/ui/icons/Left';
 import { useNavigate } from 'react-router-dom';
@@ -153,12 +27,12 @@ export const LecturesForMePost = () => {
     console.log('Editor onChange (contentRef updated):', newContent);
   }, []);
 
-  // 3초 후에 메시지 제거
+  // 2초 후에 메시지 제거
   useEffect(() => {
     if (submitStatus) {
       const timer = setTimeout(() => {
         setSubmitStatus(null);
-      }, 1000);
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [submitStatus]);
@@ -210,14 +84,14 @@ export const LecturesForMePost = () => {
     <>
       {/* 헤더 */}
       <header className="flex justify-center items-center py-5 bg-surface-dark">
-        <div className="w-2/3 flex justify-between items-center">
+        <div className="w-[328px] md:w-[624px] lg:w-[1152px] h-[84px] flex justify-between items-center">
           <Left
             className="cursor-pointer"
             onClick={() => navigate('/lectures-for-me')}
           />
           <button
             onClick={handleSubmit}
-            className="bg-primary-default rounded-4xl px-7 py-2 text-white hover:bg-primary-dark transition"
+            className="h-[40px] px-[24px] bg-primary-default rounded-4xl text-white hover:bg-primary-dark transition"
           >
             등록
           </button>
@@ -226,12 +100,12 @@ export const LecturesForMePost = () => {
 
       {/* 본문 */}
       <main className="flex flex-col justify-center items-center py-15">
-        <div className="w-2/3">
+        <div className="w-[328px]  md:w-[624px] lg:w-[1152px]">
           {/* 제목 입력 */}
-          <h1>
+          <h1 className="h-[70px] border-b border-surface-line">
             <input
               type="text"
-              className={`w-full text-2xl py-2 focus:outline-none focus:ring-2 ${
+              className={`w-full title-md-600 md:title-lg-600 px-[16px] md:px-[24px] focus:outline-none focus:ring-2 ${
                 errorTitle
                   ? 'focus:ring-red-500 border-red-500'
                   : 'focus:ring-primary-default'
@@ -244,8 +118,6 @@ export const LecturesForMePost = () => {
               }}
             />
           </h1>
-
-          <div className="my-5 border-t border-surface-line" />
 
           {/* 본문 입력 (Editor 컴포넌트) */}
           <Editor onChange={handleEditorChange} readOnly={false} />
@@ -270,7 +142,7 @@ export const LecturesForMePost = () => {
         {submitStatus === 'error' && (
           <div className="flex gap-[6px] border-2 border-error rounded-4xl px-[24px] py-[12px]">
             <ErrorIcon className="text-error" />
-            <p className="font-bold">글 등록 실패! 다시 시도해줄래?</p>
+            <p className="text-md-500">글 등록 실패! 다시 한 번 시도해줄래?</p>
           </div>
         )}
       </main>

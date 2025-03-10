@@ -228,7 +228,7 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-[20px] md:gap-[40px]">
       <div className="border border-surface-line divide-y divide-surface-line rounded-xl overflow-hidden">
         {Array.isArray(lecturesForMeData) ? (
           lecturesForMeData.map((card: LectureData) => (
@@ -253,6 +253,6 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </>
+    </div>
   );
 };

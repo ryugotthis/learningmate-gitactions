@@ -1,60 +1,51 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Header from '../../widgets/header';
-
+// 아이콘
 import { DateIcon } from '../../shared/ui/icons/DateIcon';
 import { ViewsIcon } from '../../shared/ui/icons/ViewsIcon';
 import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
+import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
+
+// 컴포넌트
 import { CommentInput } from '../../features/recommended/CommentInput';
 import { CommentList } from '../../features/recommended/CommemtList';
-import { useEffect, useState } from 'react';
-
-import Editor from '../../shared/ui/icons/Editor';
-import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
-import { OptionsMenu } from '../../widgets/menu/ui/recommand/OptionsMenu';
-import { useLocation } from 'react-router-dom';
-import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
-import { UpVoteButtonContainer } from '../../features/recommended/UpVoteButtonContainer';
-import { useFormatDate } from '../../shared/util/useFormatDate';
-// import { UpVoteIcon } from '../../shared/ui/icons/UpVoteIcon';
 import { UpVoteButton2 } from '../../features/recommended/UpVoteButton2';
+import { OptionsMenu } from '../../widgets/menu/ui/recommand/OptionsMenu';
+import { UpVoteButtonContainer } from '../../features/recommended/UpVoteButtonContainer';
+import Editor from '../../shared/ui/icons/Editor';
 
-// 날짜 형식 변경
+// 훅
+import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
+import { useFormatDate } from '../../shared/util/useFormatDate';
+// import { useLocation } from 'react-router-dom';
 
 export const LecturesForMeDetail = () => {
   const { id } = useParams(); // ✅ URL에서 id 추출
   const postId = Number(id); // 문자열을 숫자로 변환
   const {
-    data: lecturesForMeData,
+    data: lecturesForMeData, // 날강도 데이터
     isLoading,
     isError,
     error,
   } = useGetDemandLectureDetailItem(postId);
-  // 글 등록후 메시지 표시
-  const location = useLocation();
+
+  const location = useLocation(); // 글 등록후 상세 페이지 이동시 전달한 메시지 표시
   const [submitStatus, setSubmitStatus] = useState<string | null>(
     location.state?.submitStatus || null
   );
 
-  console.log('왜안나와?', lecturesForMeData);
-  console.log('id', id);
-
-  // 1초 후에 메시지 제거
-  // 컴포넌트가 마운트될 때 submitStatus가 있다면 일정 시간 후 제거
+  // 글 등록 성공 메시지 표시
   useEffect(() => {
     if (submitStatus) {
       const timer = setTimeout(() => {
         setSubmitStatus(null);
-      }, 1000); // 1000ms = 1초 후 메시지 제거
+      }, 2000); // 1000ms = 2초 후 메시지 제거
       return () => clearTimeout(timer);
     }
   }, [submitStatus]);
 
-  // console.log(
-  //   '되니?',
-  //   lecturesForMeData?.find((lecture: any) => lecture.id === Number(id))
-  // );
-  // const [isMoreToggled, setIsMoreToggled] = useState(false);
   if (isLoading) return <p>⏳ 로딩 중...</p>;
   if (isError)
     return <p className="text-red-500">❌ 오류 발생: {error.message}</p>;
@@ -75,8 +66,8 @@ export const LecturesForMeDetail = () => {
       <div className="w-[326px] md:w-[624px] lg:w-[1152px] first-line: my-[100px] mx-auto">
         <header className=" flex flex-col border-b border-gray-300 px-[16px] md:px-[24px] pb-[16px] md:pb-[24px] ">
           <h1 className="title-md-600 md:title-lg-600">{lecture.title}</h1>
-          <div className="md:text-sm-500 text-font-sub flex gap-[12px] pt-[4px] pb-[16px]">
-            <div className="flex items-center gap-[4px] text-sm-500">
+          <div className="text-sm-500 text-font-sub flex gap-[12px] pt-[4px] pb-[16px]">
+            <div className="flex items-center gap-[4px]">
               <DateIcon />
 
               <span>{useFormatDate(lecture.createTime)}</span>
@@ -97,7 +88,11 @@ export const LecturesForMeDetail = () => {
           <div className="flex justify-between">
             <div className="flex items-center gap-[16px]">
               {lecture.user.profileImage ? (
-                lecture.user.profileImage
+                <img
+                  src={lecture.user.profileImage}
+                  className="w-[40px] h-[40px]"
+                  alt="profileImage"
+                />
               ) : (
                 <ProfileIcon />
               )}
@@ -132,20 +127,20 @@ export const LecturesForMeDetail = () => {
 
         {/* 댓글 영역 */}
         <section className="relative">
-          {/* 하단에 등록 성공 메시지 표시 */}
-          <div className="absolute w-full flex justify-center  ">
-            {submitStatus === 'success' && (
-              <div className=" flex justify-end bg-white gap-[6px] border-2 border-primary-default rounded-4xl px-[24px] py-[12px]">
-                <CheckIcon className="text-primary-default" />
-                <p className="font-bold text-success">글 등록 성공!</p>
-              </div>
-            )}
-          </div>
           {/* 댓글 리스트 */}
           <CommentList postId={lecture.id} />
           {/* 댓글 입력 */}
           <CommentInput postId={lecture.id} />
         </section>
+      </div>
+      {/* 하단에 등록 성공 메시지 표시 */}
+      <div className="absolute w-full flex justify-center  ">
+        {submitStatus === 'success' && (
+          <div className="fixed bottom-[50px] flex justify-end bg-white gap-[6px] border-2 border-primary-default rounded-4xl px-[24px] py-[12px]">
+            <CheckIcon className="text-primary-default" />
+            <p className="text-md-500 text-font-default">글 등록 성공!</p>
+          </div>
+        )}
       </div>
     </>
   );

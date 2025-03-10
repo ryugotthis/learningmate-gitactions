@@ -8,6 +8,7 @@ interface ReportModalProps {
   onClose: () => void;
   data: any;
   onReportSuccess: () => void;
+  title: string;
 }
 
 export const ReportModal: React.FC<ReportModalProps> = ({
@@ -15,6 +16,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
   onClose,
   data,
   onReportSuccess,
+  title,
 }) => {
   const [reason, setReason] = useState('');
   // const [isReported, setIsReported] = useState(false);
@@ -37,7 +39,9 @@ export const ReportModal: React.FC<ReportModalProps> = ({
       <div className="bg-white w-full lg:w-[560px] rounded-[12px] shadow-lg">
         {/* 헤더 영역 */}
         <div className="flex justify-between items-center border-b border-line p-[24px]">
-          <h2 className="title-sm-600 md:title-md-600">강의 신고</h2>
+          <h2 className="title-sm-600 md:title-md-600 text-black">
+            {title === 'lecture' ? '강의 신고' : '댓글 신고'}
+          </h2>
           <button onClick={onClose} aria-label="close">
             <CloseIcon className="text-font-default" />
           </button>

@@ -24,8 +24,8 @@ export const UpVoteButton2 = ({ postId }: { postId: number }) => {
       } bg-white `}
     >
       <UpVoteIcon
-        className={`w-[24px] h-[24px]  ${
-          isLikeClicked ? 'text-primary-default' : 'text-surface-line'
+        className={`w-[24px] h-[24px] ${
+          isLikeClicked ? 'text-primary-default' : 'text-font-sub'
         }`}
       />
     </button>

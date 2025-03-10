@@ -35,14 +35,28 @@ export const VoteCard = ({
     setIsModalOpen(false);
   };
 
-  const filteredOpinionData = opinionData?.filter((opinion: any) => {
-    // opinion.title을 분해해서 하나의 문자열로 합침 (예: '한글' -> 'ㅎㅏㄴㄱㅡㄹ')
-    const disassembledTitle = Hangul.disassemble(opinion.title).join('');
-    // 검색어도 동일하게 분해
-    const disassembledSearch = Hangul.disassemble(searchText).join('');
-    // 분해된 문자열에서 검색어가 포함되어 있는지 확인
-    return disassembledTitle.includes(disassembledSearch);
-  });
+  // const filteredOpinionData = opinionData?.filter((opinion: any) => {
+  //   // opinion.title을 분해해서 하나의 문자열로 합침 (예: '한글' -> 'ㅎㅏㄴㄱㅡㄹ')
+  //   const disassembledTitle = Hangul.disassemble(opinion.title).join('');
+  //   // 검색어도 동일하게 분해
+  //   const disassembledSearch = Hangul.disassemble(searchText).join('');
+  //   // 분해된 문자열에서 검색어가 포함되어 있는지 확인
+  //   return disassembledTitle.includes(disassembledSearch);
+  // });
+
+  const filteredOpinionData =
+    title === '추천'
+      ? opinionData?.filter((opinion: any) => {
+          // opinion.title을 분해해서 하나의 문자열로 합침 (예: '한글' -> 'ㅎㅏㄴㄱㅡㄹ')
+          const disassembledTitle = Hangul.disassemble(opinion.title).join('');
+          // 검색어도 동일하게 분해
+          const disassembledSearch = Hangul.disassemble(searchText).join('');
+          // 분해된 문자열에서 검색어가 포함되어 있는지 확인
+          return disassembledTitle.includes(disassembledSearch);
+        })
+      : [];
+
+  console.log(title, filteredOpinionData);
   return (
     <div className="flex flex-col border rounded-lg  lg:w-[564.5px] p-[24px]">
       <div

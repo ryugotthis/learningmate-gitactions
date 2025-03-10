@@ -104,7 +104,11 @@ export const VoteCardItem = ({
             {/* 정보 */}
             <div className="flex gap-[8px] items-center">
               {opinion.user.profileImage ? (
-                <img src={opinion.user.profileImage} alt="프로필이미지" />
+                <img
+                  src={opinion.user.profileImage}
+                  alt="프로필이미지"
+                  className="w-[40px] h-[40px] rounded-full"
+                />
               ) : (
                 <ProfileIcon />
               )}
