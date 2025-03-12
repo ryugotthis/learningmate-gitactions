@@ -11,7 +11,7 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
   const { accessToken } = useAuthStore.getState(); // ✅ 상태에서 직접 가져오기
-  console.log('토큰', accessToken);
+  // console.log('토큰', accessToken);
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -19,13 +19,13 @@ apiClient.interceptors.request.use((config) => {
 });
 
 export const getBookmarkState = async (postId: number): Promise<any> => {
-  console.log(
-    '강의데이터 요청 URL:',
-    `${apiClient.defaults.baseURL}/bookmarks/${postId}/exists`
-  );
+  // console.log(
+  //   '강의데이터 요청 URL:',
+  //   `${apiClient.defaults.baseURL}/bookmarks/${postId}/exists`
+  // );
   const response = await apiClient.get(`/bookmarks/exist?postId=${postId}`);
 
-  console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
+  // console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
 
   return response.data.data; // ✅ 올바르게 `data`만 반환
 };

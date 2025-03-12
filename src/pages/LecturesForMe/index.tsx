@@ -10,17 +10,19 @@ import { PostLectureForMeButton } from '../../features/recommended/PostLecturesF
 interface Sort {
   name: string;
   id: number;
+  query: string;
 }
 const sortList: Sort[] = [
-  { name: '추천순', id: 0 },
-  { name: '최신순', id: 1 },
-  { name: '조회 많은 순', id: 2 },
+  { name: '추천순', id: 0, query: 'likes' },
+  { name: '최신순', id: 1, query: 'desc' },
+  { name: '조회 많은 순', id: 2, query: 'views' },
 ];
 export const LecturesForMe = () => {
-  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
-  // 정렬 선택
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false); // 정렬 드롭다운 상태 관리
   const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]);
   const [isMyPosts, setIsMyPosts] = useState(false);
+
+  console.log('선택받은거!', sortSelected.name);
 
   // const handleMyPost = () => {
   //   () => setIsMyPosts(!isMyPosts);
@@ -128,11 +130,9 @@ export const LecturesForMe = () => {
               <div className="relative text-font-sub text-sm-600 md:text-md-600">
                 <button
                   onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
-                  className=" flex gap-[4px] h-[40px] md:h-[48px] focus-within:outline-none justify-center items-center border pl-[24px] pr-[20px] border-surface-line border-opacity-100  text-font-sub-default rounded-4xl"
+                  className="flex gap-[4px] h-[40px] md:h-[48px] focus-within:outline-none justify-center items-center border pl-[24px] pr-[20px] border-surface-line border-opacity-100  text-font-sub-default rounded-4xl"
                 >
-                  <p className=" cursor-pointer whitespace-nowrap">
-                    {sortSelected.name}
-                  </p>
+                  <p className="whitespace-nowrap">{sortSelected.name}</p>
                   <img src={SortIcon} alt="sort" className="block" />
                 </button>
                 {isSortDropdownOpen && (
@@ -170,7 +170,10 @@ export const LecturesForMe = () => {
 
         <main>
           <div className="mt-[20px]">
-            <LecturesForMECardList isMyPost={isMyPosts} />
+            <LecturesForMECardList
+              isMyPost={isMyPosts}
+              sort={sortSelected.query}
+            />
           </div>
         </main>
       </div>

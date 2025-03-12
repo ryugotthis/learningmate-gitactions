@@ -4,26 +4,25 @@ import Reset from '../../../shared/ui/icons/Reset.svg';
 import { useFilterList } from '../../../entities/filter/model/store';
 import { CloseIcon } from '../../../shared/ui/icons/CloseIcon';
 import { SearchIcon } from '../../../shared/ui/icons/SearchIcon';
+import { useGetPlatforms } from '../../../entities/lectures/home/hooks/useGetPlatforms';
 
-interface Lecture {
-  name: string;
-  id: number;
-}
+// interface Lecture {
+//   name: string;
+//   id: number;
+// }
 
-const allLectures: Lecture[] = [
-  { name: '패스트캠퍼스', id: 0 },
-  { name: '유데미', id: 1 },
-  { name: '콜로소', id: 2 },
-  { name: '인프런', id: 3 },
-  { name: '클래스101', id: 4 },
-  { name: '노마드코더', id: 5 },
-  { name: '제로베이스', id: 6 },
-  { name: '코드스테이츠', id: 7 },
-  { name: '생활코딩', id: 8 },
-  { name: '멋쟁이사자처럼', id: 9 },
-];
-
-const defaultLectures: Lecture[] = allLectures.slice(0, 5); // 기본 5개만 표시
+// const allLectures: Lecture[] = [
+//   { name: '패스트캠퍼스', id: 0 },
+//   { name: '유데미', id: 1 },
+//   { name: '콜로소', id: 2 },
+//   { name: '인프런', id: 3 },
+//   { name: '클래스101', id: 4 },
+//   { name: '노마드코더', id: 5 },
+//   { name: '제로베이스', id: 6 },
+//   { name: '코드스테이츠', id: 7 },
+//   { name: '생활코딩', id: 8 },
+//   { name: '멋쟁이사자처럼', id: 9 },
+// ];
 
 interface FilterModalProps {
   isOpen: boolean;
@@ -33,11 +32,13 @@ interface FilterModalProps {
 const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLectures, setSelectedLectures] = useState<number[]>([]);
+  const { data: platformData } = useGetPlatforms();
+  const defaultLectures = platformData.slice(0, 5); // 기본 5개만 표시
 
   // ✅ 입력값이 있으면 검색 필터 적용, 없으면 기본 강의 표시
   const filteredLectures = searchTerm
-    ? allLectures.filter((lecture) =>
-        lecture.name.toLowerCase().includes(searchTerm.toLowerCase())
+    ? platformData.filter((platform: any) =>
+        platform.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : defaultLectures;
 
@@ -99,14 +100,16 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
         {selectedLectures.length > 0 && (
           <ul className="flex px-[32px] pb-[20px] gap-[10px] flex-wrap">
             {selectedLectures.map((id) => {
-              const lecture = allLectures.find((l) => l.id === id);
+              const lecture = platformData.find(
+                (platform: any) => platform.id === id
+              );
               return lecture ? (
                 <li
                   key={id}
                   onClick={() => toggleLecture(lecture.id)}
                   className="h-[28px] md:h-[35px] flex items-center gap-[4px] text-sm-500 md:text-md-500 border border-primary-default rounded-4xl text-primary-default px-[16px] cursor-pointer"
                 >
-                  <p>{lecture.name}</p>
+                  <p>{lecture.title}</p>
                   <CloseIcon className="w-[16px] h-[16px]" />
                 </li>
               ) : null;
@@ -118,13 +121,13 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
 
         {/* ✅ 강의 리스트 (검색 결과 or 기본 리스트) */}
         <ul className="flex h-[160px] lg:h-auto px-[32px] py-[12px] gap-[10px] border-t flex-wrap content-start">
-          {filteredLectures.map((lecture) => (
+          {filteredLectures.map((lecture: any) => (
             <li
               key={lecture.id}
               onClick={() => toggleLecture(lecture.id)}
               className={`h-[28px] md:h-[35px] border rounded-4xl text-sm-500 md:text-md-500 text-font-sub px-[16px] py-[4px] cursor-pointer `}
             >
-              {lecture.name}
+              {lecture.title}
             </li>
           ))}
         </ul>

@@ -132,18 +132,20 @@ export const cardData: CardData[] = [
 
 interface LecturesForMECardListProps {
   isMyPost: boolean; // ✅ 'isMyPost'의 타입을 명시적으로 boolean으로 지정
+  sort: string;
 }
 
 // api에서 받은 날.강.도 게시판 글
 
 export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
   isMyPost,
+  sort,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [lecturesForMeData, setLecturesForMeData] = useState<any[]>([]);
   // const [totalPages,setTotalPages] = useState(0);
-  console.log('클릭확인', isMyPost);
+  console.log('클릭확인', sort);
   const {
     data: demandLecturesData,
     // isLoading,
@@ -152,14 +154,14 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
   } = useGetDemandLecture({
     page: currentPage - 1,
     size: 10,
-    sort: 'desc',
+    sort: sort,
   });
   console.log('날강도뎅이터', demandLecturesData);
 
   const { data: myDemandLecturesData } = useGetMyDemandLectures({
     page: currentPage - 1,
     size: 10,
-    sort: 'desc',
+    sort: sort,
   });
   console.log('내 글', myDemandLecturesData);
   const [data, setData] = useState<any>(undefined);
@@ -239,6 +241,7 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
                 ...card,
                 content: extractTextContent(card.content),
               }}
+              sort={sort}
             />
           ))
         ) : (

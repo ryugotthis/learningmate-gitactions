@@ -1,4 +1,4 @@
-import All from './icons/White.svg';
+import All from './icons/All.svg';
 import Udemy from './icons/Udemy.svg';
 import Infren from './icons/Infren.svg';
 import FastCampus from './icons/FastCampus.svg';
@@ -12,6 +12,9 @@ import Search from './icons/Search.svg';
 import DeleteClose from './icons/DeleteClose.svg';
 import { useRef, useState } from 'react';
 import { useCreateLecture } from '../../../entities/lectures/home/hooks/useCreateLecture';
+import { useGetLectureTitle } from '../../../entities/lectures/home/hooks/useGetLecturesTitle';
+import { useSearchStore } from '../../../features/lectures/model/useLectureStore';
+import { LoadingSpinner } from '../../../shared/ui/Components/LoadingSpinner';
 
 interface Option {
   value: string;
@@ -39,48 +42,30 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
   const inputRef = useRef<HTMLInputElement>(null); // 검색 입력창 감지 x 버튼 누른후 포커스 유지위해
   const [isInputFocused, setIsInputFocused] = useState(false); // 포커스시 메뉴 보여줌
   // 강의 생성 mutate
-  const { mutate: createLecture } = useCreateLecture();
+  const { mutate: createLecture, isPending: createLectureLoading } =
+    useCreateLecture();
 
   // 예제 검색어 목록 (실제 데이터는 API 요청 등으로 대체 가능)
-  const suggestions = [
-    'React',
-    'JavaScript',
-    'TypeScript',
-    'Next.js',
-    'Tailwind',
-  ];
+  // const suggestions = [
+  //   'React',
+  //   'JavaScript',
+  //   'TypeScript',
+  //   'Next.js',
+  //   'Tailwind',
+  // ];
 
   // 검색어 필터링
-  const filteredSuggestions = suggestions.filter((word) =>
-    word.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  // 외부 클릭 감지 후 드롭다운 닫기
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       dropdownRef.current &&
-  //       !dropdownRef.current.contains(event.target as Node)
-  //     ) {
-  //       setIsOpen(false);
-  //     }
-  //     if (
-  //       searchDropdownRef.current &&
-  //       !searchDropdownRef.current.contains(event.target as Node)
-  //     ) {
-  //       setSearchText('');
-  //     }
-  //   };
-
-  //   document.addEventListener('mousedown', handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
+  // const filteredSuggestions = suggestions.filter((word) =>
+  //   word.toLowerCase().includes(searchText.toLowerCase())
+  // );
+  const { data: titleData } = useGetLectureTitle(searchText);
+  console.log('제목데이터', titleData);
+  const { setSearchTitle } = useSearchStore(); // 검색어 저장할 전역변수
 
   return (
     <>
+      {createLectureLoading ? <LoadingSpinner /> : ''}
+
       {/* <div
         className={`${
           isNaveBar && 'border-none p-0'
@@ -148,6 +133,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
                 placeholder="강의명 또는 URL을 입력해봐!"
                 className=" w-full placeholder:text-font-sub tracking-[-0.1em] text-font-default bg-surface-dark  focus:outline-none"
                 onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    console.log('엔터 눌림, 검색어 저장:', searchText);
+                    setSearchTitle(searchText);
+                  }
+                }}
                 onFocus={() => setIsInputFocused(true)}
                 onBlur={() => setIsInputFocused(false)}
               />
@@ -179,15 +170,20 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
                 </div>
                 {/* 검색어 추천 목록 */}
                 <ul className=" bg-white ">
-                  {filteredSuggestions.length > 0 ? (
-                    filteredSuggestions.map((suggestion, index) => (
+                  {titleData?.length > 0 ? (
+                    titleData.map((title: string, index: number) => (
                       <li
                         key={index}
                         className="px-3 py-2 text-lg flex items-center hover:bg-gray-200 cursor-pointer"
-                        onClick={() => setSearchText(suggestion)}
+                        // onClick={() => setSearchText(title)}
+                        onMouseDown={() => {
+                          console.log('검색어 저장:', title);
+                          setSearchTitle(title);
+                        }}
+                        // setSearchTitle
                       >
                         <img src={Search} alt="search" className="px-3" />
-                        <p>{suggestion}</p>
+                        <p>{title}</p>
                       </li>
                     ))
                   ) : (

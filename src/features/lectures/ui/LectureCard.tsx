@@ -2,12 +2,23 @@
 // import Bookmark from '../../../shared/ui/icons/BookMark.svg';
 import { useNavigate } from 'react-router-dom';
 import Infren from '../../../widgets/header/ui/icons/Infren.svg';
+import FastCampus from '../../../widgets/header/ui/icons/FastCampus.svg';
+import Class101 from '../../../widgets/header/ui/icons/Class101.svg';
+import Coloso from '../../../widgets/header/ui/icons/Coloso.svg';
+import Udemy from '../../../widgets/header/ui/icons/Udemy.svg';
 import { BookmarkButton } from './home/BookmarkButton';
 
-// interface LectureCardProps {
-//   data: CardData;
-// }
-
+interface platformLogoProps {
+  name: string;
+  url: string;
+}
+export const platformLogo: platformLogoProps[] = [
+  { name: '인프런', url: Infren },
+  { name: '패스트캠퍼스', url: FastCampus },
+  { name: '클래스101', url: Class101 },
+  { name: '콜로소', url: Coloso },
+  { name: '유데미', url: Udemy },
+];
 export const LectureCard = ({ data }: { data: any }) => {
   // console.log(Bookmark);
   const navigate = useNavigate();
@@ -15,6 +26,10 @@ export const LectureCard = ({ data }: { data: any }) => {
   //   //  이벤트 버블링 이벤트 전파를 중지
   //   e.stopPropagation();
   // };
+  const matchedPlatform = platformLogo.find(
+    (platform) => platform.name === data?.platform.title
+  );
+
   return (
     <>
       {/* 본문 카드 */}
@@ -24,17 +39,14 @@ export const LectureCard = ({ data }: { data: any }) => {
       >
         <div className="flex justify-between">
           <img
-            src={data?.platform.title === '인프런' ? Infren : ''}
-            alt="fastcampus"
+            src={matchedPlatform ? matchedPlatform.url : '기본이미지URL'}
+            alt={data?.platform.title || 'platformLogo'}
             className="w-[60px]"
           />
-          {/* <button onClick={(e) => handleBookmarkButton(e)} className="z-10">
-            <img src={Bookmark} alt="bookmark" />
-          </button> */}
           <BookmarkButton postId={data.id} />
         </div>
         <div className="flex flex-col h-[116px] gap-[8px]">
-          <h2 className="font-semibold text-[20px] tracking-[-0.1em] text-font-default">
+          <h2 className="font-semibold text-[20px] tracking-[-0.1em] text-font-default line-clamp-2">
             {data?.title}
           </h2>
           <p className="text-[16px] text-font-sub tracking-[-0.05em] line-clamp-2">

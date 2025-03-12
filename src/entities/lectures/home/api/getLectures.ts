@@ -9,22 +9,29 @@ export const apiClient = axios.create({
 });
 
 export const getLectures = async ({
-  pageParam = 1,
+  pageParam,
   platform,
   title,
+  sort = 'likes',
 }: {
   pageParam?: number;
   platform?: string;
-  title?: string;
+  title?: string | null;
+  sort?: string;
 }): Promise<any> => {
+  console.log('타입', sort);
   console.log(
-    '강의데이터 요청 URL:',
-    `${apiClient.defaults.baseURL}/lectures?`
+    '🟨🟨❤🟨🟨강의데이터 요청 URL:',
+    `${apiClient.defaults.baseURL}/lectures?size=9&page=0` +
+      `${platform ? `&platform=${encodeURIComponent(platform)}` : ''}` +
+      `${title ? `&title=${encodeURIComponent(title)}` : ''}` +
+      `${sort === 'desc?' ? `&sort=desc` : `&sort=${sort},desc`}`
   );
   const response = await apiClient.get(
-    `/lectures?size=9&page=${pageParam}&${
-      platform ? `&platform=${platform}` : ''
-    }${title ? `&title=${title}` : ''}`
+    `/lectures?size=9&page=${pageParam}` +
+      `${platform ? `&platform=${encodeURIComponent(platform)}` : ''}` +
+      `${title ? `&title=${encodeURIComponent(title)}` : ''}` +
+      `${sort === 'desc' ? `&sort=desc` : `&sort=${sort},desc`}`
   );
 
   console.log('🥰test API 응답 데이터:', response.data); // ✅ 응답 데이터 출력

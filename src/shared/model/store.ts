@@ -30,14 +30,7 @@ export const useAuthStore = create<AuthState>()(
         console.log('🚨 accessToken 초기화됨 (로그아웃)');
         set({ accessToken: null, isLoggedIn: false });
       },
-      // setAccessName: (name) => {
-      //   console.log('✅ accessName 저장됨:', name);
-      //   set({ accessName: name }); // ✅ token이 있으면 isLoggedIn = true
-      // },
-      // clearAccessName: () => {
-      //   console.log('🚨 accessToken 초기화됨 (로그아웃)');
-      //   set({ accessName: null, isLoggedIn: false });
-      // },
+
       setIsLoggedIn: (status) => {
         console.log('✅ 로그인 상태 변경:', status);
         set({ isLoggedIn: status });

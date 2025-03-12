@@ -28,11 +28,12 @@ interface MyDemandLecturesProps {
 export const getMyDemandLectures = async ({
   page,
   size,
-  sort,
+  sort = 'likes',
 }: MyDemandLecturesProps): Promise<any> => {
   console.log('플랫폼 요청 URL:', `${apiClient.defaults.baseURL}/platforms`);
   const response = await apiClient.get(
-    `/demand-lectures/my?page=${page}&size=${size}&sort=${sort}`
+    `/demand-lectures/my?page=${page}&size=${size}` +
+      `${sort ? `&sort=${sort},desc` : ''}`
   );
 
   console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력

@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useGetLectures } from '../../../../entities/lectures/home/hooks/useGetLectures';
 import { LectureCardList } from '../LectureCardList';
 import InfiniteScroll from 'react-infinite-scroller';
+import { useSearchStore } from '../../model/useLectureStore';
 
-export const LectureCardListHomeContainer = () => {
+export const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
   // const { data: lecture } = useGetLectures();
   // console.log('강의모든 데이터:', lecture);
+  const { searchTitle: title } = useSearchStore(); // 검색창 제목 검색어
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetLectures();
+    useGetLectures({ sort, title });
   // 각 페이지의 데이터를 하나의 배열로 합치기
   const lectures = data?.pages.flatMap((page) => page.data) || [];
 

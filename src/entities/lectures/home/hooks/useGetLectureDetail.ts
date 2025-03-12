@@ -1,9 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-// import { getLectures } from '../api/getLectures';
 import { getLectureDetail } from '../api/getLectureDetail';
-// import { fetchLectures } from '../api/FetchLectures';
 
-// ✅ React Query 훅
+// ✅ 강의 상세 정보 훅
 export const useGetLectureDetail = (postId: number) => {
   return useQuery({
     queryKey: ['lecturesDetail', postId], // ✅ 쿼리 키 (캐싱)

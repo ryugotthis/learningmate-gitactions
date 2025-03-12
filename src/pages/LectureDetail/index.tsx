@@ -27,25 +27,34 @@ import { LectureReportModal } from '../../features/reports/LectureReportModal';
 // import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
 import { AlertMessage } from '../../shared/ui/Components/AlertMessage';
 import { useFormatDate } from '../../shared/util/useFormatDate';
+interface Sort {
+  name: string;
+  id: number;
+}
+const sortList: Sort[] = [
+  { name: '공감순', id: 0 },
+  { name: '최신순', id: 1 },
+];
 
 export const LectureDetail = () => {
   const { id } = useParams(); // ✅ URL에서 id 추출
   const postId = Number(id); // 문자열을 숫자로 변환
 
   const { data: lecture } = useGetLectureDetail(postId); // 강의 상세 데이터
-  const [searchText, setSearchText] = useState('');
-
-  // const { data: upvoteData } = useGetUpVoteOpinion(postId); // 강의의 추천 의견들 데이터
-  // 처음엔 3개 항목만 보여주고, 버튼 클릭 시 10개씩 추가로 보여줍니다.
-  const [visibleCount, setVisibleCount] = useState(3);
+  const [searchText, setSearchText] = useState(''); // 검색 데이터 내용
+  const [visibleCount, setVisibleCount] = useState(3); // 의견 목록 최초 3개만 보여주기 더보기 버튼 누르면 10개 더 보여주기
   const [isMoreOpen, setIsMoreOpen] = useState(false); // 더보기 버튼 상태 관리
   const [isReportModalOpen, setIsReportModalOpen] = useState(false); // 신고버튼 상태 관리
-  // const lecture = lecturesData?.find((lecture: any) => lecture.id === postId);
-  const [selected, setSelected] = useState('추천'); // 테블릿 모바일버전 추천/비추천 선택 상태 관리
-  const menuRef = useRef<HTMLDivElement>(null);
+  const [selected, setSelected] = useState('추천'); // 테블릿 모바일버전 추천/비추천 카드 선택 상태 관리
+  const menuRef = useRef<HTMLDivElement>(null); // 신고 버튼
+  const sortRef = useRef<HTMLDivElement>(null); // 신고 버튼
+  // 정렬 부분
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false); // 정렬 창 오픈
+  const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]); // 정렬 선택
 
   const [reportSuccess, setReportSuccess] = useState(false); // 신고 성공 메시지 상태 관리
-  // 모달 닫힘 후 호출되는 신고 성공 콜백
+
+  // 모달 닫힘 후 호출되는 신고 성공 메시지 콜백
   const handleReportSuccess = () => {
     setReportSuccess(true);
     // 2초 후에 성공 메시지 숨김
@@ -60,6 +69,9 @@ export const LectureDetail = () => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMoreOpen(false);
       }
+      if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
+        setIsSortDropdownOpen(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -67,6 +79,18 @@ export const LectureDetail = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
+  //       setIsSortDropdownOpen(false);
+  //     }
+  //   };
+
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, []);
 
   // console.log('보자', upvoteData);
   console.log('🟨강의상세데이터', lecture);
@@ -163,12 +187,31 @@ export const LectureDetail = () => {
                 />
                 <SearchIcon className="" />
               </div>
-              <button className="flex items-center h-[48px] px-[24px] gap-[4px] border rounded-4xl text-[16px]">
-                <p className="text-sm-600 md:text-md-600 whitespace-nowrap">
-                  공감순
-                </p>
-                <DownIcon className="w-[18px] " />
-              </button>
+              <div ref={sortRef} className="relative">
+                <button
+                  onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
+                  className="flex gap-[4px] h-[40px] md:h-[48px] focus-within:outline-none justify-center items-center border pl-[24px] pr-[20px] border-surface-line border-opacity-100  text-font-sub-default rounded-4xl"
+                >
+                  <p className="text-sm-600 md:text-md-600 whitespace-nowrap">
+                    {sortSelected.name}
+                  </p>
+                  <DownIcon className="w-[18px] " />
+                </button>
+
+                {isSortDropdownOpen && (
+                  <ul className="absolute w-[121px] mt-[7px] text-[16px] font-medium bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)]">
+                    {sortList.map((sort) => (
+                      <li
+                        key={sort.id}
+                        onClick={() => setSortSelected(sort)}
+                        className="py-[12px] px-[16px] cursor-pointer text-font-sub text-md-500 whitespace-nowrap hover:bg-surface-dark"
+                      >
+                        {sort.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
             {/* 모바일,테블릿 추천 비추천 선택 박스 */}
             <div

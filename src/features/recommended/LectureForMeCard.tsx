@@ -12,6 +12,7 @@ import { UpVoteButtonContainer } from './UpVoteButtonContainer';
 interface LectureCardForMeProps {
   data: LectureData;
   onClick?: () => void; // ✅ onClick을 선택적 prop으로 추가 onClick?: () => void; // ✅ onClick을 선택적 prop으로 추가
+  sort: string;
 }
 
 // 날짜 형식 변경
@@ -26,6 +27,8 @@ const formatDate = (isoString: string) => {
 export const LecturesForMECard: React.FC<LectureCardForMeProps> = ({
   data,
   onClick,
+
+  sort,
 }) => {
   return (
     <>
@@ -35,7 +38,11 @@ export const LecturesForMECard: React.FC<LectureCardForMeProps> = ({
       >
         {/* 추천버튼 */}
         <div onClick={(e) => e.stopPropagation()}>
-          <UpVoteButtonContainer postId={data.id} likes={data.likes} />
+          <UpVoteButtonContainer
+            postId={data.id}
+            likes={data.likes}
+            sort={sort}
+          />
         </div>
 
         <div className="flex flex-col gap-[24px]">

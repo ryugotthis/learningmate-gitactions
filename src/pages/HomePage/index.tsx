@@ -12,36 +12,18 @@ import FilterModal from '../../features/lectures/ui/FilterModal';
 import { useFilterList } from '../../entities/filter/model/store';
 import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
 
-// import { LectureCardList } from '../../features/lectures/ui/LectureCardList';
 import { LectureCardListHomeContainer } from '../../features/lectures/ui/home/LectureCardHomeContainer';
-
-interface Lecture {
-  name: string;
-  id: number;
-}
-
-const allLectures: Lecture[] = [
-  { name: '패스트캠퍼스', id: 0 },
-  { name: '유데미', id: 1 },
-  { name: '콜로소', id: 2 },
-  { name: '인프런', id: 3 },
-  { name: '클래스101', id: 4 },
-  { name: '노마드코더', id: 5 },
-  { name: '제로베이스', id: 6 },
-  { name: '코드스테이츠', id: 7 },
-  { name: '생활코딩', id: 8 },
-  { name: '멋쟁이사자처럼', id: 9 },
-];
 
 interface Sort {
   name: string;
   id: number;
+  query: string;
 }
 const sortList: Sort[] = [
-  { name: '추천순', id: 0 },
-  { name: '비추천순', id: 1 },
-  { name: '최신순', id: 2 },
-  { name: '조회 많은 순', id: 3 },
+  { name: '추천순', id: 0, query: 'likes' },
+  { name: '비추천순', id: 1, query: 'dislikes' },
+  { name: '최신순', id: 2, query: 'desc' },
+  { name: '조회 많은 순', id: 3, query: 'views' },
 ];
 
 export const HomePage = () => {
@@ -74,14 +56,14 @@ export const HomePage = () => {
   //필터 사이트 전역 리스트
   const { filterList } = useFilterList();
 
-  const { data: platforms, isLoading, isError, error } = useGetPlatforms();
+  const { data: platforms } = useGetPlatforms();
   console.log('플랫폼데이터', platforms);
   console.log('h2');
 
   return (
     <>
-      <div>{isLoading && <p>⏳ 로딩 중...</p>}</div>
-      <div>{isError && <p>❌ 오류 발생: {error.message}</p>}</div>
+      {/* <div>{isLoading && <p>⏳ 로딩 중...</p>}</div>
+      <div>{isError && <p>❌ 오류 발생: {error.message}</p>}</div> */}
       <Header />
       <header className="flex flex-col items-center">
         <div className=" flex justify-between items-center gap-[72px] my-[120px]">
@@ -94,9 +76,6 @@ export const HomePage = () => {
             </p>
 
             <SearchBar isNaveBar={false} />
-            {/* </div> */}
-            {/* </div> */}
-            {/* </div> */}
           </div>
         </div>
       </header>
@@ -159,10 +138,13 @@ export const HomePage = () => {
           </div>
           {filterList && (
             <ul className="flex">
-              {filterList.map((filter) => (
-                <li className="border-2 border-primary-default rounded-4xl mx-1 my-1 text-sm font-bold text-primary-default px-3 py-1">
-                  {allLectures.map(
-                    (lecture) => lecture.id === filter && lecture.name
+              {filterList.map((filter, index) => (
+                <li
+                  key={index}
+                  className="border-2 border-primary-default rounded-4xl mx-1 my-1 text-sm font-bold text-primary-default px-3 py-1"
+                >
+                  {platforms.map(
+                    (platform: any) => platform.id === filter && platform.title
                   )}
                 </li>
               ))}
@@ -170,7 +152,7 @@ export const HomePage = () => {
           )}
           {/* 본문 카드 */}
           <div className="mb-[100px]">
-            <LectureCardListHomeContainer />
+            <LectureCardListHomeContainer sort={sortSelected.query} />
             {/* <LectureCardList /> */}
           </div>
 

@@ -12,7 +12,7 @@ export const BookmarkButton = ({ postId }: { postId: number }) => {
   const { mutate: createBookmark } = useCreateBookMark();
   const { mutate: deleteBookmark } = useDeleteBookMark();
   const { data: bookmarkState } = useGetBookmarkState(postId);
-  console.log('북마크상태', postId, bookmarkState);
+  // console.log('북마크상태', postId, bookmarkState);
   const handleBookmarkButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     // 이벤트 버블링(버튼 클릭 시 부모 요소에 이벤트 전파) 중지
     e.stopPropagation();

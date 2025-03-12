@@ -44,16 +44,16 @@ export const apiClient = axios.create({
 
 export const getDemandLecture = async ({
   page,
-  size,
+
   sort,
 }: {
   page: number;
-  size: number;
+
   sort: string;
 }): Promise<any> => {
   console.log('플랫폼 요청 URL:', `${apiClient.defaults.baseURL}/platforms`);
   const response = await apiClient.get(
-    `/demand-lectures?page=${page}&size?${size}&sort=${sort}`
+    `/demand-lectures?page=${page}` + `${sort ? `&sort=${sort},desc` : ''}`
   );
   console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
 
