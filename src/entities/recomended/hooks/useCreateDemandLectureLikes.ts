@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createLikes } from '../api/createLikes';
 
-export const useCreateLikes = (sort: string) => {
+export const useCreateLikes = () => {
   // const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -17,7 +17,7 @@ export const useCreateLikes = (sort: string) => {
       await queryClient.cancelQueries({
         queryKey: ['demandLectureDetailItem', postId],
       });
-      await queryClient.cancelQueries({ queryKey: ['demandLectures', sort] });
+      await queryClient.cancelQueries({ queryKey: ['demandLectures'] });
       // postLikesStatus
       await queryClient.cancelQueries({
         queryKey: ['postLikesStatus', postId],
@@ -40,7 +40,7 @@ export const useCreateLikes = (sort: string) => {
       ]);
 
       // Optimistic update: 각 캐시에서 좋아요 수 및 상태 변경 (데이터 구조에 맞게 수정)
-      queryClient.setQueryData(['demandLecture', sort], (oldData: any) => {
+      queryClient.setQueryData(['demandLecture'], (oldData: any) => {
         if (oldData) {
           return { ...oldData, likes: oldData.likes + 1 };
         }
@@ -76,7 +76,7 @@ export const useCreateLikes = (sort: string) => {
       console.log('에러:', err);
       // 에러 발생 시 이전 상태로 롤백
       queryClient.setQueryData(
-        ['demandLecture', sort],
+        ['demandLecture'],
         context?.previousDemandLecture
       );
       queryClient.setQueryData(
@@ -99,7 +99,7 @@ export const useCreateLikes = (sort: string) => {
       queryClient.invalidateQueries({
         queryKey: ['demandLectureDetailItem', postId],
       });
-      queryClient.invalidateQueries({ queryKey: ['demandLectures', sort] });
+      queryClient.invalidateQueries({ queryKey: ['demandLectures'] });
       queryClient.invalidateQueries({ queryKey: ['postLikesStatus', postId] });
     },
   });

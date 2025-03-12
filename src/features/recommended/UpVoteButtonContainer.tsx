@@ -9,7 +9,7 @@ interface UpVoteButtonProps {
   // isVoteUpClicked: boolean;
   postId: number;
   likes: number;
-  sort: string;
+  // sort?: string;
 }
 
 export const UpVoteButtonContainer = ({
@@ -17,14 +17,14 @@ export const UpVoteButtonContainer = ({
   // isVoteUpClicked,
   postId,
   likes,
-  sort,
-}: UpVoteButtonProps) => {
+}: // sort = 'likes',
+UpVoteButtonProps) => {
   // const { mutate } = usePostDemandLectureLikes();
 
   // const { likedPosts, toggleLike } = useLikeStore();
   // const isLiked = likedPosts instanceof Set && likedPosts.has(postId);
   // 추천 포스트 api
-  const { mutate: likeMutate } = useCreateLikes(sort);
+  const { mutate: likeMutate } = useCreateLikes();
   const { mutate: unLikeMutate } = useDeleteLikes();
   const { data: postLikesStatus } = useGetPostLikeStatus(postId);
 

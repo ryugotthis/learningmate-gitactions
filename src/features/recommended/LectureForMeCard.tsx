@@ -27,8 +27,6 @@ const formatDate = (isoString: string) => {
 export const LecturesForMECard: React.FC<LectureCardForMeProps> = ({
   data,
   onClick,
-
-  sort,
 }) => {
   return (
     <>
@@ -38,11 +36,7 @@ export const LecturesForMECard: React.FC<LectureCardForMeProps> = ({
       >
         {/* 추천버튼 */}
         <div onClick={(e) => e.stopPropagation()}>
-          <UpVoteButtonContainer
-            postId={data.id}
-            likes={data.likes}
-            sort={sort}
-          />
+          <UpVoteButtonContainer postId={data.id} likes={data.likes} />
         </div>
 
         <div className="flex flex-col gap-[24px]">
