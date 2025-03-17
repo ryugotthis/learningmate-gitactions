@@ -1,38 +1,55 @@
-import { useState } from 'react';
-// import Bookmark from '../../../../shared/ui/icons/BookMark.svg';
+// 데이터 커스텀 훅
+import { useCreateBookMark } from '../../../../entities/bookmarks/hook/useCreateBookMark';
+import { useDeleteBookMark } from '../../../../entities/bookmarks/hook/useDeleteBookMark';
+import { useGetBookmarkState } from '../../../../entities/bookmarks/hook/useGetBookmarkExist';
+import { useReissue } from '../../../../entities/auth/hooks/useReissue';
+import { useAuthStore } from '../../../../shared/store/authstore';
+// 아이콘
 import { BookmarkIcon } from '../../../../shared/ui/icons/BookmarkIcon';
 import { BookmarkFiledIcon } from '../../../../shared/ui/icons/BookmarkFiledIcon';
-import { useCreateBookMark } from '../../../../entities/lectures/home/hooks/useCreateBookMark';
-import { useDeleteBookMark } from '../../../../entities/lectures/home/hooks/useDeleteBookMark';
-
-import { useGetBookmarkState } from '../../../../entities/lectures/home/hooks/useGetBookmarkExist';
 
 export const BookmarkButton = ({ postId }: { postId: number }) => {
-  const [isToggled, setIsToggled] = useState(false);
-  const { mutate: createBookmark } = useCreateBookMark();
-  const { mutate: deleteBookmark } = useDeleteBookMark();
-  const { data: bookmarkState } = useGetBookmarkState(postId);
-  // console.log('북마크상태', postId, bookmarkState);
+  const { mutate: reissue } = useReissue(); // 토큰 재발급
+  const { isLoggedIn } = useAuthStore(); // 로그인 상태
+  const { mutate: createBookmark } = useCreateBookMark(); // 북마크 생성
+  const { mutate: deleteBookmark } = useDeleteBookMark(); // 북마크 삭제
+  const { data: bookmarkState } = useGetBookmarkState(postId); // 북마크된 데이터
+
+  // 북마크 버튼 실행 함수
   const handleBookmarkButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     // 이벤트 버블링(버튼 클릭 시 부모 요소에 이벤트 전파) 중지
     e.stopPropagation();
-    setIsToggled((prev) => !prev);
-    if (!isToggled) {
-      createBookmark({ postId: postId });
-    } else {
-      deleteBookmark(postId);
+    if (!isLoggedIn) {
+      alert('로그인이 필요해');
     }
-
-    // mutate 호출 시, onSuccess 콜백 내에서 토글 상태 변경
-
-    console.log(postId);
+    if (isLoggedIn) {
+      // reissue 호출
+      reissue(undefined, {
+        onSuccess: () => {
+          // reissue가 성공하면, 현재 토글 상태에 따라 북마크 생성 또는 삭제
+          if (!bookmarkState) {
+            createBookmark({ postId });
+          } else {
+            deleteBookmark(postId);
+          }
+        },
+        onError: (error) => {
+          console.error('reissue 실패', error);
+          alert('로그인이 필요해');
+        },
+      });
+    }
   };
 
   return (
     <>
       <button onClick={(e) => handleBookmarkButton(e)} className="text-line">
-        {bookmarkState ? (
-          <BookmarkFiledIcon className="text-primary-default" />
+        {isLoggedIn ? (
+          bookmarkState ? (
+            <BookmarkFiledIcon className="text-primary-default" />
+          ) : (
+            <BookmarkIcon />
+          )
         ) : (
           <BookmarkIcon />
         )}

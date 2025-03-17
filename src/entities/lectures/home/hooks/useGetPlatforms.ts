@@ -6,7 +6,7 @@ export const useGetPlatforms = () => {
   return useQuery({
     queryKey: ['platforms'],
     queryFn: getPlatforms,
-    staleTime: 5000,
+    staleTime: Infinity, // 데이터가 영원히 신선하게 유지
     refetchOnWindowFocus: false,
   });
 };

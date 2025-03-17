@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 // import { useGetLectures } from '../../entities/lectures/home/hooks/useGetLectures';
-import { CommentList } from '../../features/recommended/CommemtList';
-import { CommentInput } from '../../features/recommended/CommentInput';
+import { CommentList } from '../../widgets/comment/CommemtList';
+import { CommentInput } from '../../widgets/comment/CommentInput';
 // import { BookmarkIcon } from '../../shared/ui/icons/BookmarkIcon';
 import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
 import { DateIcon } from '../../shared/ui/icons/DateIcon';
@@ -13,7 +13,7 @@ import { StartIcon } from '../../shared/ui/icons/StartIcon';
 
 import { ViewsIcon } from '../../shared/ui/icons/ViewsIcon';
 import Header from '../../widgets/header';
-import Infren from '../../widgets/header/ui/icons/Infren.svg';
+import Infren from '../../shared/ui/icons/Infren.svg';
 
 // import { useGetUpVoteOpinion } from '../../entities/lectures/home/opinion/hooks/useGetUpVoteOpinion';
 import { UpVoteCard } from '../../features/lectures/ui/home/UpVoteCard';
@@ -30,10 +30,11 @@ import { useFormatDate } from '../../shared/util/useFormatDate';
 interface Sort {
   name: string;
   id: number;
+  query: string;
 }
 const sortList: Sort[] = [
-  { name: '공감순', id: 0 },
-  { name: '최신순', id: 1 },
+  { name: '공감순', id: 0, query: 'likes' },
+  { name: '최신순', id: 1, query: 'desc' },
 ];
 
 export const LectureDetail = () => {
@@ -258,12 +259,14 @@ export const LectureDetail = () => {
                   postId={lecture?.id}
                   visibleCount={visibleCount}
                   searchText={searchText}
+                  sort={sortSelected.query}
                 />
               ) : (
                 <DownVoteCard
                   postId={lecture?.id}
                   visibleCount={visibleCount}
                   searchText={searchText}
+                  sort={sortSelected.query}
                 />
               )}
             </div>
@@ -275,6 +278,7 @@ export const LectureDetail = () => {
                 postId={lecture?.id}
                 visibleCount={visibleCount}
                 searchText={searchText}
+                sort={sortSelected.query}
               />
 
               {/* 비추천 박스 */}
@@ -282,6 +286,7 @@ export const LectureDetail = () => {
                 postId={lecture?.id}
                 visibleCount={visibleCount}
                 searchText={searchText}
+                sort={sortSelected.query}
               />
             </div>
             {/* 더보기 버튼 */}

@@ -1,12 +1,4 @@
-import axios from 'axios';
-
-export const apiClient = axios.create({
-  baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true, // 쿠키를 포함한 요청 허용
-});
+import { apiClient } from '../../../../shared/api/apiClient';
 
 export const getLecturesTitle = async (
   title: string,
@@ -16,7 +8,8 @@ export const getLecturesTitle = async (
   const response = await apiClient.get(
     `/lectures/titles?` +
       `${title ? `title=${title}` : ''}` +
-      `${platform ? `platform=${platform}` : ''}`
+      `${platform !== '전체' ? `&platform=${platform}` : ''}`
+    // `&platform=패스트캠퍼스`
   );
 
   console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력

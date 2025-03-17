@@ -10,7 +10,7 @@ import { useReissue } from '../../entities/auth/hooks/useReissue';
 import { ErrorIcon } from '../../shared/ui/icons/ErrorIcon';
 import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
 import { useFormatDate } from '../../shared/util/useFormatDate';
-import { LectureForMEReportModal } from '../reports/LectureForMeReportModal';
+import { LectureForMEReportModal } from '../../features/reports/LectureForMeReportModal';
 import { AlertMessage } from '../../shared/ui/Components/AlertMessage';
 interface CommentCardProps {
   data: any;
@@ -25,7 +25,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
   // 수정 에디터 vs 읽기 전용
   const [editMode, setEditMode] = useState(false);
   const [editedComment, setEditedComment] = useState(data.content); // 기존 댓글 내용을 초기값으로 저장
-  const [submitStatus, setSubmitStatus] = useState<string | null>(null); // 성공/실패 상태 관리
+  const [submitStatus, setSubmitStatus] = useState<string | null>(null); // 성공/실패 메시지 상태 관리
   // const [isMoreToggled, setIsMoreToggled] = useState(false); // 더보기 버튼 상태 관리
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [reportSuccess, setReportSuccess] = useState(false); // 신고 성공 메시지 상태 관리
@@ -79,7 +79,12 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+  // 댓글 등록 버튼 함수
   const handleEditCommentRegister = () => {
+    if (!editedComment.trim()) {
+      setSubmitStatus('noText');
+      return;
+    }
     console.log('수정데이터', editedComment);
     // put API로 댓글 수정 요청
     try {
@@ -241,20 +246,28 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
           </div>
         </div>
       )}
-      <div className="absolute w-full bottom-[-100px] flex justify-center">
-        {/* 등록 결과 메시지 */}
-        {submitStatus === 'error' && (
-          <div className="bg-white flex gap-[6px] border-2 border-error rounded-4xl px-[24px] py-[12px]">
-            <ErrorIcon className="text-error" />
-            <p className="font-bold">글 등록 실패! 다시 시도해줄래?</p>
-          </div>
-        )}
-        {submitStatus === 'success' && (
-          <div className="bg-white flex gap-[6px] border-2 border-primary-default rounded-4xl px-[24px] py-[12px]">
-            <CheckIcon className="text-primary-default" />
-            <p className="font-bold">글 등록 성공!</p>
-          </div>
-        )}
+      <div className="fixed left-0 right-0 w-full bottom-[50px] flex justify-center">
+        <div>
+          {/* 등록 결과 메시지 */}
+          {submitStatus === 'error' && (
+            <div className="bg-white flex gap-[6px] border-2 border-error rounded-4xl px-[24px] py-[12px]">
+              <ErrorIcon className="text-error" />
+              <p className="font-bold">글 등록 실패! 다시 시도해줄래?</p>
+            </div>
+          )}
+          {submitStatus === 'success' && (
+            <div className="bg-white flex gap-[6px] border-2 border-primary-default rounded-4xl px-[24px] py-[12px]">
+              <CheckIcon className="text-primary-default" />
+              <p className="font-bold">글 등록 성공!</p>
+            </div>
+          )}
+          {submitStatus === 'noText' && (
+            <div className="bg-white flex gap-[6px] border-2 border-error rounded-4xl px-[24px] py-[12px]">
+              <ErrorIcon className="text-error" />
+              <p className="font-bold">댓글 내용을 입력해줘!</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

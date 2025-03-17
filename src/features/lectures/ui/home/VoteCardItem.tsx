@@ -16,6 +16,7 @@ import { DownVoteButtonContainer } from './DownVoteButtonContainer';
 import { DownVoteEditOpinionModal } from './DownVoteEditOpinionModal';
 import { useDeleteDownVoteOpinion } from '../../../../entities/lectures/home/opinion/hooks/useDeleteDownVoteOpinion';
 import { UpArrowIcon } from '../../../../shared/ui/icons/UpArrowIcon';
+import { useGetUser } from '../../../../entities/auth/hooks/useGetUser ';
 
 // 플러그인을 전역에 확장 (한 번만 호출)
 dayjs.extend(relativeTime);
@@ -33,7 +34,8 @@ export const VoteCardItem = ({
   const [isToggledDetail, setIsToggledDetail] = useState(false);
   const { mutate: deleteUpVoteOpinion } = useDeleteUpVoteOpinion(postId);
   const { mutate: deleteDownVoteOpinion } = useDeleteDownVoteOpinion(postId);
-  console.log('보자223232!!!!!!!!!!!!', opinion);
+  const { data: userData } = useGetUser();
+  console.log('보자223232!!!!!!!!!!!!', userData);
   // 모달의 열림/닫힘 상태를 저장할 state
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -125,22 +127,26 @@ export const VoteCardItem = ({
 
             {/* 버튼 */}
             <div className="flex p-[8px] gap-[12px]">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="px-[8px] py-[6px] tracking-[-0.1em]"
-              >
-                수정
-              </button>
-              <button
-                onClick={
-                  title === '추천'
-                    ? handleUpVoteDeleteOpinion
-                    : handleDownVoteDeleteOpinion
-                }
-                className="px-[8px] py-[6px] tracking-[-0.1em]"
-              >
-                삭제
-              </button>
+              {userData?.name === opinion.user.name && (
+                <>
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="px-[8px] py-[6px] tracking-[-0.1em]"
+                  >
+                    수정
+                  </button>
+                  <button
+                    onClick={
+                      title === '추천'
+                        ? handleUpVoteDeleteOpinion
+                        : handleDownVoteDeleteOpinion
+                    }
+                    className="px-[8px] py-[6px] tracking-[-0.1em]"
+                  >
+                    삭제
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </>

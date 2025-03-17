@@ -21,15 +21,16 @@
 //   return null;
 // };
 
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import { apiClient } from '../../../shared/api/apiClient';
 
-export const apiClient = axios.create({
-  baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true, // 쿠키를 포함한 요청 허용
-});
+// export const apiClient = axios.create({
+//   baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   withCredentials: true, // 쿠키를 포함한 요청 허용
+// });
 
 export const reissue = async () => {
   try {

@@ -6,12 +6,14 @@ export const DownVoteCard = ({
   postId,
   visibleCount,
   searchText,
+  sort,
 }: {
   postId: number;
   visibleCount: number;
   searchText: string;
+  sort: string;
 }) => {
-  const { data: downVoteData } = useGetDownVoteOpinion(postId);
+  const { data: downVoteData } = useGetDownVoteOpinion({ postId, sort });
   console.log('비추천 글확인!!:', downVoteData);
 
   return (

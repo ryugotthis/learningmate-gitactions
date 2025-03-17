@@ -1,18 +1,16 @@
-import { useAuthStore } from '../../shared/model/store';
-import { useLogout } from '../../entities/auth/hooks/useLogout';
-import { reissue } from '../../entities/auth/api/reissue';
-
+import { useEffect, useRef, useState } from 'react';
+// 컴포넌트
 import Header from '../../widgets/header';
 import SearchBar from '../../widgets/header/ui/SearchBar';
 import HomeLogo from '../../widgets/header/ui/icons/HomeLogo.svg';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
-import { useState } from 'react';
-import FilterModal from '../../features/lectures/ui/FilterModal';
-import { useFilterList } from '../../entities/filter/model/store';
-import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
-
+import FilterModal from '../../widgets/lecture/FilterModal';
 import { LectureCardListHomeContainer } from '../../features/lectures/ui/home/LectureCardHomeContainer';
+import { MoonLoader } from 'react-spinners';
+// 데이터 커스텀 훅
+import { useFilterList } from '../../shared/store/filterListStore';
+import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
 
 interface Sort {
   name: string;
@@ -27,43 +25,47 @@ const sortList: Sort[] = [
 ];
 
 export const HomePage = () => {
-  const { accessToken } = useAuthStore();
-  const useLogoutMutation = useLogout();
+  // 정렬
+  const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]); // 선택된 정렬 상태관리
+  const menuRef = useRef<HTMLDivElement>(null); //  정렬 메뉴의 DOM 요소를 참조
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false); // 정렬 메뉴가 클릭 상태관리
 
-  // 정렬 선택
-  const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]);
+  // 사이트 필터
+  const [isModalOpen, setIsModalOpen] = useState(false); // 사이트 필터 버튼 모달창 클릭 상태관리
+  const { filterList, clearFilterList } = useFilterList(); //필터 사이트 전역 리스트
+  const { data: platforms, isLoading, isError, error } = useGetPlatforms(); // 플랫폼 데이터
 
-  // 로그아웃 테스트
-  const logout = () => {
-    if (accessToken) useLogoutMutation.mutate();
-    else console.log('엑세스 토큰없음 로그인안했음');
-  };
+  // 페이지 진입 시 사이트 필터 초기화
+  useEffect(() => {
+    clearFilterList();
+  }, []);
 
-  const testReissue = async () => {
-    try {
-      const result = await reissue(); // reissue 함수 호출
-      console.log('reissue 성공:', result); // 결과 출력
-    } catch (error) {
-      console.error('reissue 실패:', error);
-    }
-  };
+  // 정렬 메뉴 외부 클릭 감지 로직
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsSortDropdownOpen(false);
+      }
+    };
 
-  // 사이트 버튼 모달창 부분
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  // 정렬 버튼 부분
-  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
-  //필터 사이트 전역 리스트
-  const { filterList } = useFilterList();
-
-  const { data: platforms } = useGetPlatforms();
-  console.log('플랫폼데이터', platforms);
-  console.log('h2');
+  // 플랫폼 데이터 에러, 로딩 처리
+  if (isError)
+    return <div className="text-error">error: {(error as Error).message}</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center">
+        <MoonLoader size={105} color="#17af6d" />
+      </div>
+    );
 
   return (
     <>
-      {/* <div>{isLoading && <p>⏳ 로딩 중...</p>}</div>
-      <div>{isError && <p>❌ 오류 발생: {error.message}</p>}</div> */}
       <Header />
       <header className="flex flex-col items-center">
         <div className=" flex justify-between items-center gap-[72px] my-[120px]">
@@ -79,7 +81,7 @@ export const HomePage = () => {
           </div>
         </div>
       </header>
-
+      {/* 사이트필터, 정렬버튼 및 본문 */}
       <div className="w-full flex flex-col items-center  pb-[120px]">
         <main className="w-[328px] md:w-[624px] lg:w-[1152px] flex flex-col gap-[40px]">
           {/* 추천강의 및 사이트 필터, 정렬 버튼 */}
@@ -109,7 +111,7 @@ export const HomePage = () => {
               </div>
 
               {/* 정렬 버튼 */}
-              <div className="">
+              <div ref={menuRef}>
                 <button
                   onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
                   // disabled={isModalOpen}
@@ -125,7 +127,10 @@ export const HomePage = () => {
                     {sortList.map((sort) => (
                       <li
                         key={sort.id}
-                        onClick={() => setSortSelected(sort)}
+                        onClick={() => {
+                          setSortSelected(sort);
+                          setIsSortDropdownOpen(false);
+                        }}
                         className="gap-1 py-3 px-3 cursor-pointer text-font-sub font-bold hover:bg-surface-dark"
                       >
                         {sort.name}
@@ -136,6 +141,7 @@ export const HomePage = () => {
               </div>
             </div>
           </div>
+          {/* 선택한 사이트 이름 적용 */}
           {filterList && (
             <ul className="flex">
               {filterList.map((filter, index) => (
@@ -143,8 +149,9 @@ export const HomePage = () => {
                   key={index}
                   className="border-2 border-primary-default rounded-4xl mx-1 my-1 text-sm font-bold text-primary-default px-3 py-1"
                 >
-                  {platforms.map(
-                    (platform: any) => platform.id === filter && platform.title
+                  {platforms?.map(
+                    (platform: any) =>
+                      platform.title === filter && platform.title
                   )}
                 </li>
               ))}
@@ -153,16 +160,9 @@ export const HomePage = () => {
           {/* 본문 카드 */}
           <div className="mb-[100px]">
             <LectureCardListHomeContainer sort={sortSelected.query} />
-            {/* <LectureCardList /> */}
           </div>
-
-          <button>더보기</button>
         </main>
       </div>
-
-      {/* <div>{accessToken}</div> */}
-      <button onClick={logout}>{accessToken ? '로그아웃' : '로그인'}</button>
-      <button onClick={testReissue}>사용자정보가져오기</button>
     </>
   );
 };

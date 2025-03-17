@@ -1,31 +1,5 @@
 import axios from 'axios';
-// import { useAuthStore } from '../../../shared/model/store';
-
-// export const apiClient3 = axios.create({
-//   baseURL: 'http://15.164.2.37/api/v1', // API 기본 URL
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   withCredentials: true, // 쿠키를 포함한 요청 허용
-// });
-
-export const apiClient = axios.create({
-  baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true, // 쿠키를 포함한 요청 허용
-});
-
-// 요청 인터셉터 설정
-// apiClient3.interceptors.request.use((config) => {
-//   const { accessToken } = useAuthStore.getState(); // Zustand의 getState로 accessToken 가져오기
-//   if (accessToken) {
-//     console.log('토큰확인', accessToken);
-//     config.headers['Authorization'] = `Bearer ${accessToken}`;
-//   }
-//   return config;
-// });
+import { apiClient } from '../../../shared/api/apiClient';
 
 // 로그아웃 함수
 export const logout = async (): Promise<any> => {

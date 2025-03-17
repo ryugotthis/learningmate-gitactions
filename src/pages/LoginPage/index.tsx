@@ -9,7 +9,7 @@ import Header from '../../widgets/header';
 import Failed from '../../shared/ui/icons/Failled.svg';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useErrorstore } from '../../entities/auth/model/store';
+import { useErrorstore } from '../../shared/store/errorStore';
 
 export const LoginPage = () => {
   const { mutate: login, isPending } = useLogin();

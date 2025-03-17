@@ -2,16 +2,16 @@
 // import { apiClient } from '../../../shared/api/axios';
 
 // Axios 기본 설정
-import axios from 'axios';
+// import axios from 'axios';
 
-export const apiClient = axios.create({
-  baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true, // 쿠키를 포함한 요청 허용
-});
-
+// export const apiClient = axios.create({
+//   baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   withCredentials: true, // 쿠키를 포함한 요청 허용
+// });
+import { authApiClient } from '../../../shared/api/authApiClient';
 export interface LoginPayload {
   email: string; // 사용자 ID
   password: string; // 비밀번호
@@ -28,7 +28,7 @@ export const login = async (data: LoginPayload): Promise<any> => {
   try {
     console.log('로그인데이터', data);
 
-    const response = await apiClient.post('/login', data);
+    const response = await authApiClient.post('/login', data);
 
     // 서버로부터 받은 데이터 반환
     return response.data;

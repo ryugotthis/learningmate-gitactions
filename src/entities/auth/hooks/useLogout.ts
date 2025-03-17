@@ -1,5 +1,5 @@
 import { logout } from '../api/logout';
-import { useAuthStore } from '../../../shared/model/store';
+import { useAuthStore } from '../../../shared/store/authstore';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 

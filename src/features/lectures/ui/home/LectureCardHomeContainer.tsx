@@ -1,25 +1,50 @@
 import { useState } from 'react';
+//  데이터 커스텀 훅
 import { useGetLectures } from '../../../../entities/lectures/home/hooks/useGetLectures';
-import { LectureCardList } from '../LectureCardList';
-import InfiniteScroll from 'react-infinite-scroller';
 import { useSearchStore } from '../../model/useLectureStore';
+import { useFilterList } from '../../../../shared/store/filterListStore';
+// 컴포넌트
+import { LectureCardList } from '../../../../widgets/lecture/LectureCardList';
+import InfiniteScroll from 'react-infinite-scroller';
+import { MoonLoader } from 'react-spinners';
 
 export const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
-  // const { data: lecture } = useGetLectures();
-  // console.log('강의모든 데이터:', lecture);
+  const { filterList } = useFilterList(); // 선택된 플랫폼 필터 리스트
   const { searchTitle: title } = useSearchStore(); // 검색창 제목 검색어
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetLectures({ sort, title });
-  // 각 페이지의 데이터를 하나의 배열로 합치기
-  const lectures = data?.pages.flatMap((page) => page.data) || [];
+  const {
+    // 강의 데이터
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isPending,
+    isError,
+    error,
+  } = useGetLectures({
+    platforms: filterList,
+    sort,
+    title,
+  });
 
-  // 최초 로드 후 상태를 결정할 state
-  const [manualLoadTriggered, setManualLoadTriggered] = useState(false);
+  const lectures = data?.pages.flatMap((page) => page.data) || []; // 각 페이지의 데이터를 하나의 배열로 합치기
+
+  const [manualLoadTriggered, setManualLoadTriggered] = useState(false); // 더보기 버튼 눌림 상태
 
   const handleManualLoad = () => {
+    // 더보기 버튼누르고 무한쿼리 실행
     fetchNextPage();
     setManualLoadTriggered(true);
   };
+  // 강의데이터 에러, 로딩 처리
+  if (isError)
+    return <div className="text-error">error: {(error as Error).message}</div>;
+  if (isPending || isLoading)
+    return (
+      <div className="flex justify-center">
+        <MoonLoader size={105} color="#17af6d" />
+      </div>
+    );
 
   return (
     <>
@@ -45,7 +70,7 @@ export const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
                 disabled={isFetchingNextPage}
                 className="h-[48px] px-[24px] border border-line rounded-4xl text-font-sub text-md-600"
               >
-                {isFetchingNextPage ? 'Loading...' : '더보기'}
+                {isFetchingNextPage ? '로딩중...' : '더보기'}
               </button>
             )}
           </div>

@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { useErrorstore } from '../model/store';
+import { useErrorstore } from '../../../shared/store/errorStore';
 import { updatePassword, newPassword } from '../api/updatePassword';
 
 // 로그인 훅

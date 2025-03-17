@@ -1,10 +1,10 @@
 // //로그인 훅
 import { useMutation } from '@tanstack/react-query';
 import { login, LoginPayload } from '../api/login';
-import { useAuthStore } from '../../../shared/model/store';
+import { useAuthStore } from '../../../shared/store/authstore';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { useErrorstore } from '../model/store';
+import { useErrorstore } from '../../../shared/store/errorStore';
 
 // 로그인 훅
 export const useLogin = () => {

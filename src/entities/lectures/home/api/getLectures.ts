@@ -1,38 +1,25 @@
-import axios from 'axios';
-
-export const apiClient = axios.create({
-  baseURL: 'https://15.164.2.37/api/v1', // 가상의 API 기본 URL
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true, // 쿠키를 포함한 요청 허용
-});
+import { apiClient } from '../../../../shared/api/apiClient';
 
 export const getLectures = async ({
   pageParam,
-  platform,
+  platforms,
   title,
   sort = 'likes',
 }: {
   pageParam?: number;
-  platform?: string;
+  platforms?: string[];
   title?: string | null;
   sort?: string;
 }): Promise<any> => {
-  console.log('타입', sort);
-  console.log(
-    '🟨🟨❤🟨🟨강의데이터 요청 URL:',
-    `${apiClient.defaults.baseURL}/lectures?size=9&page=0` +
-      `${platform ? `&platform=${encodeURIComponent(platform)}` : ''}` +
-      `${title ? `&title=${encodeURIComponent(title)}` : ''}` +
-      `${sort === 'desc?' ? `&sort=desc` : `&sort=${sort},desc`}`
-  );
-  const response = await apiClient.get(
-    `/lectures?size=9&page=${pageParam}` +
-      `${platform ? `&platform=${encodeURIComponent(platform)}` : ''}` +
-      `${title ? `&title=${encodeURIComponent(title)}` : ''}` +
-      `${sort === 'desc' ? `&sort=desc` : `&sort=${sort},desc`}`
-  );
+  const platformsQuery = platforms
+    ? `&platforms=${platforms.map(encodeURIComponent).join(',')}`
+    : '';
+  const titleQuery = title ? `&title=${encodeURIComponent(title)}` : '';
+  const sortQuery =
+    sort === 'desc' ? `&sort=createTime,desc` : `&sort=${sort},desc`;
+  const url = `/lectures?size=9&page=${pageParam}${platformsQuery}${titleQuery}${sortQuery}`;
+  console.log('요청 URL:', apiClient.defaults.baseURL + url);
+  const response = await apiClient.get(url);
 
   console.log('🥰test API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
 

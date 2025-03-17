@@ -1,4 +1,4 @@
-import { ReportModal } from '../../widgets/header/ui/components/ReportModal';
+import { ReportModal } from '../../shared/ui/Components/ReportModal';
 
 interface ReportModalProps {
   // isOpen: boolean;

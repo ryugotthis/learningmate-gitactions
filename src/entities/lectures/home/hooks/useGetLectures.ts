@@ -2,25 +2,25 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { getLectures } from '../api/getLectures';
 // import { fetchLectures } from '../api/FetchLectures';
 export const useGetLectures = ({
-  platform,
+  platforms,
   title,
   sort,
 }: {
-  platform?: string;
+  platforms?: string[];
   title?: string | null;
   sort?: string;
 }) => {
   return useInfiniteQuery({
-    queryKey: ['lectures', { platform, title, sort }],
+    queryKey: ['lectures', { platforms, title, sort }],
     queryFn: ({ pageParam, queryKey }) => {
       // queryKey의 두 번째 요소에서 추가 인자 추출
       const [_key, params] = queryKey as [
         string,
-        { platform?: string; title?: string; sort?: string }
+        { platforms?: string[]; title?: string; sort?: string }
       ];
       return getLectures({
         pageParam,
-        platform: params.platform,
+        platforms: params.platforms,
         title: params.title,
         sort: params.sort,
       });

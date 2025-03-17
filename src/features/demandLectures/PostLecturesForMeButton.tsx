@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import PlusIcon from '../../widgets/header/ui/icons/PlusIcon';
 import { useReissue } from '../../entities/auth/hooks/useReissue';
-import { useAuthStore } from '../../shared/model/store';
+import { useAuthStore } from '../../shared/store/authstore';
 
 export const PostLectureForMeButton = () => {
   const navigate = useNavigate();

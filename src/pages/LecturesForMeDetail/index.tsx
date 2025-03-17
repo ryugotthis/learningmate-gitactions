@@ -9,11 +9,11 @@ import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
 import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
 
 // 컴포넌트
-import { CommentInput } from '../../features/recommended/CommentInput';
-import { CommentList } from '../../features/recommended/CommemtList';
-import { UpVoteButton2 } from '../../features/recommended/UpVoteButton2';
+import { CommentInput } from '../../widgets/comment/CommentInput';
+import { CommentList } from '../../widgets/comment/CommemtList';
+import { UpVoteButton2 } from '../../features/demandLectures/UpVoteButton2';
 import { OptionsMenu } from '../../widgets/menu/ui/recommand/OptionsMenu';
-import { UpVoteButtonContainer } from '../../features/recommended/UpVoteButtonContainer';
+import { UpVoteButtonContainer } from '../../features/demandLectures/UpVoteButtonContainer';
 import Editor from '../../shared/ui/icons/Editor';
 
 // 훅
@@ -87,7 +87,7 @@ export const LecturesForMeDetail = () => {
           </div>
           <div className="flex justify-between">
             <div className="flex items-center gap-[16px]">
-              {lecture.user.profileImage ? (
+              {lecture?.user?.profileImage ? (
                 <img
                   src={lecture.user.profileImage}
                   className="w-[40px] h-[40px]"
@@ -97,28 +97,28 @@ export const LecturesForMeDetail = () => {
                 <ProfileIcon />
               )}
               <span className="text-sm-400 text-font-default">
-                {lecture.user.name}
+                {lecture?.user?.name}
               </span>
             </div>
             {/* 옵션 메뉴 */}
-            <OptionsMenu name={lecture.user.name} postId={lecture.id} />
+            <OptionsMenu name={lecture?.user?.name} postId={lecture.id} />
           </div>
         </header>
         {/* 본문 영역 */}
         <section className="relative p-5 h-100">
-          <Editor initialData={lecture.content} readOnly={true} />
+          <Editor initialData={lecture?.content} readOnly={true} />
 
           {/* UpVote 버튼 */}
           <aside className="hidden lg:block absolute left-[-60px] top-1/3 transform -translate-y-1/2 ">
             <UpVoteButtonContainer
               // onClick={() => handleVoteUpButton(lecture.id)}
               // isVoteUpClicked={isVoteUpClicked}
-              postId={lecture.id}
-              likes={lecture.likes}
+              postId={lecture?.id}
+              likes={lecture?.likes}
             />
           </aside>
           <aside className="lg:hidden fixed right-[16px] md:right-[120px] bottom-[50px] z-50">
-            <UpVoteButton2 postId={lecture.id} />
+            <UpVoteButton2 postId={lecture?.id} />
             {/* <button className="fixed flex justify-center items-center w-[64px] h-[64px] rounded-full border-2 border-primary-default bg-white right-[100px] bottom-[100px] z-50">
               <UpVoteIcon className="text-primary-default w-[24px] h-[24px]" />
             </button> */}

@@ -6,109 +6,38 @@ import { HomePage } from '../../pages/HomePage';
 import { LecturesForMe } from '../../pages/LecturesForMe';
 import { MyActivity } from '../../pages/MyActivity';
 import { LecturesForMeDetail } from '../../pages/LecturesForMeDetail';
-import ScrollToTop from '../../shared/ui/ScrollToTop';
+import ScrollToTop from '../../shared/lib/ScrollToTop';
 import { LecturesForMePost } from '../../pages/LecturesForMePost';
-import { TestTiptap } from '../../pages/TestTiptap/inedx';
 import { LectureDetail } from '../../pages/LectureDetail';
 import { LecturesForMePut } from '../../pages/LecturesForMePut';
 import { MyPage } from '../../pages/MyPage';
+import { ErrorPage } from '../../pages/ErrorPage';
 
 export const RouterProvider = () => {
   return (
     <BrowserRouter>
-      <ScrollToTop /> {/* ✅ 모든 페이지 이동 시 최상단으로 이동 */}
+      <ScrollToTop />
       <Routes>
-        {/* 기본 경로를 로그인 페이지로 리다이렉트 */}
-        <Route
-          path="/"
-          element={
-            <App>
-              <HomePage />
-            </App>
-          }
-        />
-        <Route
-          path="/my-page"
-          element={
-            <App>
-              <MyPage />
-            </App>
-          }
-        />
-        <Route
-          path="/lecture-detail/:id"
-          element={
-            <App>
-              <LectureDetail />
-            </App>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <App>
-              <LoginPage />
-            </App>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <App>
-              <SignupPage />
-            </App>
-          }
-        />
-        <Route
-          path="/lectures-for-me"
-          element={
-            <App>
-              <LecturesForMe />
-            </App>
-          }
-        />
-        {/* 상세 페이지 라우트 추가 */}
-        <Route
-          path="/lectures-for-me/:id"
-          element={
-            <App>
-              <LecturesForMeDetail />
-            </App>
-          }
-        />
-        {/* 날강도 글 등록 라우트 추가 */}
-        <Route
-          path="/lectures-for-me/new"
-          element={
-            <App>
-              <LecturesForMePost />
-            </App>
-          }
-        />
-        <Route
-          path="/lectures-for-me/edit/:id"
-          element={
-            <App>
-              <LecturesForMePut />
-            </App>
-          }
-        />
-        <Route
-          path="/my-activity"
-          element={
-            <App>
-              <MyActivity />
-            </App>
-          }
-        />
-        <Route
-          path="/test"
-          element={
-            <App>
-              <TestTiptap />
-            </App>
-          }
-        />
+        <Route element={<App />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/my-page" element={<MyPage />} />
+          <Route path="/lecture-detail/:id" element={<LectureDetail />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/lectures-for-me" element={<LecturesForMe />} />
+          <Route
+            path="/lectures-for-me/:id"
+            element={<LecturesForMeDetail />}
+          />
+          <Route path="/lectures-for-me/new" element={<LecturesForMePost />} />
+          <Route
+            path="/lectures-for-me/edit/:id"
+            element={<LecturesForMePut />}
+          />
+          <Route path="/my-activity" element={<MyActivity />} />
+          {/* 매칭되는 경로가 없을 때 ErrorPage 표시 */}
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

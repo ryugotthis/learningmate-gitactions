@@ -1,19 +1,9 @@
-import { apiClient } from '../../../shared/api/axios';
-
-// 회원가입 요청에 필요한 데이터 타입 정의
-// export interface SignupPayload {
-//   userid: string; // 사용자 ID
-//   username: string; // 사용자 이름
-//   password: string; // 비밀번호
-//   age: number; // 나이
-// }
+import { apiClient } from '../../../shared/api/apiClient';
 
 export interface SignupPayload {
   name: string; // 사용자 닉네임
   email: string; // 사용자 ID
-  // username: string; // 사용자 이름
   password: string; // 비밀번호
-  // age: number; // 나이
 }
 
 // 회원가입 API 호출 함수

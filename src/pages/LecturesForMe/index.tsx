@@ -1,12 +1,16 @@
+// 리액트 훅
+import { useEffect, useRef, useState } from 'react';
+// 전역변수
+import { useAuthStore } from '../../shared/store/authstore';
+// 컴포넌트
 import Header from '../../widgets/header';
+import { PostLectureForMeButton } from '../../features/demandLectures/PostLecturesForMeButton';
+import { LecturesForMECardList } from '../../features/demandLectures/LectureForMeCardList';
+// 아이콘
 import LecturesForME from '../../entities/lectures/ui/icons/lecturesForMe.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 
-import { useState } from 'react';
-import { LecturesForMECardList } from '../../features/recommended/LectureForMeCardList';
-
-import { useAuthStore } from '../../shared/model/store';
-import { PostLectureForMeButton } from '../../features/recommended/PostLecturesForMeButton';
+// 정렬
 interface Sort {
   name: string;
   id: number;
@@ -17,44 +21,37 @@ const sortList: Sort[] = [
   { name: '최신순', id: 1, query: 'desc' },
   { name: '조회 많은 순', id: 2, query: 'views' },
 ];
+
 export const LecturesForMe = () => {
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false); // 정렬 드롭다운 상태 관리
-  const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]);
-  const [isMyPosts, setIsMyPosts] = useState(false);
+  const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]); // 정렬 선택 상태 관리
+  const menuRef = useRef<HTMLDivElement>(null); // 정렬 메뉴 참조
+  const [isMyPosts, setIsMyPosts] = useState(false); // 내 글 보기 상태 관리
 
   console.log('선택받은거!', sortSelected.name);
 
-  // const handleMyPost = () => {
-  //   () => setIsMyPosts(!isMyPosts);
-  // };
+  // 정렬 메뉴 외부 클릭 감지 로직
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsSortDropdownOpen(false);
+      }
+    };
 
-  // 강의 데이터 조회
-
-  // const { data: lecturesForME, isLoading, isError, error } = useDemandLecture({
-  //   page: 15,
-  //   size: 10,
-  //   sort: 'desc',
-  // });
-  // console.log('보자보자', lecturesForME);
-
-  // 강의 포스트 테스트
-  // const {
-  //   mutate,
-  //   isPending,
-  //   isError: demandIsError,
-  //   error: demandError,
-  // } = usePostDemandLecture();
-
-  // const [testData, setTestData] = useState({
-  //   title: 'Javascript 기초보고 응용할 만한 영상',
-  //   content:
-  //     'Javascript 기초보고 이론 동영상보고 이제 개인 프로젝트 해보려하는데 도움되는 강의 있을까요?',
-  // });
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSortDropdownOpen]);
   const { isLoggedIn } = useAuthStore();
   console.log('로그인 체크', isLoggedIn);
   console.log('클릭체크1', isMyPosts);
+  // Header는 props가 없거나 변하지 않는다면 useMemo로 감싸서 재렌더링을 방지
+  // const memoizedHeader = useMemo(() => <Header />, []);
+
   return (
     <>
+      {/* {memoizedHeader} */}
       <Header />
       {/* {isLoading && <p>⏳ 로딩 중...</p>}
       {isError && <p>❌ 오류 발생: {error.message}</p>} */}
@@ -71,7 +68,7 @@ export const LecturesForMe = () => {
         <p>⚠️ 데이터가 올바르게 로드되지 않았습니다.</p>
       )} */}
 
-      <div className="relative w-[328px] md:w-[624px] lg:w-[1152px]  mt-[100px]  flex flex-col mx-auto">
+      <div className="relative w-[328px] md:w-[624px] lg:w-[1152px] mt-[50px] md:mt-[100px]  flex flex-col mx-auto">
         <header className="flex  flex-col gap-[24px] md:gap-[40px]">
           <div className="flex items-center justify-between h-[241px] lg:gap-[60px] px-[16px]  md:p-[32px] bg-surface-dark rounded-[12px]">
             <div className="w-full flex flex-col gap-[6px]">
@@ -127,7 +124,10 @@ export const LecturesForMe = () => {
             )}
 
             <div className="flex justify-between items-center gap-[12px]">
-              <div className="relative text-font-sub text-sm-600 md:text-md-600">
+              <div
+                ref={menuRef}
+                className="relative text-font-sub text-sm-600 md:text-md-600"
+              >
                 <button
                   onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
                   className="flex gap-[4px] h-[40px] md:h-[48px] focus-within:outline-none justify-center items-center border pl-[24px] pr-[20px] border-surface-line border-opacity-100  text-font-sub-default rounded-4xl"

@@ -1,14 +1,11 @@
 // App 컴포넌트
+import { Outlet } from 'react-router-dom';
 import './App.css';
 import { useReissue } from './entities/auth/hooks/useReissue';
-// import { useErrorstore } from './entities/auth/model/store';
-import { useAuthStore } from './shared/model/store';
+import { useAuthStore } from './shared/store/authstore';
 import { useEffect } from 'react';
-const App = ({ children }: { children: React.ReactNode }) => {
-  // const accessToken = useAuthStore((state) => state.accessToken);
+const App = ({ children }: { children?: React.ReactNode }) => {
   const { mutateAsync: reissueToken } = useReissue(); // ✅ 토큰 갱신 훅
-  // const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-
   const { accessToken, isLoggedIn } = useAuthStore();
 
   // 새로고침시 토큰 재발급 받기
@@ -37,7 +34,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div>
-      <main>{children}</main>
+      <main>{children || <Outlet />}</main>
       <footer>
         <p>© 2025 My App</p>
       </footer>

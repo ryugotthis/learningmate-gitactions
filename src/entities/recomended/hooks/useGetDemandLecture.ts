@@ -25,7 +25,7 @@ export const useGetDemandLecture = ({
   sort = 'decs',
 }: UseFetchLecturesProps) => {
   return useQuery({
-    queryKey: ['demandLectures', sort], // ✅ 쿼리 키 (캐싱)
+    queryKey: ['demandLectures', sort, page], // ✅ 쿼리 키 (캐싱)
     queryFn: () => getDemandLecture({ page, sort }), // ✅ API 호출 함수
     staleTime: 5000, // ✅ 5초 동안 fresh 상태 유지
     retry: 1, // ✅ 요청 실패 시 한 번만 재시도

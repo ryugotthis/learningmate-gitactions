@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import SearchBar from './ui/SearchBar';
 import { useEffect, useRef, useState } from 'react';
-import { useAuthStore } from '../../shared/model/store';
+import { useAuthStore } from '../../shared/store/authstore';
 import { useLogout } from '../../entities/auth/hooks/useLogout';
 import Logo from './ui/icons/Logo';
 import { HamburgerIcon } from '../../shared/ui/icons/HamburgerIcon';

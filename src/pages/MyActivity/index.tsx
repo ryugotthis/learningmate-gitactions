@@ -1,19 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../widgets/header';
-import FilterModal from '../../features/lectures/ui/FilterModal';
+import FilterModal from '../../widgets/lecture/FilterModal';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import { LectureCardListMyActivityContainer } from '../../features/lectures/ui/home/LectureCardMyActivityContainer';
+import { useFilterList } from '../../shared/store/filterListStore';
+import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
 
 interface Sort {
   name: string;
   id: number;
+  query: string;
 }
 const sortList: Sort[] = [
-  { name: '추천순', id: 0 },
-  { name: '비추천순', id: 1 },
-  { name: '최신순', id: 2 },
-  { name: '조회 많은 순', id: 3 },
+  { name: '추천순', id: 0, query: 'likes' },
+  { name: '비추천순', id: 1, query: 'dislikes' },
+  { name: '최신순', id: 2, query: 'desc' },
+  { name: '조회 많은 순', id: 3, query: 'views' },
 ];
 
 export const MyActivity = () => {
@@ -22,7 +25,14 @@ export const MyActivity = () => {
   // 사이트 버튼 모달창 부분
   const [isModalOpen, setIsModalOpen] = useState(false);
   // 정렬 버튼 부분
+
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
+  const { filterList, clearFilterList } = useFilterList();
+  const { data: platforms } = useGetPlatforms();
+  useEffect(() => {
+    // 페이지 진입 시 필터 초기화
+    clearFilterList();
+  }, []);
   return (
     <>
       <Header />
@@ -81,7 +91,23 @@ export const MyActivity = () => {
               )}
             </div>
           </div>
-          <LectureCardListMyActivityContainer />
+          {/* 사이트 필터 목록 */}
+          {filterList && (
+            <ul className="flex">
+              {filterList.map((filter, index) => (
+                <li
+                  key={index}
+                  className="border-2 border-primary-default rounded-4xl mx-1 my-1 text-sm font-bold text-primary-default px-3 py-1"
+                >
+                  {platforms?.map(
+                    (platform: any) =>
+                      platform.title === filter && platform.title
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+          <LectureCardListMyActivityContainer sort={sortSelected.query} />
         </div>
       </div>
     </>

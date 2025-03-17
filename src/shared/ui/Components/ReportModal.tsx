@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { CloseIcon } from '../../../../shared/ui/icons/CloseIcon';
-import { RadioIcon } from '../../../../shared/ui/icons/RadioIcon';
-import { RadioCheckedIcon } from '../../../../shared/ui/icons/RadioCheckedIcon';
+import { CloseIcon } from '../icons/CloseIcon';
+import { RadioIcon } from '../icons/RadioIcon';
+import { RadioCheckedIcon } from '../icons/RadioCheckedIcon';
 
 interface ReportModalProps {
   // isOpen: boolean;
