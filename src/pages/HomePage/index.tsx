@@ -7,7 +7,7 @@ import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import FilterModal from '../../widgets/lecture/FilterModal';
 import { LectureCardListHomeContainer } from '../../features/lectures/ui/home/LectureCardHomeContainer';
-import { MoonLoader } from 'react-spinners';
+
 // 데이터 커스텀 훅
 import { useFilterList } from '../../shared/store/filterListStore';
 import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
@@ -33,7 +33,7 @@ export const HomePage = () => {
   // 사이트 필터
   const [isModalOpen, setIsModalOpen] = useState(false); // 사이트 필터 버튼 모달창 클릭 상태관리
   const { filterList, clearFilterList } = useFilterList(); //필터 사이트 전역 리스트
-  const { data: platforms, isLoading, isError, error } = useGetPlatforms(); // 플랫폼 데이터
+  const { data: platforms, isError, error } = useGetPlatforms(); // 플랫폼 데이터
 
   // 페이지 진입 시 사이트 필터 초기화
   useEffect(() => {
@@ -54,15 +54,8 @@ export const HomePage = () => {
     };
   }, []);
 
-  // 플랫폼 데이터 에러, 로딩 처리
-  if (isError)
-    return <div className="text-error">error: {(error as Error).message}</div>;
-  if (isLoading)
-    return (
-      <div className="flex justify-center">
-        <MoonLoader size={105} color="#17af6d" />
-      </div>
-    );
+  // 플랫폼 데이터 에러 처리
+  if (isError) console.error(error);
 
   return (
     <>
