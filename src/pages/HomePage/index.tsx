@@ -63,7 +63,7 @@ export const HomePage = () => {
       <SEO
         title="러닝메이트 - 강의 고민 끝! 진짜 후기로 선택"
         description="좋아요? 비추천? 솔직한 강의 리뷰 한눈에!"
-        image="Logo.svg"
+        image="Logo.png"
         url=""
         type="website"
       />
