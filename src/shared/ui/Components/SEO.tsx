@@ -25,10 +25,7 @@ const SEO: React.FC<SEOProps> = ({ title, description, image, url, type }) => {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta
-        name="twitter:image"
-        content={url ? `${baseUrl}/${url}` : baseUrl}
-      />
+      <meta name="twitter:image" content={`${baseUrl}/${image}`} />
     </Helmet>
   );
 };
