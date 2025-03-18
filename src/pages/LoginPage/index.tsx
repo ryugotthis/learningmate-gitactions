@@ -10,6 +10,7 @@ import Failed from '../../shared/ui/icons/Failled.svg';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useErrorstore } from '../../shared/store/errorStore';
+import SEO from '../../shared/ui/Components/SEO';
 
 export const LoginPage = () => {
   const { mutate: login, isPending } = useLogin();
@@ -36,6 +37,13 @@ export const LoginPage = () => {
 
   return (
     <>
+      <SEO
+        title="로그인 - 러닝메이트"
+        description="러닝메이트 계정으로 로그인하세요."
+        image="Logo.svg"
+        url="login"
+        type="website"
+      />
       <Header />
       <div className="flex flex-col w-[360px] md:w-[400px] items-center mx-auto gap-[20px] md:gap-[24px] mt-[62.5px] md:mt-[100px]">
         <h1 className="title-sm-600 md:title-md-600">로그인</h1>

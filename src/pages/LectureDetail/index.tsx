@@ -27,6 +27,7 @@ import { LectureReportModal } from '../../features/reports/LectureReportModal';
 // import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
 import { AlertMessage } from '../../shared/ui/Components/AlertMessage';
 import { useFormatDate } from '../../shared/util/useFormatDate';
+import SEO from '../../shared/ui/Components/SEO';
 interface Sort {
   name: string;
   id: number;
@@ -98,6 +99,13 @@ export const LectureDetail = () => {
   console.log('검색데이터', searchText);
   return (
     <>
+      <SEO
+        title={`러닝메이트 - ${lecture?.title}`}
+        description="본문을 확인하세요"
+        image="Logo.svg"
+        url={`lecture-detail/${postId}`}
+        type="article"
+      />
       <Header />
       <div className="flex flex-col gap-[80px] items-center mt-[100px]">
         <div className="w-[326px] md:w-[624px] lg:w-[1152px] flex flex-col gap-[48px]">

@@ -6,6 +6,7 @@ import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import { LectureCardListMyActivityContainer } from '../../features/lectures/ui/home/LectureCardMyActivityContainer';
 import { useFilterList } from '../../shared/store/filterListStore';
 import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
+import SEO from '../../shared/ui/Components/SEO';
 
 interface Sort {
   name: string;
@@ -35,6 +36,13 @@ export const MyActivity = () => {
   }, []);
   return (
     <>
+      <SEO
+        title="마이 액티비티 - 러닝메이트"
+        description="내가 북마크한 강의와 활동을 확인하세요."
+        image="Logo.svg"
+        url="my-activity"
+        type="website"
+      />
       <Header />
       <div className="flex justify-center mt-[100px]">
         <div className="w-[328px] md:w-[624px] lg:w-[1152px] flex flex-col gap-[24px] ">

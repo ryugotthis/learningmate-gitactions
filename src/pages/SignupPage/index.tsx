@@ -9,6 +9,7 @@ import CheckBox from '../../entities/auth/ui/icons/Checkbox.svg';
 import CheckBoxCheck from '../../entities/auth/ui/icons/CheckboxCheck.svg';
 import { useForm } from 'react-hook-form';
 import Header from '../../widgets/header';
+import SEO from '../../shared/ui/Components/SEO';
 
 export const SignupPage = () => {
   const { mutate: signup, isPending, error } = useSignup();
@@ -49,6 +50,13 @@ export const SignupPage = () => {
 
   return (
     <>
+      <SEO
+        title="회원가입 - 러닝메이트"
+        description="새 계정을 만들고 러닝메이트를 시작하세요!"
+        image="Logo.svg"
+        url="signup"
+        type="website"
+      />
       <Header />
       <div className="container flex flex-col items-center mx-auto mt-10 max-w-lg py-10 px-6 ">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">회원가입</h2>

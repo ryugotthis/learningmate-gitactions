@@ -47,11 +47,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
   const { mutate: reissue } = useReissue();
   const { isLoggedIn } = useAuthStore();
   // 강의 생성 mutate
-  const {
-    mutate: createLecture,
-    isPending: createLectureLoading,
-    isError: createLectureError,
-  } = useCreateLecture(); // 강의 등록 mutate 함수
+  const { mutate: createLecture, isPending: createLectureLoading } =
+    useCreateLecture(); // 강의 등록 mutate 함수
   const { data: titleData } = useGetLectureTitle(
     searchText,
     selectedPlatform.label
@@ -79,7 +76,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
     if (isLoggedIn) {
       reissue(undefined, {
         onSuccess: () => {
-          createLecture(searchText);
+          createLecture(searchText, {
+            onError: () => {
+              alert('강의 생성에 실패했어');
+            },
+          });
+          setSearchText('');
         },
         onError: () => {
           alert('강의등록 실패! 다시 시도해줘');
@@ -92,7 +94,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
     <>
       {/* 강의 등록 요청 로딩 중일때 로딩 스피너 표시 */}
       {createLectureLoading ? <LoadingSpinner /> : ''}
-      {createLectureError ? alert('강의 생성에 실패했어') : ''}
+      {/* {createLectureError ? alert('강의 생성에 실패했어') : ''} */}
 
       <div
         className={`${

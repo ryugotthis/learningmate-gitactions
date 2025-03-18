@@ -19,6 +19,7 @@ import Editor from '../../shared/ui/icons/Editor';
 // 훅
 import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
 import { useFormatDate } from '../../shared/util/useFormatDate';
+import SEO from '../../shared/ui/Components/SEO';
 // import { useLocation } from 'react-router-dom';
 
 export const LecturesForMeDetail = () => {
@@ -61,6 +62,13 @@ export const LecturesForMeDetail = () => {
 
   return (
     <>
+      <SEO
+        title={`러닝메이트 - ${lecture?.title}`}
+        description="본문을 확인하세요"
+        image="Logo.svg"
+        url={`lectures-for-me/${postId}`}
+        type="article"
+      />
       {/* 제목 영역 */}
       <Header />
       <div className="w-[326px] md:w-[624px] lg:w-[1152px] first-line: my-[100px] mx-auto">

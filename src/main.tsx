@@ -2,15 +2,13 @@
 import ReactDOM from 'react-dom/client';
 import { TanStackQueryProvider } from './app/providers/TanstackQueryProvider';
 import { RouterProvider } from './app/providers/RouterProvider';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './styles/theme';
-
+import { HelmetProvider } from 'react-helmet-async'; // seo 개선 위해 사용
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
-  <TanStackQueryProvider>
-    <ThemeProvider theme={theme}>
+  <HelmetProvider>
+    <TanStackQueryProvider>
       <RouterProvider />
-    </ThemeProvider>
-  </TanStackQueryProvider>
+    </TanStackQueryProvider>
+  </HelmetProvider>
   // </React.StrictMode>
 );

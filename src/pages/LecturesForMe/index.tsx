@@ -9,6 +9,7 @@ import { LecturesForMECardList } from '../../features/demandLectures/LectureForM
 // 아이콘
 import LecturesForME from '../../entities/lectures/ui/icons/lecturesForMe.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
+import SEO from '../../shared/ui/Components/SEO';
 
 // 정렬
 interface Sort {
@@ -51,22 +52,15 @@ export const LecturesForMe = () => {
 
   return (
     <>
-      {/* {memoizedHeader} */}
+      <SEO
+        title="러닝메이트 - 원하는 강의를 질문하고 추천받아요!"
+        description="어떤 강의를 들어야 할지 고민이라면? 질문을 올리고 수강생들의 솔직한 의견을 받아보세요!"
+        image="Logo.svg"
+        url="lectures-for-me"
+        type="article"
+      />
+
       <Header />
-      {/* {isLoading && <p>⏳ 로딩 중...</p>}
-      {isError && <p>❌ 오류 발생: {error.message}</p>} */}
-      {/* 데이터가 올바르게 로드되었는지 확인 */}
-      {/* {lecturesForME && Array.isArray(lecturesForME) ? (
-        <div>
-          {lecturesForME.map((platform) => (
-            <div key={platform.id}>
-              <h3>{platform.title}</h3>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>⚠️ 데이터가 올바르게 로드되지 않았습니다.</p>
-      )} */}
 
       <div className="relative w-[328px] md:w-[624px] lg:w-[1152px] mt-[50px] md:mt-[100px]  flex flex-col mx-auto">
         <header className="flex  flex-col gap-[24px] md:gap-[40px]">

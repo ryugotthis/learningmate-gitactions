@@ -11,6 +11,7 @@ import { LectureCardListHomeContainer } from '../../features/lectures/ui/home/Le
 // 데이터 커스텀 훅
 import { useFilterList } from '../../shared/store/filterListStore';
 import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
+import SEO from '../../shared/ui/Components/SEO';
 
 interface Sort {
   name: string;
@@ -59,6 +60,14 @@ export const HomePage = () => {
 
   return (
     <>
+      <SEO
+        title="러닝메이트 - 강의 고민 끝! 진짜 후기로 선택"
+        description="좋아요? 비추천? 솔직한 강의 리뷰 한눈에!"
+        image="Logo.svg"
+        url=""
+        type="website"
+      />
+
       <Header />
       <header className="flex flex-col items-center">
         <div className=" flex justify-between items-center gap-[72px] my-[120px]">
