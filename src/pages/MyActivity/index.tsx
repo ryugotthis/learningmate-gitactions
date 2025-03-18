@@ -39,7 +39,7 @@ export const MyActivity = () => {
       <SEO
         title="마이 액티비티 - 러닝메이트"
         description="내가 북마크한 강의와 활동을 확인하세요."
-        image="Logo.svg"
+        image="Logo.png"
         url="my-activity"
         type="website"
       />

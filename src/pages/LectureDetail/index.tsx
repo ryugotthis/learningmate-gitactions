@@ -102,7 +102,7 @@ export const LectureDetail = () => {
       <SEO
         title={`러닝메이트 - ${lecture?.title}`}
         description="본문을 확인하세요"
-        image="Logo.svg"
+        image="Logo.png"
         url={`lecture-detail/${postId}`}
         type="article"
       />

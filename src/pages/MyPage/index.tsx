@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useCreateProfileImage } from '../../entities/auth/hooks/useCreateProfileImage';
 import { useUpdatePassword } from '../../entities/auth/hooks/useUpdatePassword';
 import { useLogout } from '../../entities/auth/hooks/useLogout';
+import SEO from '../../shared/ui/Components/SEO';
 // import { log } from 'console';
 
 export const MyPage = () => {
@@ -134,6 +135,13 @@ export const MyPage = () => {
 
   return (
     <div>
+      <SEO
+        title="마이페이지 - 러닝메이트"
+        description="마이페이지"
+        image="Logo.png"
+        url="my-page"
+        type="website"
+      />
       {/* <div onClick={() => setIsToggled(false)}> */}
       <Header />
       <div className="flex flex-col items-center">

@@ -40,7 +40,7 @@ export const LoginPage = () => {
       <SEO
         title="로그인 - 러닝메이트"
         description="러닝메이트 계정으로 로그인하세요."
-        image="Logo.svg"
+        image="Logo.png"
         url="login"
         type="website"
       />

@@ -53,7 +53,7 @@ export const SignupPage = () => {
       <SEO
         title="회원가입 - 러닝메이트"
         description="새 계정을 만들고 러닝메이트를 시작하세요!"
-        image="Logo.svg"
+        image="Logo.png"
         url="signup"
         type="website"
       />

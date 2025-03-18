@@ -65,7 +65,7 @@ export const LecturesForMeDetail = () => {
       <SEO
         title={`러닝메이트 - ${lecture?.title}`}
         description="본문을 확인하세요"
-        image="Logo.svg"
+        image="Logo.png"
         url={`lectures-for-me/${postId}`}
         type="article"
       />

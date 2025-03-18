@@ -55,7 +55,7 @@ export const LecturesForMe = () => {
       <SEO
         title="러닝메이트 - 원하는 강의를 질문하고 추천받아요!"
         description="어떤 강의를 들어야 할지 고민이라면? 질문을 올리고 수강생들의 솔직한 의견을 받아보세요!"
-        image="Logo.svg"
+        image="Logo.png"
         url="lectures-for-me"
         type="article"
       />
