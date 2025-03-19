@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSignup } from '../../entities/auth/hooks/useSignup';
 import '../../App.css';
 import Visible from '../../entities/auth/ui/icons/Visible.svg';
@@ -9,6 +9,10 @@ import CheckBox from '../../entities/auth/ui/icons/Checkbox.svg';
 import CheckBoxCheck from '../../entities/auth/ui/icons/CheckboxCheck.svg';
 import { useForm } from 'react-hook-form';
 import Header from '../../widgets/header';
+import {
+  sendVerificationCode,
+  verifyCode,
+} from '../../../functions/src/firebase'; //이메일 인증 코드 보내기, 검증
 import SEO from '../../shared/ui/Components/SEO';
 
 export const SignupPage = () => {
@@ -17,23 +21,6 @@ export const SignupPage = () => {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState<boolean>(false);
 
-  // 이메일 인증 관련 상태
-  // const [isVerificationRequested, setIsVerificationRequested] = useState<boolean>(false);
-  // const [verificationTimer, setVerificationTimer] = useState<number>(0);
-  // const [inputVerificationCode, setInputVerificationCode] = useState<string>('');
-  // const [isCodeVerified, setIsCodeVerified] = useState<boolean>(false);
-
-  const onSubmit = (data: any) => {
-    const { confirmPassword, terms, ...filteredData } = data;
-    // const modifiedData = {
-    //   ...filteredData,
-    //   userId: email,
-    // };
-    console.log('회원가입보낸데이터', filteredData);
-    // e.preventDefault();
-
-    signup(filteredData); // 회원가입 요청
-  };
   const {
     register,
     handleSubmit,
@@ -47,6 +34,96 @@ export const SignupPage = () => {
   const emailValue = watch('email'); // 이메일 입력 값 감지
   const passwordValue = watch('password'); // 비밀번호 입력 값 감지
   const confirmPasswordValue = watch('confirmPassword'); // 비밀번호 확인 입력 값 감지
+  const [isAuthCodeVisible, SetAuthCodeVisible] = useState(false); // 인증 코드 입력창 보이기
+  // 이메일 인증
+  const [code, setCode] = useState(''); // 인증 코드 입력 값
+  const [isCodeSent, setIsCodeSent] = useState(false); // 인증 코드 전송 여부
+  const [isCodeValid, setIsCodeValid] = useState(false); // ✅ 인증 코드 검증 결과
+  const [verificationError, setVerificationError] = useState(''); // 인증 오류 메시지
+  const [countdown, setCountdown] = useState(300); // 300초 = 5분
+  const [isCounting, setIsCounting] = useState(false); // 타이머 동작 여부
+
+  const onSubmit = (data: any) => {
+    const { confirmPassword, terms, ...filteredData } = data;
+
+    console.log('회원가입보낸데이터', filteredData);
+    // e.preventDefault();
+
+    signup(filteredData); // 회원가입 요청
+  };
+
+  // 🔹 인증 코드 요청 (Firebase Cloud Functions 호출)
+  const handleSendCode = async () => {
+    const email = watch('email'); // 이메일 값받아서 firebase로 보내기
+    if (!email) {
+      alert('이메일을 입력해주세요.');
+      return;
+    }
+    SetAuthCodeVisible(true);
+    console.log('클릭');
+    try {
+      await sendVerificationCode({ email }); // watch('email') 사용
+      setIsCodeSent(true);
+      setCountdown(300); // 5분 초기화
+      setIsCounting(true); // 카운트다운 시작
+      // alert('인증 코드가 이메일로 전송되었습니다.');
+    } catch (error) {
+      alert('오류 발생: ' + error);
+    }
+  };
+
+  // 🔹 사용자가 인증 코드를 입력할 때마다 검증 실행
+  useEffect(() => {
+    const verify = async () => {
+      if (code.length === 6) {
+        // 인증 코드는 6자리 숫자
+        // 새 코드 입력 시 이전 에러 메시지 초기화
+        setVerificationError('');
+
+        try {
+          const response = await verifyCode({ email: emailValue, code });
+          if (response.data.success) {
+            //  응답 데이터 검증
+            setIsCodeValid(true);
+            setVerificationError(''); // 오류 메시지 초기화
+          } else {
+            setIsCodeValid(false);
+            setVerificationError('잘못된 인증 코드입니다.');
+          }
+        } catch (error) {
+          setIsCodeValid(false);
+          setVerificationError('잘못된 인증 코드입니다.');
+        }
+      } else {
+        setIsCodeValid(false);
+        setVerificationError('');
+      }
+    };
+
+    if (isCodeSent) {
+      verify();
+    }
+  }, [code, emailValue, isCodeSent]);
+
+  // 🔹 5분 카운트다운 기능
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isCounting && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    } else if (countdown === 0) {
+      setIsCounting(false); // 타이머 종료
+    }
+
+    return () => clearInterval(timer);
+  }, [isCounting, countdown]);
+  // 🔹 초를 MM:SS 형식으로 변환하는 함수
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
 
   return (
     <>
@@ -102,7 +179,7 @@ export const SignupPage = () => {
                   ? 'bg-white border-surface-line'
                   : errors.name
                   ? 'border-error bg-white'
-                  : 'border-surface-line bg-surface-dark'
+                  : 'border-surface-line '
               }`}
             />
             {errors.name && (
@@ -125,10 +202,10 @@ export const SignupPage = () => {
               <div
                 className={`flex items-center border ${
                   !emailValue
-                    ? 'bg-white border-surface-line'
+                    ? ' border-surface-line'
                     : errors.email
                     ? 'border-error bg-white'
-                    : 'border-surface-line bg-surface-dark'
+                    : 'border-surface-line '
                 } rounded-4xl flex-grow`}
               >
                 <input
@@ -136,6 +213,7 @@ export const SignupPage = () => {
                   id="email"
                   placeholder="learningmate@gmail.com"
                   // value={formData.userId}
+
                   {...register('email', {
                     required: '이메일은 필수 입력입니다.',
                     pattern: {
@@ -146,7 +224,7 @@ export const SignupPage = () => {
                   // onChange={(e) =>
                   //   setFormData({ ...formData, userId: e.target.value })
                   // }
-                  className="w-full pl-5 py-3 placeholder-placeholder border-none outline-none rounded-4xl flex-1"
+                  className="w-full pl-5 py-3 bg-white placeholder-placeholder border-none outline-none rounded-4xl flex-1"
                 />
 
                 {/* X 버튼 */}
@@ -162,9 +240,10 @@ export const SignupPage = () => {
               {/* 인증 요청 버튼 */}
               <button
                 type="button"
-                className="py-2 px-5 bg-tertiary-default text-white font-semibold rounded-4xl hover:bg-blue-600 transition whitespace-nowrap"
+                onClick={handleSendCode}
+                className="py-2 px-5 bg-tertiary-default text-white font-semibold rounded-4xl hover:bg-font-default transition whitespace-nowrap"
               >
-                인증 요청
+                {isCodeSent ? '재전송' : '인증 요청'}
               </button>
             </div>
             {errors.email && (
@@ -173,6 +252,58 @@ export const SignupPage = () => {
               </p>
             )}
           </div>
+          {/* 이메일 인증코드 */}
+          {isAuthCodeVisible && (
+            <div>
+              <label
+                htmlFor="authcode"
+                className="block text-sm font-bold text-gray-700 mb-1"
+              >
+                인증코드
+              </label>
+              <div className="relative">
+                <div
+                  className={`flex items-center border px-[20px] py-[12px] ${
+                    isCodeValid
+                      ? ' border-surface-line'
+                      : verificationError
+                      ? 'border-error bg-white'
+                      : 'border-surface-line'
+                  } rounded-4xl flex-grow`}
+                >
+                  <input
+                    type="text"
+                    id="authcode"
+                    placeholder="인증 코드 6자리"
+                    value={code}
+                    onChange={(e) => {
+                      setCode(e.target.value);
+                      setVerificationError('');
+                    }}
+                    className="w-full border-none outline-none rounded-4xl flex-1"
+                  />
+                  {/* 제한시간*/}
+                  <div className="text-error font-medium tracking-[-0.05em]">
+                    {formatTime(countdown)}
+                  </div>
+                </div>
+                {/* 에러 메시지 */}
+                <div className="px-[8px] text-font-sub text-sm-400">
+                  {verificationError ? (
+                    <span className="text-error">
+                      인증코드가 잘못됐어! 다시 입력해봐
+                    </span>
+                  ) : isCodeValid ? (
+                    <span className="text-primary-default">
+                      인증이 완료됐어!
+                    </span>
+                  ) : (
+                    <span>인증코드를 보냈어! 이메일을 확인해봐</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* 비밀번호 */}
           <div>
@@ -326,7 +457,7 @@ export const SignupPage = () => {
 
           <button
             type="submit"
-            disabled={isPending || !isValid || !isTermsAccepted}
+            disabled={isPending || !isValid || !isTermsAccepted || !isCodeValid}
             className={`w-full mt-3 py-3 font-semibold rounded-4xl transition
               bg-primary-default text-white hover:cursor-pointer        
            disabled:bg-disabled disabled:text-font-sub-default`}

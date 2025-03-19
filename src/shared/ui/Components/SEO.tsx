@@ -18,7 +18,6 @@ const SEO: React.FC<SEOProps> = ({ title, description, image, url, type }) => {
       {/* 🔹 SNS 공유 미리보기 (OG 태그)  */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={`${baseUrl}/${image}`} />
       <meta property="og:url" content={url ? `${baseUrl}/${url}` : baseUrl} />
       <meta property="og:type" content={type} />
       {/* 🔹 Twitter 카드 설정  */}
