@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { useDeleteLectureForMe } from '../../../../entities/recomended/hooks/useDeleteLecturesForMe';
-import { MoreOptionsButton } from '../../../../features/demandLectures/MoreOptionsButton';
+import { useDeleteLectureForMe } from '../../../../entities/demandLectures/model/useDeleteLecturesForMe';
+import { MoreOptionsButton } from '../../../../features/demandLectures/ui/MoreOptionsButton';
 import { LinkIcon } from '../../../../shared/ui/icons/LinkIcon';
-import { useReissue } from '../../../../entities/auth/hooks/useReissue';
+import { useReissue } from '../../../../entities/auth/model/useReissue';
 
 export const OptionsMenu = ({
   name,

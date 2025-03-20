@@ -1,26 +1,30 @@
 import { useEffect, useState } from 'react';
-import { useSignup } from '../../entities/auth/hooks/useSignup';
-import '../../App.css';
-import Visible from '../../entities/auth/ui/icons/Visible.svg';
-import Invisible from '../../entities/auth/ui/icons/Unvisible.svg';
-import Logo from '../../entities/auth/ui/icons/Logo.svg';
-import DeleteClose from '../../entities/auth/ui/icons/DeleteClose.svg';
-import CheckBox from '../../entities/auth/ui/icons/Checkbox.svg';
-import CheckBoxCheck from '../../entities/auth/ui/icons/CheckboxCheck.svg';
 import { useForm } from 'react-hook-form';
+import '../../App.css';
+// 커스텀 훅
+import { useSignup } from '../../entities/auth/model/useSignup';
+// 컴포넌트
 import Header from '../../widgets/header';
+import Visible from '../../features/auth/ui/icons/Visible.svg';
+import Invisible from '../../features/auth/ui/icons/Unvisible.svg';
+import SEO from '../../shared/ui/SEO';
+//아이콘
+import Logo from '../../features/auth/ui/icons/Logo.svg';
+import DeleteClose from '../../features/auth/ui/icons/DeleteClose.svg';
+import CheckBox from '../../features/auth/ui/icons/Checkbox.svg';
+import CheckBoxCheck from '../../features/auth/ui/icons/CheckboxCheck.svg';
+// 이메일 검증 메서드
 import {
   sendVerificationCode,
   verifyCode,
 } from '../../../functions/src/firebase'; //이메일 인증 코드 보내기, 검증
-import SEO from '../../shared/ui/Components/SEO';
 
 export const SignupPage = () => {
-  const { mutate: signup, isPending, error } = useSignup();
-  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const { mutate: signup, isPending, error } = useSignup(); // 로그인 post 커스텀 훅
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false); // 비밀번호 보이는 상태 관리
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
-    useState<boolean>(false);
-
+    useState(false); // 비밀번호 확인 보이는 상태 관리
+  // 유효성 검사
   const {
     register,
     handleSubmit,
@@ -44,11 +48,9 @@ export const SignupPage = () => {
   const [isCounting, setIsCounting] = useState(false); // 타이머 동작 여부
 
   const onSubmit = (data: any) => {
+    // 회원가입 요청
     const { confirmPassword, terms, ...filteredData } = data;
-
     console.log('회원가입보낸데이터', filteredData);
-    // e.preventDefault();
-
     signup(filteredData); // 회원가입 요청
   };
 
@@ -60,7 +62,6 @@ export const SignupPage = () => {
       return;
     }
     SetAuthCodeVisible(true);
-    console.log('클릭');
     try {
       await sendVerificationCode({ email }); // watch('email') 사용
       setIsCodeSent(true);

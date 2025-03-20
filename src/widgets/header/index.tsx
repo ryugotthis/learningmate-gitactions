@@ -2,12 +2,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SearchBar from './ui/SearchBar';
 import { useEffect, useRef, useState } from 'react';
 import { useAuthStore } from '../../shared/store/authstore';
-import { useLogout } from '../../entities/auth/hooks/useLogout';
+import { useLogout } from '../../entities/auth/model/useLogout';
 import Logo from './ui/icons/Logo';
 import { HamburgerIcon } from '../../shared/ui/icons/HamburgerIcon';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
 import { SearchIcon } from '../../shared/ui/icons/SearchIcon';
-import { useGetUser } from '../../entities/auth/hooks/useGetUser ';
+import { useGetUser } from '../../entities/auth/model/useGetUser ';
 
 const Header = () => {
   const location = useLocation(); // 현재 페이지 경로 가져오기

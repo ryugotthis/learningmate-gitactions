@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import Header from '../../widgets/header';
-import { useGetUser } from '../../entities/auth/hooks/useGetUser ';
+import { useGetUser } from '../../entities/auth/model/useGetUser ';
 import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
-import { PhotoRegisterIcon } from '../../features/lectures/ui/home/PhotoRegisterIcon';
-import Visible from '../../entities/auth/ui/icons/Visible.svg';
-import Invisible from '../../entities/auth/ui/icons/Unvisible.svg';
+import { PhotoRegisterIcon } from '../../features/lectures/ui/PhotoRegisterIcon';
+import Visible from '../../features/auth/ui/icons/Visible.svg';
+import Invisible from '../../features/auth/ui/icons/Visible.svg';
 import { useForm } from 'react-hook-form';
-import { useCreateProfileImage } from '../../entities/auth/hooks/useCreateProfileImage';
-import { useUpdatePassword } from '../../entities/auth/hooks/useUpdatePassword';
-import { useLogout } from '../../entities/auth/hooks/useLogout';
-import SEO from '../../shared/ui/Components/SEO';
+import { useCreateProfileImage } from '../../entities/auth/model/useCreateProfileImage';
+import { useUpdatePassword } from '../../entities/auth/model/useUpdatePassword';
+import { useLogout } from '../../entities/auth/model/useLogout';
+import SEO from '../../shared/ui/SEO';
 // import { log } from 'console';
 
 export const MyPage = () => {

@@ -10,11 +10,11 @@ import PlusIcon from './icons/PlusIcon';
 import Search from './icons/Search.svg';
 import DeleteClose from '../../../shared/ui/icons/DeleteClose.svg';
 import { useEffect, useRef, useState } from 'react';
-import { useCreateLecture } from '../../../entities/lectures/home/hooks/useCreateLecture';
-import { useGetLectureTitle } from '../../../entities/lectures/home/hooks/useGetLecturesTitle';
+import { useCreateLecture } from '../../../entities/lectures/model/useCreateLecture';
+import { useGetLectureTitle } from '../../../entities/lectures/model/useGetLecturesTitle';
 import { useSearchStore } from '../../../features/lectures/model/useLectureStore';
-import { LoadingSpinner } from '../../../shared/ui/Components/LoadingSpinner';
-import { useReissue } from '../../../entities/auth/hooks/useReissue';
+import { LoadingSpinner } from '../../../shared/ui/LoadingSpinner';
+import { useReissue } from '../../../entities/auth/model/useReissue';
 import { useAuthStore } from '../../../shared/store/authstore';
 
 interface Option {

@@ -2,9 +2,9 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { Left } from '../../shared/ui/icons/Left';
 import { useNavigate } from 'react-router-dom';
 import { ErrorIcon } from '../../shared/ui/icons/ErrorIcon';
-import { useCreateDemandLecture } from '../../entities/recomended/hooks/useCreateDemandLecture';
+import { useCreateDemandLecture } from '../../entities/demandLectures/model/useCreateDemandLecture';
 import Editor from '../../shared/ui/icons/Editor'; // Editor 컴포넌트 가져오기
-import { useReissue } from '../../entities/auth/hooks/useReissue';
+import { useReissue } from '../../entities/auth/model/useReissue';
 
 export const LecturesForMePost = () => {
   const navigate = useNavigate();

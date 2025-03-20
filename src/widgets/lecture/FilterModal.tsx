@@ -7,7 +7,7 @@ import { SearchIcon } from '../../shared/ui/icons/SearchIcon';
 // 컴포넌트
 import { useFilterList } from '../../shared/store/filterListStore';
 // 데이터 커스텀 훅
-import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
+import { useGetPlatforms } from '../../entities/lectures/model/useGetPlatforms';
 import { MoonLoader } from 'react-spinners';
 
 interface FilterModalProps {

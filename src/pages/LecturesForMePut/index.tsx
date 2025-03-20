@@ -3,8 +3,8 @@ import { Left } from '../../shared/ui/icons/Left';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorIcon } from '../../shared/ui/icons/ErrorIcon';
 import Editor from '../../shared/ui/icons/Editor'; // forwardRef가 적용된 Editor 컴포넌트
-import { useUpdateDemandLecture } from '../../entities/recomended/hooks/useUpdateDemandLecture';
-import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
+import { useUpdateDemandLecture } from '../../entities/demandLectures/model/useUpdateDemandLecture';
+import { useGetDemandLectureDetailItem } from '../../entities/demandLectures/model/useGetDemandLectureDetailItem';
 
 export const LecturesForMePut = () => {
   const navigate = useNavigate();

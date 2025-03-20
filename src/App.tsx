@@ -1,7 +1,7 @@
 // App 컴포넌트
 import { Outlet } from 'react-router-dom';
 import './App.css';
-import { useReissue } from './entities/auth/hooks/useReissue';
+import { useReissue } from './entities/auth/model/useReissue';
 import { useAuthStore } from './shared/store/authstore';
 import { useEffect } from 'react';
 const App = ({ children }: { children?: React.ReactNode }) => {

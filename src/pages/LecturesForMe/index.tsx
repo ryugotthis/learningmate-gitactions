@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useAuthStore } from '../../shared/store/authstore';
 // 컴포넌트
 import Header from '../../widgets/header';
-import { PostLectureForMeButton } from '../../features/demandLectures/PostLecturesForMeButton';
-import { LecturesForMECardList } from '../../features/demandLectures/LectureForMeCardList';
+import { PostLectureForMeButton } from '../../features/demandLectures/ui/PostLecturesForMeButton';
+import { LecturesForMECardList } from '../../features/demandLectures/ui/LectureForMeCardList';
 // 아이콘
-import LecturesForME from '../../entities/lectures/ui/icons/lecturesForMe.svg';
+import LecturesForME from '../../features/demandLectures/ui/icons/lecturesForMe.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
-import SEO from '../../shared/ui/Components/SEO';
+import SEO from '../../shared/ui/SEO';
 
 // 정렬
 interface Sort {

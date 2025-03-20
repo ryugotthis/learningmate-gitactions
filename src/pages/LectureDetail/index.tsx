@@ -1,8 +1,16 @@
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-// import { useGetLectures } from '../../entities/lectures/home/hooks/useGetLectures';
-import { CommentList } from '../../widgets/comment/CommemtList';
-import { CommentInput } from '../../widgets/comment/CommentInput';
-// import { BookmarkIcon } from '../../shared/ui/icons/BookmarkIcon';
+//컴포넌트
+import Header from '../../widgets/header';
+import { CommentList } from '../../features/comment/ui/CommemtList';
+import { CommentInput } from '../../features/comment/ui/CommentInput';
+import { UpVoteCard } from '../../features/lectures/ui/UpVoteCard';
+import { DownVoteCard } from '../../features/lectures/ui/DownVoteCard';
+import { BookmarkButton } from '../../features/lectures/ui/BookmarkButton';
+import { LectureReportModal } from '../../features/reports/ui/LectureReportModal';
+import { AlertMessage } from '../../shared/ui/AlertMessage';
+import SEO from '../../shared/ui/SEO';
+//아이콘
 import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
 import { DateIcon } from '../../shared/ui/icons/DateIcon';
 import { DownIcon } from '../../shared/ui/icons/DownIcon';
@@ -10,24 +18,14 @@ import { LinkIcon } from '../../shared/ui/icons/LinkIcon';
 import { MoreIcon } from '../../shared/ui/icons/MoreIcon';
 import { SearchIcon } from '../../shared/ui/icons/SearchIcon';
 import { StartIcon } from '../../shared/ui/icons/StartIcon';
-
 import { ViewsIcon } from '../../shared/ui/icons/ViewsIcon';
-import Header from '../../widgets/header';
 import Infren from '../../shared/ui/icons/Infren.svg';
-
-// import { useGetUpVoteOpinion } from '../../entities/lectures/home/opinion/hooks/useGetUpVoteOpinion';
-import { UpVoteCard } from '../../features/lectures/ui/home/UpVoteCard';
-import { DownVoteCard } from '../../features/lectures/ui/home/DownVoteCard';
 import { UpVoteIcon } from '../../shared/ui/icons/UpVoteIcon';
 import { DownVoteIcon } from '../../shared/ui/icons/DownVoteIcon';
-import { useGetLectureDetail } from '../../entities/lectures/home/hooks/useGetLectureDetail';
-import { useEffect, useRef, useState } from 'react';
-import { BookmarkButton } from '../../features/lectures/ui/home/BookmarkButton';
-import { LectureReportModal } from '../../features/reports/LectureReportModal';
-// import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
-import { AlertMessage } from '../../shared/ui/Components/AlertMessage';
+//커스텀 훅
+import { useGetLectureDetail } from '../../entities/lectures/model/useGetLectureDetail';
 import { useFormatDate } from '../../shared/util/useFormatDate';
-import SEO from '../../shared/ui/Components/SEO';
+
 interface Sort {
   name: string;
   id: number;
@@ -65,6 +63,25 @@ export const LectureDetail = () => {
     }, 2000);
   };
 
+  // 강의 페이지로 이동
+  const handleGoToTheLecture = () => {
+    if (lecture?.url) {
+      window.open(lecture.url, '_blank'); // ✅ 새 창에서 URL 열기
+    } else {
+      alert('강의 URL을 불러오지 못했습니다.'); // ✅ URL이 없을 경우 알림
+    }
+  };
+  // 링크 복사
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert('링크가 복사되었습니다!'); // 복사 성공 메시지
+    } catch (err) {
+      console.error('URL 복사 실패', err);
+      alert('URL 복사 실패'); // 복사 실패 메시지
+    }
+  };
+
   // 메뉴 외부 클릭 감지 로직
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -81,22 +98,7 @@ export const LectureDetail = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
-  //       setIsSortDropdownOpen(false);
-  //     }
-  //   };
 
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
-
-  // console.log('보자', upvoteData);
-  console.log('🟨강의상세데이터', lecture);
-  console.log('검색데이터', searchText);
   return (
     <>
       <SEO
@@ -109,6 +111,7 @@ export const LectureDetail = () => {
       <Header />
       <div className="flex flex-col gap-[80px] items-center mt-[100px]">
         <div className="w-[326px] md:w-[624px] lg:w-[1152px] flex flex-col gap-[48px]">
+          {/* 제목 */}
           <header className="flex flex-col gap-[24px] px-[16px] md:px-[24px] pb-[24px] border-b">
             <img src={Infren} className="w-10 mb-3" />
             <div className="flex flex-col gap-[16px]">
@@ -137,11 +140,17 @@ export const LectureDetail = () => {
               </div>
 
               <div className="flex justify-end items-center gap-[24px] text-sm-600 text-font-sub">
-                <button className="flex gap-[4px] h-[40px] items-center border border-line px-[24px] rounded-4xl whitespace-nowrap">
+                <button
+                  onClick={handleGoToTheLecture}
+                  className="flex gap-[4px] h-[40px] items-center border border-line px-[24px] rounded-4xl whitespace-nowrap"
+                >
                   <StartIcon className="w-[18px] h-[24px]" />
                   <span className="">강의</span>
                 </button>
-                <button className="flex lg:gap-[4px] lg:h-[40px] items-center border border-line p-[12px] lg:px-[24px] lg:py-0 rounded-full lg:rounded-4xl">
+                <button
+                  onClick={handleCopy}
+                  className="flex lg:gap-[4px] lg:h-[40px] items-center border border-line p-[12px] lg:px-[24px] lg:py-0 rounded-full lg:rounded-4xl"
+                >
                   <LinkIcon className="w-[24px] h-[24px]" />
                   <span className="hidden lg:inline">링크 복사</span>
                 </button>
@@ -186,7 +195,9 @@ export const LectureDetail = () => {
             <p className="info-md-400">{lecture?.description}</p>
           </div>
 
+          {/* 본문 */}
           <div className="flex flex-col gap-[24px]">
+            {/* 추천 검색 + 정렬 */}
             <div className="flex md:justify-end gap-[10px] md:px-[16px] text-font-sub">
               <div className="relative w-[351px]  flex border rounded-4xl px-[20px] py-[12px]">
                 <input
@@ -222,7 +233,8 @@ export const LectureDetail = () => {
                 )}
               </div>
             </div>
-            {/* 모바일,테블릿 추천 비추천 선택 박스 */}
+
+            {/* 모바일,테블릿 추천/비추천 선택바 */}
             <div
               className={`justify-start lg:hidden relative inline-flex border-b border-gray-300 `}
             >
@@ -253,11 +265,6 @@ export const LectureDetail = () => {
                     ? 'bg-primary-default w-[104px] translate-x-0'
                     : 'bg-error w-[124px] translate-x-[104px]'
                 }`}
-                // style={{
-                //   width: selected === '추천' ? '104px ' : '124px',
-                //   transform:
-                //     selected === '추천' ? 'translateX(0)' : 'translateX(104px)',
-                // }}
               />
             </div>
             {/* 모바일,테블릿 추천 비추천 박스  */}
@@ -279,7 +286,7 @@ export const LectureDetail = () => {
               )}
             </div>
 
-            {/* PC 추천 비추천 박스  */}
+            {/* PC 추천/비추천 박스  */}
             <div className="hidden lg:flex lg:justify-between ">
               {/* 추천 박스 */}
               <UpVoteCard
@@ -340,10 +347,6 @@ export const LectureDetail = () => {
                 </>
               );
             })()}
-            {/* <div
-              className={`bg-primary-default w-[${lecture.likes}%] h-full`}
-            ></div> */}
-            {/* <div className={`bg-error w-[${lecture.dislikes}%] h-full`}></div> */}
           </div>
           <span className="text-lg-600 md:title-md-600">
             {lecture?.dislikes}

@@ -3,10 +3,10 @@ import Header from '../../widgets/header';
 import FilterModal from '../../widgets/lecture/FilterModal';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
-import { LectureCardListMyActivityContainer } from '../../features/lectures/ui/home/LectureCardMyActivityContainer';
+import { LectureCardListMyActivityContainer } from '../../features/lectures/ui/LectureCardMyActivityContainer';
 import { useFilterList } from '../../shared/store/filterListStore';
-import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
-import SEO from '../../shared/ui/Components/SEO';
+import { useGetPlatforms } from '../../entities/lectures/model/useGetPlatforms';
+import SEO from '../../shared/ui/SEO';
 
 interface Sort {
   name: string;

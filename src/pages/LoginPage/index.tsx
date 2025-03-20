@@ -1,16 +1,16 @@
 // 로그인 페이지 구현
 import { useState } from 'react';
-import { useLogin } from '../../entities/auth/hooks/useLogin';
-import Logo from '../../entities/auth/ui/icons/Logo.svg';
-import Visible from '../../entities/auth/ui/icons/Visible.svg';
-import Invisible from '../../entities/auth/ui/icons/Unvisible.svg';
-import DeleteClose from '../../entities/auth/ui/icons/DeleteClose.svg';
+import { useLogin } from '../../entities/auth/model/useLogin';
+import Logo from '../../features/auth/ui/icons/Logo.svg';
+import Visible from '../../features/auth/ui/icons/Visible.svg';
+import Invisible from '../../features/auth/ui/icons/Unvisible.svg';
+import DeleteClose from '../../features/auth/ui/icons/DeleteClose.svg';
 import Header from '../../widgets/header';
 import Failed from '../../shared/ui/icons/Failled.svg';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useErrorstore } from '../../shared/store/errorStore';
-import SEO from '../../shared/ui/Components/SEO';
+import SEO from '../../shared/ui/SEO';
 
 export const LoginPage = () => {
   const { mutate: login, isPending } = useLogin();

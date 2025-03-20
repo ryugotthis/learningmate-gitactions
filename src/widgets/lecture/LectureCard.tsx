@@ -6,7 +6,7 @@ import Class101 from '../../shared/ui/icons/Class101.svg';
 import Coloso from '../../shared/ui/icons/Coloso.svg';
 import Udemy from '../../shared/ui/icons/Udemy.svg';
 // 컴포넌트
-import { BookmarkButton } from '../../features/lectures/ui/home/BookmarkButton';
+import { BookmarkButton } from '../../features/lectures/ui/BookmarkButton';
 
 interface platformLogoProps {
   name: string;

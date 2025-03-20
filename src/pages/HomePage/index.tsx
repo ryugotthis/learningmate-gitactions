@@ -6,12 +6,12 @@ import HomeLogo from '../../widgets/header/ui/icons/HomeLogo.svg';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import FilterModal from '../../widgets/lecture/FilterModal';
-import { LectureCardListHomeContainer } from '../../features/lectures/ui/home/LectureCardHomeContainer';
+import { LectureCardListHomeContainer } from '../../features/lectures/ui/LectureCardHomeContainer';
 
 // 데이터 커스텀 훅
 import { useFilterList } from '../../shared/store/filterListStore';
-import { useGetPlatforms } from '../../entities/lectures/home/hooks/useGetPlatforms';
-import SEO from '../../shared/ui/Components/SEO';
+import { useGetPlatforms } from '../../entities/lectures/model/useGetPlatforms';
+import SEO from '../../shared/ui/SEO';
 
 interface Sort {
   name: string;

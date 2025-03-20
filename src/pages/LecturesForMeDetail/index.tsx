@@ -9,17 +9,17 @@ import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
 import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
 
 // 컴포넌트
-import { CommentInput } from '../../widgets/comment/CommentInput';
-import { CommentList } from '../../widgets/comment/CommemtList';
-import { UpVoteButton2 } from '../../features/demandLectures/UpVoteButton2';
+import { CommentInput } from '../../features/comment/ui/CommentInput';
+import { CommentList } from '../../features/comment/ui/CommemtList';
+import { UpVoteButton2 } from '../../features/demandLectures/ui/UpVoteButton2';
 import { OptionsMenu } from '../../widgets/menu/ui/recommand/OptionsMenu';
-import { UpVoteButtonContainer } from '../../features/demandLectures/UpVoteButtonContainer';
+import { UpVoteButtonContainer } from '../../features/demandLectures/ui/UpVoteButtonContainer';
 import Editor from '../../shared/ui/icons/Editor';
 
 // 훅
-import { useGetDemandLectureDetailItem } from '../../entities/recomended/hooks/useGetDemandLectureDetailItem';
+import { useGetDemandLectureDetailItem } from '../../entities/demandLectures/model/useGetDemandLectureDetailItem';
 import { useFormatDate } from '../../shared/util/useFormatDate';
-import SEO from '../../shared/ui/Components/SEO';
+import SEO from '../../shared/ui/SEO';
 // import { useLocation } from 'react-router-dom';
 
 export const LecturesForMeDetail = () => {
