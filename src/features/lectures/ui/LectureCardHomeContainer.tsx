@@ -8,7 +8,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { MoonLoader } from 'react-spinners';
 import { LectureCardList } from '../../../widgets/lecture/ui/LectureCardList';
 
-export const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
+const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
   const { filterList } = useFilterList(); // 선택된 플랫폼 필터 리스트
   const { searchTitle: title } = useSearchStore(); // 검색창 제목 검색어
   const {
@@ -79,3 +79,4 @@ export const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
     </>
   );
 };
+export default LectureCardListHomeContainer;

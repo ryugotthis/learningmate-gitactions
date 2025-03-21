@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 // 컴포넌트
 import Header from '../../widgets/header';
 import SearchBar from '../../widgets/header/ui/SearchBar';
@@ -6,12 +6,16 @@ import HomeLogo from '../../widgets/header/ui/icons/HomeLogo.svg';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import FilterModal from '../../features/filter/ui/FilterModal';
-import { LectureCardListHomeContainer } from '../../features/lectures/ui/LectureCardHomeContainer';
-
+// import { LectureCardListHomeContainer } from '../../features/lectures/ui/LectureCardHomeContainer';
+// ✅ lazy import 추가
+const LectureCardListHomeContainer = lazy(
+  () => import('../../features/lectures/ui/LectureCardHomeContainer')
+);
 // 데이터 커스텀 훅
 import { useFilterList } from '../../shared/store/filterListStore';
 import { useGetPlatforms } from '../../entities/lectures/model';
 import SEO from '../../shared/ui/SEO';
+import { LoadingSpinner } from '../../shared/ui';
 
 interface Sort {
   name: string;
@@ -35,15 +39,6 @@ const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 사이트 필터 버튼 모달창 클릭 상태관리
   const { filterList, clearFilterList } = useFilterList(); //필터 사이트 전역 리스트
   const { data: platforms, isError, error } = useGetPlatforms(); // 플랫폼 데이터
-
-  // ✅ Preload: LCP 이미지 미리 로드
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = HomeLogo;
-    document.head.appendChild(link);
-  }, []);
 
   // 페이지 진입 시 사이트 필터 초기화
   useEffect(() => {
@@ -169,9 +164,17 @@ const HomePage = () => {
             </ul>
           )}
           {/* 본문 카드 */}
-          <div className="mb-[100px]">
-            <LectureCardListHomeContainer sort={sortSelected.query} />
-          </div>
+          <Suspense
+            fallback={
+              <div className="flex justify-center my-[60px]">
+                <LoadingSpinner />
+              </div>
+            }
+          >
+            <div className="mb-[100px]">
+              <LectureCardListHomeContainer sort={sortSelected.query} />
+            </div>
+          </Suspense>
         </main>
       </div>
     </>
