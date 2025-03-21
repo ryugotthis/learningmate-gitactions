@@ -59,7 +59,7 @@ export default {
       },
       fontFamily: {
         // Pretendard 폰트 등록
-        pretendard: ['Pretendard', 'sans-serif'],
+        pretendard: ['"Pretendard Variable"', 'sans-serif'],
       },
       colors: {
         primary: {
