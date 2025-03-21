@@ -1,6 +1,6 @@
 // ✅ SVG 파일을 모듈로 import
-import CheckBox from './CheckBox.svg';
-import CheckBoxCheck from './CheckBoxCheck.svg';
+import CheckBox from './Checkbox.svg';
+import CheckBoxCheck from './CheckboxCheck.svg';
 import DeleteClose from './DeleteClose.svg';
 import Logo from './Logo.svg';
 import Invisible from './Invisible.svg';
