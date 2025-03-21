@@ -36,13 +36,6 @@ const HomePage = () => {
   const { filterList, clearFilterList } = useFilterList(); //필터 사이트 전역 리스트
   const { data: platforms, isError, error } = useGetPlatforms(); // 플랫폼 데이터
 
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = HomeLogo;
-    document.head.appendChild(link);
-  }, []);
   // 페이지 진입 시 사이트 필터 초기화
   useEffect(() => {
     clearFilterList();
