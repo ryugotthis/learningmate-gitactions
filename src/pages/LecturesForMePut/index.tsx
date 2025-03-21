@@ -9,7 +9,7 @@ import Editor from '../../shared/ui/Editor'; // forwardRef가 적용된 Editor �
 import { useGetDemandLectureDetailItem } from '../../entities/demandLectures/model';
 import { useUpdateDemandLecture } from '../../entities/demandLectures/model';
 
-export const LecturesForMePut = () => {
+const LecturesForMePut = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const postId = Number(id);
@@ -179,3 +179,4 @@ export const LecturesForMePut = () => {
     </>
   );
 };
+export default LecturesForMePut;

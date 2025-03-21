@@ -13,7 +13,7 @@ import Logo from '../../features/auth/ui/icons/Logo.svg';
 import { Invisible, Visible } from '../../features/auth/ui/icons';
 import { DeleteCloseIcon, FailedIcon } from '../../shared/ui/icons';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const { mutate: login, isPending } = useLogin();
   // const [formData, setFormData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
@@ -168,3 +168,4 @@ export const LoginPage = () => {
     </>
   );
 };
+export default LoginPage;

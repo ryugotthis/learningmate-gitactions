@@ -25,7 +25,7 @@ const sortList: Sort[] = [
   { name: '조회 많은 순', id: 3, query: 'views' },
 ];
 
-export const HomePage = () => {
+const HomePage = () => {
   // 정렬
   const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]); // 선택된 정렬 상태관리
   const menuRef = useRef<HTMLDivElement>(null); //  정렬 메뉴의 DOM 요소를 참조
@@ -168,3 +168,4 @@ export const HomePage = () => {
     </>
   );
 };
+export default HomePage;

@@ -22,7 +22,7 @@ import {
   verifyCode,
 } from '../../../functions/src/firebase'; //이메일 인증 코드 보내기, 검증
 
-export const SignupPage = () => {
+const SignupPage = () => {
   const { mutate: signup, isPending, error } = useSignup(); // 로그인 post 커스텀 훅
   const [isPasswordVisible, setIsPasswordVisible] = useState(false); // 비밀번호 보이는 상태 관리
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
@@ -479,3 +479,4 @@ export const SignupPage = () => {
     </>
   );
 };
+export default SignupPage;

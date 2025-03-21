@@ -23,7 +23,7 @@ const sortList: Sort[] = [
   { name: '조회 많은 순', id: 3, query: 'views' },
 ];
 
-export const MyActivity = () => {
+const MyActivity = () => {
   // 정렬 선택
   const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]);
   // 사이트 버튼 모달창 부분
@@ -124,3 +124,4 @@ export const MyActivity = () => {
     </>
   );
 };
+export default MyActivity;

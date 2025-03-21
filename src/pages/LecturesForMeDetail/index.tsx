@@ -23,7 +23,7 @@ import { useGetDemandLectureDetailItem } from '../../entities/demandLectures/mod
 import { useFormatDate } from '../../shared/util/useFormatDate';
 import SEO from '../../shared/ui/SEO';
 
-export const LecturesForMeDetail = () => {
+const LecturesForMeDetail = () => {
   const { id } = useParams(); // ✅ URL에서 id 추출
   const postId = Number(id); // 문자열을 숫자로 변환
   const {
@@ -154,3 +154,4 @@ export const LecturesForMeDetail = () => {
     </>
   );
 };
+export default LecturesForMeDetail;

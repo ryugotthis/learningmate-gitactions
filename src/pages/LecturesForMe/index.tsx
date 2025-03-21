@@ -23,7 +23,7 @@ const sortList: Sort[] = [
   { name: '조회 많은 순', id: 2, query: 'views' },
 ];
 
-export const LecturesForMe = () => {
+const LecturesForMe = () => {
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false); // 정렬 드롭다운 상태 관리
   const [sortSelected, setSortSelected] = useState<Sort>(sortList[0]); // 정렬 선택 상태 관리
   const menuRef = useRef<HTMLDivElement>(null); // 정렬 메뉴 참조
@@ -174,3 +174,4 @@ export const LecturesForMe = () => {
     </>
   );
 };
+export default LecturesForMe;

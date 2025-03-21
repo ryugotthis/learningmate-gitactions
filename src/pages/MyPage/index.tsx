@@ -14,7 +14,7 @@ import { ProfileIcon } from '../../shared/ui/icons';
 import { PhotoRegisterIcon } from './ui/icons/PhotoRegisterIcon';
 import { Visible, Invisible } from '../../features/auth/ui/icons';
 
-export const MyPage = () => {
+const MyPage = () => {
   const [isToggled, setIsToggled] = useState(false); // 프로필 이미지 바꾸기 토글
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false); // 비밀번호 눈
@@ -363,3 +363,4 @@ export const MyPage = () => {
     </div>
   );
 };
+export default MyPage;

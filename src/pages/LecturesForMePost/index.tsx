@@ -9,7 +9,7 @@ import Editor from '../../shared/ui/Editor'; // Editor 컴포넌트 가져오기
 // 아이콘
 import { LeftIcon, ErrorIcon } from '../../shared/ui/icons';
 
-export const LecturesForMePost = () => {
+const LecturesForMePost = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState(''); // 제목 상태
   // 에디터 내용은 state 대신 ref로 관리해서 타이핑할 때마다 리렌더링을 방지
@@ -152,3 +152,4 @@ export const LecturesForMePost = () => {
     </>
   );
 };
+export default LecturesForMePost;

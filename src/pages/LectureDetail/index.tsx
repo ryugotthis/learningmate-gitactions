@@ -39,7 +39,7 @@ const sortList: Sort[] = [
   { name: '최신순', id: 1, query: 'desc' },
 ];
 
-export const LectureDetail = () => {
+const LectureDetail = () => {
   const { id } = useParams(); // ✅ URL에서 id 추출
   const postId = Number(id); // 문자열을 숫자로 변환
 
@@ -367,3 +367,4 @@ export const LectureDetail = () => {
     </>
   );
 };
+export default LectureDetail;
