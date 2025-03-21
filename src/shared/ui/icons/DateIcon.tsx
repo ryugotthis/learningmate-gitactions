@@ -1,4 +1,4 @@
-export const DateIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const DateIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="24"
     height="25"
@@ -15,3 +15,4 @@ export const DateIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 );
+export default DateIcon;

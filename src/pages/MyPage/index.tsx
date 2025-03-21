@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import Header from '../../widgets/header';
-import { useGetUser } from '../../entities/auth/model/useGetUser ';
-import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
-import { PhotoRegisterIcon } from '../../features/lectures/ui/PhotoRegisterIcon';
-import Visible from '../../features/auth/ui/icons/Visible.svg';
-import Invisible from '../../features/auth/ui/icons/Visible.svg';
 import { useForm } from 'react-hook-form';
+// 컴포넌트
+import Header from '../../widgets/header';
+import SEO from '../../shared/ui/SEO';
+// 커스텀 훅
+import { useGetUser } from '../../entities/auth/model/useGetUser ';
 import { useCreateProfileImage } from '../../entities/auth/model/useCreateProfileImage';
+import { useDeleteProfileImage } from '../../entities/auth/model/useDeleteProfileImage';
 import { useUpdatePassword } from '../../entities/auth/model/useUpdatePassword';
 import { useLogout } from '../../entities/auth/model/useLogout';
-import SEO from '../../shared/ui/SEO';
-// import { log } from 'console';
+// 아이콘
+import { ProfileIcon } from '../../shared/ui/icons';
+import { PhotoRegisterIcon } from './ui/icons/PhotoRegisterIcon';
+import { Visible, Invisible } from '../../features/auth/ui/icons';
 
 export const MyPage = () => {
   const [isToggled, setIsToggled] = useState(false); // 프로필 이미지 바꾸기 토글
@@ -18,8 +20,8 @@ export const MyPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false); // 비밀번호 눈
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
-  const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
-  const { data } = useGetUser();
+  const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false); // 비밀번호 확인 눈
+  const { data } = useGetUser(); // 사용자 정보 데이터
   const [user, setUser] = useState(data);
   // 버튼 요소에 접근하기 위한 ref 생성
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
@@ -27,14 +29,20 @@ export const MyPage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { mutate: createProfileImage } = useCreateProfileImage(); // 프로파일 이미지 변경 mutate
-  const { mutate: updatePassword } = useUpdatePassword();
-  const { mutate: logout } = useLogout();
+  const { mutate: deleteProfileImage } = useDeleteProfileImage(); // 프로파일 이미지 삭제
+  const { mutate: updatePassword } = useUpdatePassword(); // 비밀번로 변경
+  const { mutate: logout } = useLogout(); // 로그아웃
 
   // "이미지 등록" li 클릭 시 파일 선택 창 열기
   const handleImageRegisterClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
+  };
+
+  const handleImageDelete = () => {
+    console.log('클릭');
+    deleteProfileImage();
   };
 
   // 파일 선택 후 처리
@@ -71,48 +79,12 @@ export const MyPage = () => {
       document.removeEventListener('mousedown', handleClickOutside); //  이벤트 리스너를 제거
     };
   }, []);
-  // const [nickname, setNickname] = useState(user.name);
-  // const [email, setEmail] = useState(user.email);
-
-  // 비밀번호 관련 상태
-  // const [currentPassword, setCurrentPassword] = useState('');
-  // const [newPassword, setNewPassword] = useState('');
-  // const [confirmPassword, setConfirmPassword] = useState('');
-
-  // 프로필 이미지 상태
-  // const [profileImage, setProfileImage] = useState(user.profileImage);
-
-  // 기본 이미지(아이콘)와 업로드 이미지 사이를 전환한다거나,
-  // 이미지 업로드 로직을 넣고 싶다면 이곳에서 처리합니다.
-  // const handleProfileClick = () => {
-  //   // 예: 프로필 아이콘을 보여주거나, 파일 업로드 모달을 열거나...
-  //   console.log('프로필 이미지 클릭!');
-  //   if (!profileImage) {
-  //     // 프로필 이미지가 없다면 기본 아이콘을 세팅하거나
-  //     // 업로드 로직을 실행할 수 있습니다.
-  //     setProfileImage('/path/to/default-image.png');
-  //   }
-  // };
 
   useEffect(() => {
     console.log('유저데이터', data);
     setUser(data);
   }, [data]);
 
-  // const handleChangePassword = () => {
-  // 비밀번호 변경 로직
-  // console.log(
-  //   '비밀번호 변경:',
-  //   currentPassword,
-  //   newPassword,
-  //   confirmPassword
-  // );
-  // };
-
-  // const handleWithdraw = () => {
-  //   // 회원탈퇴 로직
-  //   console.log('회원탈퇴 처리');
-  // };
   const onSubmit = (data: any) => {
     const { newPassword } = data;
 
@@ -198,7 +170,7 @@ export const MyPage = () => {
                             이미지 등록
                           </li>
                           <li
-                            // onClick={()=>setProfileImage('')}
+                            onClick={handleImageDelete}
                             className="px-[16px] py-[10px]"
                           >
                             기본 이미지

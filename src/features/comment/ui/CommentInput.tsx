@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { ProfileIcon } from '../../../shared/ui/icons/ProfileIcon';
-import { useCreateDemandLectureComment } from '../../../entities/demandLectures/model/useCreateDemandLectureComment';
-import { useQueryClient } from '@tanstack/react-query'; //
-
+import { useQueryClient } from '@tanstack/react-query';
+// 커스텀 훅
 import { useGetUser } from '../../../entities/auth/model/useGetUser ';
-import { CheckIcon } from '../../../shared/ui/icons/CheckIcon';
-import { ErrorIcon } from '../../../shared/ui/icons/ErrorIcon';
+// 컴포넌트
+import { useCreateDemandLectureComment } from '../../../entities/comments/model/useCreateDemandLectureComment';
+// 아이콘
+import { ProfileIcon, CheckIcon, ErrorIcon } from '../../../shared/ui/icons';
 
 interface CommentInputProps {
   postId: number;

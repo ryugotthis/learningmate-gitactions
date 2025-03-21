@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { MoreIcon } from '../../../shared/ui/icons/MoreIcon';
-// import { useAuthStore } from '../../shared/model/store';
 import { useNavigate } from 'react-router-dom';
-// import { useDeleteLectureForMe } from '../../entities/recomended/hooks/useDeleteLecturesForMe';
-import { useGetUser } from '../../../entities/auth/model/useGetUser ';
-// import { LectureReportModal } from '../reports/LectureReportModal';
+// 컴포넌트
 import { LectureForMEReportModal } from '../../reports/ui/LectureForMeReportModal';
-import { AlertMessage } from '../../../shared/ui/AlertMessage';
+import { AlertMessage } from '../../../shared/ui';
+// 커스텀 훅
+import { useGetUser } from '../../../entities/auth/model/useGetUser ';
+// 아이콘
+import { MoreIcon } from '../../../shared/ui/icons';
 
 export const MoreOptionsButton = ({
   name,

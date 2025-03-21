@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko'; // 한국어 로케일 불러오기
 // 커스텀 훅
-import { useDeleteUpVoteOpinion } from '../../../entities/lectures/opinion/model/useDeleteUpVoteOpinion';
+import { useDeleteUpVoteOpinion } from '../../../entities/lectures/opinion/model';
 import { useGetUser } from '../../../entities/auth/model/useGetUser ';
 // 컴포넌트
 import { UpVoteButtonContainer } from './UpVoteButtonConainer';
@@ -13,9 +13,11 @@ import { DownVoteButtonContainer } from './DownVoteButtonContainer';
 import { DownVoteEditOpinionModal } from '../opinion/ui/DownVoteEditOpinionModal';
 import { useDeleteDownVoteOpinion } from '../../../entities/lectures/opinion/model/useDeleteDownVoteOpinion';
 // 아이콘
-import { ProfileIcon } from '../../../shared/ui/icons/ProfileIcon';
-import { UpArrowIcon } from '../../../shared/ui/icons/UpArrowIcon';
-import { DownIcon } from '../../../shared/ui/icons/DownIcon';
+import {
+  ProfileIcon,
+  UpArrowIcon,
+  DownArrowIcon,
+} from '../../../shared/ui/icons';
 
 // 플러그인을 전역에 확장 (한 번만 호출)
 dayjs.extend(relativeTime);
@@ -85,7 +87,7 @@ export const VoteCardItem = ({
             {isToggledDetail ? (
               <UpArrowIcon />
             ) : (
-              <DownIcon className="text-font-sub" />
+              <DownArrowIcon className="text-font-sub" />
             )}
           </button>
         </div>

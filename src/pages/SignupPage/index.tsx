@@ -5,14 +5,17 @@ import '../../App.css';
 import { useSignup } from '../../entities/auth/model/useSignup';
 // 컴포넌트
 import Header from '../../widgets/header';
-import Visible from '../../features/auth/ui/icons/Visible.svg';
-import Invisible from '../../features/auth/ui/icons/Unvisible.svg';
+
 import SEO from '../../shared/ui/SEO';
 //아이콘
 import Logo from '../../features/auth/ui/icons/Logo.svg';
-import DeleteClose from '../../features/auth/ui/icons/DeleteClose.svg';
-import CheckBox from '../../features/auth/ui/icons/Checkbox.svg';
-import CheckBoxCheck from '../../features/auth/ui/icons/CheckboxCheck.svg';
+import {
+  Visible,
+  Invisible,
+  CheckBoxCheck,
+  CheckBox,
+  DeleteClose,
+} from '../../features/auth/ui/icons';
 // 이메일 검증 메서드
 import {
   sendVerificationCode,

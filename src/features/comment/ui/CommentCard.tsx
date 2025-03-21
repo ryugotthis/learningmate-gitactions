@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
-import { MoreIcon } from '../../../shared/ui/icons/MoreIcon';
-import { ProfileIcon } from '../../../shared/ui/icons/ProfileIcon';
-// import { useAuthStore } from '../../shared/model/store';
-import { useDeleteComment } from '../../../entities/demandLectures/model/useDeleteComment';
-// import { useNavigate } from 'react-router-dom';
+// 컴포넌트
+import { useDeleteComment } from '../../../entities/comments/model/useDeleteComment';
+import { AlertMessage } from '../../../shared/ui';
+// 커스텀 훅
 import { useGetUser } from '../../../entities/auth/model/useGetUser ';
-import { useUpdateComment } from '../../../entities/demandLectures/model/useUpdateComment';
+import { useUpdateComment } from '../../../entities/comments/model/useUpdateComment';
 import { useReissue } from '../../../entities/auth/model/useReissue';
-import { ErrorIcon } from '../../../shared/ui/icons/ErrorIcon';
-import { CheckIcon } from '../../../shared/ui/icons/CheckIcon';
 import { useFormatDate } from '../../../shared/util/useFormatDate';
 import { LectureForMEReportModal } from '../../reports/ui/LectureForMeReportModal';
-import { AlertMessage } from '../../../shared/ui/AlertMessage';
+// 아이콘
+import {
+  MoreIcon,
+  ProfileIcon,
+  ErrorIcon,
+  CheckIcon,
+} from '../../../shared/ui/icons';
+
 interface CommentCardProps {
   data: any;
   postId: number;

@@ -1,6 +1,8 @@
+// 커스텀 훅
 import { useReissue } from '../../entities/auth/model/useReissue';
 import { useAuthStore } from '../store/authstore';
-import { UpIcon } from './icons/UpIcon';
+// 아이콘
+import { UpIcon } from './icons';
 
 interface UpVoteButtonProps {
   // onClick: () => void;
@@ -14,7 +16,7 @@ interface UpVoteButtonProps {
 }
 
 // 강의 게시글의 추천글을 위한 버튼
-export const OpinionUpVoteButton = ({
+const OpinionUpVoteButton = ({
   // onClick,
   // isVoteUpClicked,
   opinionId,
@@ -69,3 +71,4 @@ export const OpinionUpVoteButton = ({
     </>
   );
 };
+export default OpinionUpVoteButton;

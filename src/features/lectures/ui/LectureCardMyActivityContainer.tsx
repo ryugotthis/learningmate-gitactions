@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 // 데이터 커스텀 훅
-import { useGetBookMark } from '../../../entities/bookmarks/model/useGetBookMark';
+import { useGetBookMark } from '../../../entities/bookmarks/model';
 import { useAuthStore } from '../../../shared/store/authstore';
 // 컴포넌트
 import Pagination from '../../demandLectures/ui/Pagination';
-import { LectureCardList } from '../../../widgets/lecture/LectureCardList';
 import { useFilterList } from '../../../shared/store/filterListStore';
-// 로딩스피너
 import { MoonLoader } from 'react-spinners';
+import { LectureCardList } from '../../../widgets/lecture/ui/LectureCardList';
 
 export const LectureCardListMyActivityContainer = ({
   sort,

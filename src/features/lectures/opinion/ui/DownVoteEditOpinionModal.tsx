@@ -1,4 +1,4 @@
-import { useUpdateDownVoteOpinion } from '../../../../entities/lectures/opinion/model/useUpdateDownVoteOpinion ';
+import { useUpdateDownVoteOpinion } from '../../../../entities/lectures/opinion/model';
 
 import { OpinionModal } from './OpinionModal';
 

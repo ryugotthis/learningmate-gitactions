@@ -9,7 +9,7 @@ const BLOCKS = [
   { type: 'blockquote', label: 'Quote' },
 ] as const;
 
-export const BlockMenu = ({
+const BlockMenu = ({
   onSelect,
 }: {
   onSelect: (type: (typeof BLOCKS)[number]['type']) => void;
@@ -39,3 +39,4 @@ export const BlockMenu = ({
     </div>
   );
 };
+export default BlockMenu;

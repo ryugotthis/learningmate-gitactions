@@ -1,26 +1,22 @@
 // 로그인 페이지 구현
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLogin } from '../../entities/auth/model/useLogin';
-import Logo from '../../features/auth/ui/icons/Logo.svg';
-import Visible from '../../features/auth/ui/icons/Visible.svg';
-import Invisible from '../../features/auth/ui/icons/Unvisible.svg';
-import DeleteClose from '../../features/auth/ui/icons/DeleteClose.svg';
-import Header from '../../widgets/header';
-import Failed from '../../shared/ui/icons/Failled.svg';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useErrorstore } from '../../shared/store/errorStore';
+// 컴포넌트
+import Header from '../../widgets/header';
 import SEO from '../../shared/ui/SEO';
+// 커스텀 훅
+import { useErrorstore } from '../../shared/store/errorStore';
+import Logo from '../../features/auth/ui/icons/Logo.svg';
+// 아이콘
+import { Invisible, Visible } from '../../features/auth/ui/icons';
+import { DeleteCloseIcon, FailedIcon } from '../../shared/ui/icons';
 
 export const LoginPage = () => {
   const { mutate: login, isPending } = useLogin();
   // const [formData, setFormData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   login(formData); // 로그인 요청
-  // };
 
   // 비밀번호 눈
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -33,7 +29,18 @@ export const LoginPage = () => {
   const { register, handleSubmit, reset } = useForm();
 
   //에러상태
-  const { errorState } = useErrorstore();
+  const { errorState, clearErrorState } = useErrorstore();
+
+  // ✅ 에러 상태가 true가 되면 2초 후에 자동 초기화
+  useEffect(() => {
+    if (errorState) {
+      const timer = setTimeout(() => {
+        clearErrorState();
+      }, 2000); // 2초
+
+      return () => clearTimeout(timer); // 컴포넌트 언마운트 또는 상태 변경 시 clear
+    }
+  }, [errorState, clearErrorState]);
 
   return (
     <>
@@ -86,7 +93,7 @@ export const LoginPage = () => {
                 onClick={() => reset({ email: '' })}
                 className=""
               >
-                <img src={DeleteClose} alt="deleteClose" />
+                <DeleteCloseIcon />
               </button>
             </div>
           </div>
@@ -151,7 +158,7 @@ export const LoginPage = () => {
         </form>
         {errorState && (
           <button className="fixed bottom-[50px] flex gap-[6px] md:gap-[6px] items-center rounded-4xl px-[20px] md:px-[24px] py-[8px] md:py-[12px] border-2 border-error text-font-default bg-white">
-            <img src={Failed} alt="failed" />
+            <FailedIcon />
             <p className="text-sm-500 md:text-md-500">
               로그인 정보가 정확하지 않은 것 같아
             </p>

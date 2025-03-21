@@ -1,6 +1,4 @@
-export const BookmarkIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
-  props
-) => (
+const BookmarkIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="24"
     height="24"
@@ -23,3 +21,4 @@ export const BookmarkIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
     />
   </svg>
 );
+export default BookmarkIcon;

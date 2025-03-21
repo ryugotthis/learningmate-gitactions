@@ -8,7 +8,7 @@ import { PostLectureForMeButton } from '../../features/demandLectures/ui/PostLec
 import { LecturesForMECardList } from '../../features/demandLectures/ui/LectureForMeCardList';
 // 아이콘
 import LecturesForME from '../../features/demandLectures/ui/icons/lecturesForMe.svg';
-import SortIcon from '../../shared/ui/icons/RightIcon.svg';
+import { DownArrowIcon } from '../../shared/ui/icons';
 import SEO from '../../shared/ui/SEO';
 
 // 정렬
@@ -127,7 +127,7 @@ export const LecturesForMe = () => {
                   className="flex gap-[4px] h-[40px] md:h-[48px] focus-within:outline-none justify-center items-center border pl-[24px] pr-[20px] border-surface-line border-opacity-100  text-font-sub-default rounded-4xl"
                 >
                   <p className="whitespace-nowrap">{sortSelected.name}</p>
-                  <img src={SortIcon} alt="sort" className="block" />
+                  <DownArrowIcon />
                 </button>
                 {isSortDropdownOpen && (
                   <ul className="absolute w-[121px] mt-[7px] text-[16px] font-medium bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)]">

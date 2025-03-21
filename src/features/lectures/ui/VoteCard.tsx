@@ -1,7 +1,7 @@
 import { useState } from 'react';
 //아이콘
-import { DownVoteIcon } from '../../../shared/ui/icons/DownVoteIcon';
-import { UpVoteIcon } from '../../../shared/ui/icons/UpVoteIcon';
+import { DownVoteIcon, UpVoteIcon } from '../../../shared/ui/icons';
+
 // 컴포넌트
 import { VoteCardItem } from './VoteCardItem';
 import { UpVoteOpinionModal } from '../opinion/ui/UpVoteOpinionModal';

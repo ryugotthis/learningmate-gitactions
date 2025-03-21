@@ -1,10 +1,13 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { Left } from '../../shared/ui/icons/Left';
 import { useNavigate } from 'react-router-dom';
-import { ErrorIcon } from '../../shared/ui/icons/ErrorIcon';
-import { useCreateDemandLecture } from '../../entities/demandLectures/model/useCreateDemandLecture';
-import Editor from '../../shared/ui/icons/Editor'; // Editor 컴포넌트 가져오기
+// 커스텀 훅
+import { useCreateDemandLecture } from '../../entities/demandLectures/model';
 import { useReissue } from '../../entities/auth/model/useReissue';
+// 컴포넌트
+import Editor from '../../shared/ui/Editor'; // Editor 컴포넌트 가져오기
+
+// 아이콘
+import { LeftIcon, ErrorIcon } from '../../shared/ui/icons';
 
 export const LecturesForMePost = () => {
   const navigate = useNavigate();
@@ -85,7 +88,7 @@ export const LecturesForMePost = () => {
       {/* 헤더 */}
       <header className="flex justify-center items-center py-5 bg-surface-dark">
         <div className="w-[328px] md:w-[624px] lg:w-[1152px] h-[84px] flex justify-between items-center">
-          <Left
+          <LeftIcon
             className="cursor-pointer"
             onClick={() => navigate('/lectures-for-me')}
           />

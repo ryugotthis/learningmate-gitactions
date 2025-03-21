@@ -1,4 +1,6 @@
-import { useCreateUpVoteOpinion } from '../../../../entities/lectures/opinion/model/useCreateUpVoteOpinion';
+// 커스텀 훅
+import { useCreateUpVoteOpinion } from '../../../../entities/lectures/opinion/model';
+// 컴포넌트
 import { OpinionModal } from './OpinionModal';
 
 export const UpVoteOpinionModal = ({

@@ -1,12 +1,13 @@
 // 데이터 커스텀 훅
-import { useCreateBookMark } from '../../../entities/bookmarks/model/useCreateBookMark';
-import { useDeleteBookMark } from '../../../entities/bookmarks/model/useDeleteBookMark';
-import { useGetBookmarkState } from '../../../entities/bookmarks/model/useGetBookmarkExist';
+import {
+  useCreateBookMark,
+  useDeleteBookMark,
+  useGetBookmarkState,
+} from '../../../entities/bookmarks/model';
 import { useReissue } from '../../../entities/auth/model/useReissue';
 import { useAuthStore } from '../../../shared/store/authstore';
 // 아이콘
-import { BookmarkIcon } from '../../../shared/ui/icons/BookmarkIcon';
-import { BookmarkFiledIcon } from '../../../shared/ui/icons/BookmarkFiledIcon';
+import { BookmarkIcon, BookmarkFiledIcon } from '../../../shared/ui/icons';
 
 export const BookmarkButton = ({ postId }: { postId: number }) => {
   const { mutate: reissue } = useReissue(); // 토큰 재발급

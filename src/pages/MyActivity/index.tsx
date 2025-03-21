@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
+// 컴포넌트
 import Header from '../../widgets/header';
-import FilterModal from '../../widgets/lecture/FilterModal';
+import FilterModal from '../../features/filter/ui/FilterModal';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
-import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import { LectureCardListMyActivityContainer } from '../../features/lectures/ui/LectureCardMyActivityContainer';
-import { useFilterList } from '../../shared/store/filterListStore';
-import { useGetPlatforms } from '../../entities/lectures/model/useGetPlatforms';
 import SEO from '../../shared/ui/SEO';
+// 아이콘
+import { DownArrowIcon } from '../../shared/ui/icons';
+// 커스텀 훅
+import { useFilterList } from '../../shared/store/filterListStore';
+import { useGetPlatforms } from '../../entities/lectures/model';
 
 interface Sort {
   name: string;
@@ -82,7 +85,7 @@ export const MyActivity = () => {
                 <p className="text-font-sub text-sm-600 md:text-md-600">
                   {sortSelected.name}
                 </p>
-                <img src={SortIcon} alt="sort" />
+                <DownArrowIcon className="text-font-sub" />
               </button>
               {isSortDropdownOpen && (
                 <ul className="absolute mt-5 text-sm l-0 bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)]">

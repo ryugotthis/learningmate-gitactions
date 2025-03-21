@@ -1,6 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-// import { AxiosError } from 'axios';
 import { createProfileImage } from '../api/createProfileImage';
 
 export const useCreateProfileImage = () => {

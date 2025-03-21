@@ -1,5 +1,5 @@
 // 커스텀 훅
-import { useGetUpVoteOpinion } from '../../../entities/lectures/opinion/model/useGetUpVoteOpinion';
+import { useGetUpVoteOpinion } from '../../../entities/lectures/opinion/model';
 // 컴포넌트
 import { VoteCard } from './VoteCard';
 

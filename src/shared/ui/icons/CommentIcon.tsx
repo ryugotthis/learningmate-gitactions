@@ -1,4 +1,4 @@
-export const CommentIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const CommentIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="24"
     height="25"
@@ -27,3 +27,4 @@ export const CommentIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 );
+export default CommentIcon;

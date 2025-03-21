@@ -1,13 +1,7 @@
-import { CheckIcon } from './icons/CheckIcon';
-import { ErrorIcon } from './icons/ErrorIcon';
+// 아이콘
+import { CheckIcon, ErrorIcon } from './icons';
 
-export const AlertMessage = ({
-  type,
-  message,
-}: {
-  type: string;
-  message: string;
-}) => {
+const AlertMessage = ({ type, message }: { type: string; message: string }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center pb-[100px] ">
       <div
@@ -26,3 +20,4 @@ export const AlertMessage = ({
     </div>
   );
 };
+export default AlertMessage;

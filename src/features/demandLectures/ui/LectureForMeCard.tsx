@@ -1,13 +1,9 @@
+// 타입
 import { LectureData } from './LectureForMeCardList';
-import { DateIcon } from '../../../shared/ui/icons/DateIcon';
-import { ViewsIcon } from '../../../shared/ui/icons/ViewsIcon';
-import { CommentIcon } from '../../../shared/ui/icons/CommentIcon';
-
+// 아이콘
+import { DateIcon, ViewsIcon, CommentIcon } from '../../../shared/ui/icons';
+// 컴포넌트
 import { UpVoteButtonContainer } from './UpVoteButtonContainer';
-
-// interface LectureCardForMeProps {
-//   data: CardData;
-// }
 
 interface LectureCardForMeProps {
   data: LectureData;

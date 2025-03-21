@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
-import { CloseIcon } from '../../../../shared/ui/icons/CloseIcon';
+// 아이콘
+import { CloseIcon } from '../../../../shared/ui/icons';
 
 export const OpinionModal = ({
   onClose,

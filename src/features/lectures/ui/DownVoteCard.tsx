@@ -1,5 +1,6 @@
-import { useGetDownVoteOpinion } from '../../../entities/lectures/opinion/model/useGetDownVoteOpinion';
-
+// 커스텀 훅
+import { useGetDownVoteOpinion } from '../../../entities/lectures/opinion/model';
+// 컴포넌트
 import { VoteCard } from './VoteCard';
 
 export const DownVoteCard = ({

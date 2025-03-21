@@ -1,7 +1,11 @@
-import { OpinionUpVoteButton } from '../../../shared/ui/OpinionUpVoteButton';
-import { useCreateUpVoteLike } from '../../../entities/lectures/opinion/model/useCreateUpVoteLike';
-import { useGetUpVoteLikeState } from '../../../entities/lectures/opinion/model/useGetUpVoteLikeState';
-import { useDeleteUpVoteLike } from '../../../entities/lectures/opinion/model/useDeleteUpVoteLike';
+// 컴포넌트
+import { OpinionUpVoteButton } from '../../../shared/ui';
+// 커스텀 훅
+import {
+  useGetUpVoteLikeState,
+  useCreateUpVoteLike,
+  useDeleteUpVoteLike,
+} from '../../../entities/lectures/opinion/likes/model';
 
 interface UpVoteButtonProps {
   // onClick: () => void;

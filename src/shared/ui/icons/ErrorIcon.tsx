@@ -1,4 +1,4 @@
-export const ErrorIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const ErrorIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="24"
     height="25"
@@ -15,3 +15,4 @@ export const ErrorIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 );
+export default ErrorIcon;

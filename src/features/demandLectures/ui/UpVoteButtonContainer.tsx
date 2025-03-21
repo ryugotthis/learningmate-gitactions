@@ -1,7 +1,8 @@
-import { useGetPostLikeStatus } from '../../../entities/lectures/model/useGetPostLikeStatus';
+// 컴포넌트
 import { PostUpVoteButton } from '../../../shared/ui/PostUpVoteButton';
-import { useCreateLikes } from '../../../entities/demandLectures/model/useCreateDemandLectureLikes';
-import { useDeleteLikes } from '../../../entities/demandLectures/model/useDeleteLikes';
+// 커스텀 훅
+import { useGetPostLikeStatus } from '../../../entities/lectures/model';
+import { useCreateLikes, useDeleteLikes } from '../../../entities/likes/model';
 
 interface UpVoteButtonProps {
   // onClick: () => void;
@@ -18,10 +19,6 @@ export const UpVoteButtonContainer = ({
   likes,
 }: // sort = 'likes',
 UpVoteButtonProps) => {
-  // const { mutate } = usePostDemandLectureLikes();
-
-  // const { likedPosts, toggleLike } = useLikeStore();
-  // const isLiked = likedPosts instanceof Set && likedPosts.has(postId);
   // 추천 포스트 api
   const { mutate: likeMutate } = useCreateLikes();
   const { mutate: unLikeMutate } = useDeleteLikes();

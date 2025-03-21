@@ -1,4 +1,4 @@
-export const StartIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const StartIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="24"
     height="24"
@@ -15,3 +15,4 @@ export const StartIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 );
+export default StartIcon;

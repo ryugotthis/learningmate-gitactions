@@ -1,4 +1,4 @@
-export const ProfileIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const ProfileIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="40"
     height="40"
@@ -23,3 +23,4 @@ export const ProfileIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     </defs>
   </svg>
 );
+export default ProfileIcon;

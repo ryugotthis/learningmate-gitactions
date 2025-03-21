@@ -1,4 +1,4 @@
-export const MoreIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const MoreIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="24"
     height="24"
@@ -15,3 +15,4 @@ export const MoreIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 );
+export default MoreIcon;

@@ -8,20 +8,23 @@ import { UpVoteCard } from '../../features/lectures/ui/UpVoteCard';
 import { DownVoteCard } from '../../features/lectures/ui/DownVoteCard';
 import { BookmarkButton } from '../../features/lectures/ui/BookmarkButton';
 import { LectureReportModal } from '../../features/reports/ui/LectureReportModal';
-import { AlertMessage } from '../../shared/ui/AlertMessage';
+import { AlertMessage } from '../../shared/ui';
 import SEO from '../../shared/ui/SEO';
 //아이콘
-import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
-import { DateIcon } from '../../shared/ui/icons/DateIcon';
-import { DownIcon } from '../../shared/ui/icons/DownIcon';
-import { LinkIcon } from '../../shared/ui/icons/LinkIcon';
-import { MoreIcon } from '../../shared/ui/icons/MoreIcon';
-import { SearchIcon } from '../../shared/ui/icons/SearchIcon';
-import { StartIcon } from '../../shared/ui/icons/StartIcon';
-import { ViewsIcon } from '../../shared/ui/icons/ViewsIcon';
-import Infren from '../../shared/ui/icons/Infren.svg';
-import { UpVoteIcon } from '../../shared/ui/icons/UpVoteIcon';
-import { DownVoteIcon } from '../../shared/ui/icons/DownVoteIcon';
+import {
+  CommentIcon,
+  DateIcon,
+  DownIcon,
+  LinkIcon,
+  MoreIcon,
+  SearchIcon,
+  StartIcon,
+  ViewsIcon,
+  UpVoteIcon,
+  DownVoteIcon,
+  PlatformIcons,
+} from '../../shared/ui/icons';
+
 //커스텀 훅
 import { useGetLectureDetail } from '../../entities/lectures/model/useGetLectureDetail';
 import { useFormatDate } from '../../shared/util/useFormatDate';
@@ -113,7 +116,7 @@ export const LectureDetail = () => {
         <div className="w-[326px] md:w-[624px] lg:w-[1152px] flex flex-col gap-[48px]">
           {/* 제목 */}
           <header className="flex flex-col gap-[24px] px-[16px] md:px-[24px] pb-[24px] border-b">
-            <img src={Infren} className="w-10 mb-3" />
+            <img src={PlatformIcons.Infren} className="w-10 mb-3" />
             <div className="flex flex-col gap-[16px]">
               <div className="flex flex-col gap-[4px]">
                 <h2 className="title-md-600 md:title-lg-600">
@@ -155,35 +158,30 @@ export const LectureDetail = () => {
                   <span className="hidden lg:inline">링크 복사</span>
                 </button>
                 <BookmarkButton postId={postId} />
-                <div ref={menuRef}>
-                  <button
-                    onClick={() => setIsMoreOpen(!isMoreOpen)}
-                    className="relative"
-                  >
+                <div ref={menuRef} className="relative">
+                  <button onClick={() => setIsMoreOpen(!isMoreOpen)}>
                     <MoreIcon />
-                    {isMoreOpen && (
-                      <ul className="absolute right-0 md:left-0 w-[121px] flex justify-start py-[8px] mt-[20px] bg-white rounded-[12px] shadow-md">
-                        <li
-                          onClick={() =>
-                            setIsReportModalOpen(!isReportModalOpen)
-                          }
-                          className="px-[16px] py-[12px] text-font-sub text-md-500"
-                        >
-                          신고
-                        </li>
-                      </ul>
-                    )}
-                    {isReportModalOpen && (
-                      <LectureReportModal
-                        onClose={() => setIsReportModalOpen(false)}
-                        onReportSuccess={handleReportSuccess}
-                      />
-                    )}
-                    {/* 신고 성공 메시지 오버레이 */}
-                    {reportSuccess && (
-                      <AlertMessage type="success" message="신고 접수 완료" />
-                    )}
                   </button>
+                  {isMoreOpen && (
+                    <ul className="absolute right-0 md:left-0 w-[121px] flex justify-start py-[8px] mt-[20px] bg-white rounded-[12px] shadow-md">
+                      <li
+                        onClick={() => setIsReportModalOpen(!isReportModalOpen)}
+                        className="px-[16px] py-[12px] text-font-sub text-md-500 cursor-pointer"
+                      >
+                        신고
+                      </li>
+                    </ul>
+                  )}
+                  {isReportModalOpen && (
+                    <LectureReportModal
+                      onClose={() => setIsReportModalOpen(false)}
+                      onReportSuccess={handleReportSuccess}
+                    />
+                  )}
+                  {/* 신고 성공 메시지 오버레이 */}
+                  {reportSuccess && (
+                    <AlertMessage type="success" message="신고 접수 완료" />
+                  )}
                 </div>
               </div>
             </div>

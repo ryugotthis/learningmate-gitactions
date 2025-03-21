@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { CloseIcon } from './icons/CloseIcon';
-import { RadioIcon } from './icons/RadioIcon';
-import { RadioCheckedIcon } from './icons/RadioCheckedIcon';
+// 아이콘
+import { CloseIcon, RadioIcon, RadioCheckedIcon } from './icons';
 
 interface ReportModalProps {
   // isOpen: boolean;
@@ -11,7 +10,7 @@ interface ReportModalProps {
   title: string;
 }
 
-export const ReportModal: React.FC<ReportModalProps> = ({
+const ReportModal: React.FC<ReportModalProps> = ({
   // isOpen,
   onClose,
   data,
@@ -19,7 +18,6 @@ export const ReportModal: React.FC<ReportModalProps> = ({
   title,
 }) => {
   const [reason, setReason] = useState('');
-  // const [isReported, setIsReported] = useState(false);
 
   // 신고 버튼 클릭 시 실행할 함수
   const handleReport = () => {
@@ -110,3 +108,4 @@ export const ReportModal: React.FC<ReportModalProps> = ({
     </div>
   );
 };
+export default ReportModal;

@@ -1,6 +1,4 @@
-export const RadioCheckedIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
-  props
-) => (
+const RadioCheckedIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="24"
     height="24"
@@ -17,3 +15,4 @@ export const RadioCheckedIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
     />
   </svg>
 );
+export default RadioCheckedIcon;

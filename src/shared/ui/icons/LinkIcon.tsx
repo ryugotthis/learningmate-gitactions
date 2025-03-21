@@ -1,4 +1,4 @@
-export const LinkIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const LinkIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="24"
     height="24"
@@ -15,3 +15,4 @@ export const LinkIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 );
+export default LinkIcon;

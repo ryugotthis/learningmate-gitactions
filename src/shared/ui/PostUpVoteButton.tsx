@@ -1,6 +1,6 @@
 import { useReissue } from '../../entities/auth/model/useReissue';
 import { useAuthStore } from '../store/authstore';
-import { UpIcon } from './icons/UpIcon';
+import { UpIcon } from './icons';
 
 interface UpVoteButtonProps {
   // onClick: () => void;
@@ -82,3 +82,4 @@ export const PostUpVoteButton = ({
     </>
   );
 };
+export default PostUpVoteButton;

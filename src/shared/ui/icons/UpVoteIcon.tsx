@@ -1,4 +1,4 @@
-export const UpVoteIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const UpVoteIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="40"
     height="40"
@@ -15,3 +15,4 @@ export const UpVoteIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 );
+export default UpVoteIcon;

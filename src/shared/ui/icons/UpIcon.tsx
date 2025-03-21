@@ -1,4 +1,4 @@
-export const UpIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const UpIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="14"
     height="8"
@@ -13,3 +13,4 @@ export const UpIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 );
+export default UpIcon;

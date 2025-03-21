@@ -1,11 +1,15 @@
-import { LecturesForMECard } from './LectureForMeCard';
-import { useNavigate } from 'react-router-dom';
-import Pagination from './Pagination';
 import { useEffect, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+// 컴포넌트
+import { LecturesForMECard } from './LectureForMeCard';
+import Pagination from './Pagination';
 import { MoonLoader } from 'react-spinners';
-import { useGetDemandLecture } from '../../../entities/demandLectures/model/useGetDemandLecture';
-import { useGetMyDemandLectures } from '../../../entities/demandLectures/model/useGetMyDemandLectures';
+// 커스텀 훅
+import {
+  useGetDemandLecture,
+  useGetMyDemandLectures,
+} from '../../../entities/demandLectures/model';
+
 export interface CardData {
   id: number;
   vote: number;

@@ -1,12 +1,12 @@
 import { useState } from 'react';
-//  데이터 커스텀 훅
-import { useGetLectures } from '../../../entities/lectures/model/useGetLectures';
+// 데이터 커스텀 훅
+import { useGetLectures } from '../../../entities/lectures/model';
 import { useSearchStore } from '../model/useLectureStore';
 import { useFilterList } from '../../../shared/store/filterListStore';
 // 컴포넌트
-import { LectureCardList } from '../../../widgets/lecture/LectureCardList';
 import InfiniteScroll from 'react-infinite-scroller';
 import { MoonLoader } from 'react-spinners';
+import { LectureCardList } from '../../../widgets/lecture/ui/LectureCardList';
 
 export const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
   const { filterList } = useFilterList(); // 선택된 플랫폼 필터 리스트

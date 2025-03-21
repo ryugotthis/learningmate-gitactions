@@ -2,25 +2,26 @@ import { useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Header from '../../widgets/header';
 // 아이콘
-import { DateIcon } from '../../shared/ui/icons/DateIcon';
-import { ViewsIcon } from '../../shared/ui/icons/ViewsIcon';
-import { CommentIcon } from '../../shared/ui/icons/CommentIcon';
-import { ProfileIcon } from '../../shared/ui/icons/ProfileIcon';
-import { CheckIcon } from '../../shared/ui/icons/CheckIcon';
+import {
+  DateIcon,
+  ViewsIcon,
+  CommentIcon,
+  ProfileIcon,
+  CheckIcon,
+} from '../../shared/ui/icons';
 
 // 컴포넌트
 import { CommentInput } from '../../features/comment/ui/CommentInput';
 import { CommentList } from '../../features/comment/ui/CommemtList';
 import { UpVoteButton2 } from '../../features/demandLectures/ui/UpVoteButton2';
-import { OptionsMenu } from '../../widgets/menu/ui/recommand/OptionsMenu';
+import { OptionsMenu } from '../../features/demandLectures/ui/OptionsMenu';
 import { UpVoteButtonContainer } from '../../features/demandLectures/ui/UpVoteButtonContainer';
-import Editor from '../../shared/ui/icons/Editor';
+import Editor from '../../shared/ui/Editor';
 
 // 훅
-import { useGetDemandLectureDetailItem } from '../../entities/demandLectures/model/useGetDemandLectureDetailItem';
+import { useGetDemandLectureDetailItem } from '../../entities/demandLectures/model';
 import { useFormatDate } from '../../shared/util/useFormatDate';
 import SEO from '../../shared/ui/SEO';
-// import { useLocation } from 'react-router-dom';
 
 export const LecturesForMeDetail = () => {
   const { id } = useParams(); // ✅ URL에서 id 추출

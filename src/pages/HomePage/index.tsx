@@ -5,12 +5,12 @@ import SearchBar from '../../widgets/header/ui/SearchBar';
 import HomeLogo from '../../widgets/header/ui/icons/HomeLogo.svg';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
-import FilterModal from '../../widgets/lecture/FilterModal';
+import FilterModal from '../../features/filter/ui/FilterModal';
 import { LectureCardListHomeContainer } from '../../features/lectures/ui/LectureCardHomeContainer';
 
 // 데이터 커스텀 훅
 import { useFilterList } from '../../shared/store/filterListStore';
-import { useGetPlatforms } from '../../entities/lectures/model/useGetPlatforms';
+import { useGetPlatforms } from '../../entities/lectures/model';
 import SEO from '../../shared/ui/SEO';
 
 interface Sort {

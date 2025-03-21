@@ -1,64 +1,8 @@
-import { useGetDemandLectureComments } from '../../../entities/demandLectures/model/useGetDemandLectureCommets';
-
+// 커스텀 훅
+import { useGetDemandLectureComments } from '../../../entities/comments/model';
+// 컴포넌트
 import { CommentCard } from './CommentCard';
 
-//예시
-// interface Comment {
-//   id: number;
-//   content: string;
-//   user: {
-//     name: string;
-//   };
-//   createTime: string;
-// }
-
-// const CommentExample: Comment[] = [
-//   {
-//     id: 0,
-//     content:
-//       '간단한 웹사이트를 클론해서 만들거나, 계산기나 Todo를 만들어 보는 것도 좋습니다.',
-//     user: {
-//       name: '가나다라',
-//     },
-//     createTime: '25.02.01',
-//   },
-//   {
-//     id: 1,
-//     content:
-//       '간단한 웹사이트를 클론해서 만들거나, 계산기나 Todo를 만들어 보는 것도 좋습니다.',
-//     user: {
-//       name: '가나다라',
-//     },
-//     createTime: '25.02.01',
-//   },
-//   {
-//     id: 2,
-//     content:
-//       '간단한 웹사이트를 클론해서 만들거나, 계산기나 Todo를 만들어 보는 것도 좋습니다.',
-//     user: {
-//       name: '가나다라',
-//     },
-//     createTime: '25.02.01',
-//   },
-//   {
-//     id: 3,
-//     content:
-//       '간단한 웹사이트를 클론해서 만들거나, 계산기나 Todo를 만들어 보는 것도 좋습니다.',
-//     user: {
-//       name: '가나다라',
-//     },
-//     createTime: '25.02.01',
-//   },
-//   {
-//     id: 4,
-//     content:
-//       '간단한 웹사이트를 클론해서 만들거나, 계산기나 Todo를 만들어 보는 것도 좋습니다.',
-//     user: {
-//       name: '가나다라',
-//     },
-//     createTime: '25.02.01',
-//   },
-// ];
 interface CommentData {
   id: number;
   content: string;

@@ -1,10 +1,10 @@
+// 커스텀 훅
 import { useReissue } from '../../../entities/auth/model/useReissue';
-import { useGetPostLikeStatus } from '../../../entities/lectures/model/useGetPostLikeStatus';
-
 import { useAuthStore } from '../../../shared/store/authstore';
-import { UpVoteIcon } from '../../../shared/ui/icons/UpVoteIcon';
-import { useCreateLikes } from '../../../entities/demandLectures/model/useCreateDemandLectureLikes';
-import { useDeleteLikes } from '../../../entities/demandLectures/model/useDeleteLikes';
+import { useGetPostLikeStatus } from '../../../entities/lectures/model';
+import { useCreateLikes, useDeleteLikes } from '../../../entities/likes/model';
+// 아이콘
+import { UpVoteIcon } from '../../../shared/ui/icons';
 
 export const UpVoteButton2 = ({ postId }: { postId: number }) => {
   const { mutate: likeMutate } = useCreateLikes();
