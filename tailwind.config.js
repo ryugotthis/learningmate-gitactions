@@ -37,6 +37,7 @@
 //   },
 // };
 export default {
+  mode: 'jit', // Tailwind CSS v3.0부터는 기본으로 활성화되어 있을 수 있습니다
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
@@ -99,7 +100,7 @@ export default {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'), // ✅ Tiptap과 호환되도록 typography 플러그인 추가
-  ],
+  // plugins: [
+  //   require('@tailwindcss/typography'), // ✅ Tiptap과 호환되도록 typography 플러그인 추가
+  // ],
 };
