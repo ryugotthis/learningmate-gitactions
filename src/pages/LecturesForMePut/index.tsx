@@ -1,9 +1,16 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  Suspense,
+} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 //아이콘
 import { LeftIcon, ErrorIcon } from '../../shared/ui/icons';
 //컴포넌트
-import Editor from '../../shared/ui/Editor'; // forwardRef가 적용된 Editor 컴포넌트
+// 👇 Editor 컴포넌트 lazy 로딩
+const Editor = React.lazy(() => import('../../shared/ui/Editor'));
 
 // 커스텀 훅
 import { useGetDemandLectureDetailItem } from '../../entities/demandLectures/model';
@@ -152,12 +159,20 @@ const LecturesForMePut = () => {
           {/* <div className="my-5 border-t border-surface-line" /> */}
 
           {/* Editor 컴포넌트: 초기 데이터는 initialContent, onChange 업데이트 */}
-          <Editor
-            ref={editorRef}
-            initialData={initialContent}
-            onChange={handleEditorChange}
-            readOnly={false}
-          />
+          <Suspense
+            fallback={
+              <div className="p-4 text-center text-font-sub">
+                에디터 로딩 중...
+              </div>
+            }
+          >
+            <Editor
+              ref={editorRef}
+              initialData={initialContent}
+              onChange={handleEditorChange}
+              readOnly={false}
+            />
+          </Suspense>
         </div>
 
         {/* 제목 에러 메시지 */}

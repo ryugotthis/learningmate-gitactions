@@ -1,10 +1,17 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  Suspense,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 // 커스텀 훅
 import { useCreateDemandLecture } from '../../entities/demandLectures/model';
 import { useReissue } from '../../entities/auth/model/useReissue';
 // 컴포넌트
-import Editor from '../../shared/ui/Editor'; // Editor 컴포넌트 가져오기
+// Editor 컴포넌트 lazy 로딩
+const Editor = React.lazy(() => import('../../shared/ui/Editor'));
 
 // 아이콘
 import { LeftIcon, ErrorIcon } from '../../shared/ui/icons';
@@ -123,7 +130,15 @@ const LecturesForMePost = () => {
           </h1>
 
           {/* 본문 입력 (Editor 컴포넌트) */}
-          <Editor onChange={handleEditorChange} readOnly={false} />
+          <Suspense
+            fallback={
+              <div className="p-4 text-center text-font-sub">
+                에디터 로딩 중...
+              </div>
+            }
+          >
+            <Editor onChange={handleEditorChange} readOnly={false} />
+          </Suspense>
         </div>
 
         {/* 제목 에러 메시지 */}
