@@ -72,7 +72,7 @@ const HomePage = () => {
       <header className="flex flex-col items-center">
         <div className=" flex justify-between items-center gap-[72px] my-[120px]">
           <div className="hidden lg:block w-[440px] h-[338px]">
-            <img src={HomeLogo} alt="homeLogo" className="" />
+            <img src={HomeLogo} alt="homeLogo" width={440} height={338} />
           </div>
           <div className="flex flex-col gap-[40px] items-center">
             <p className="title-md-600 md:title-lg-600">
