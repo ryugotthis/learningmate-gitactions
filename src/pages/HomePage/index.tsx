@@ -75,7 +75,7 @@ const HomePage = () => {
             <img src={HomeLogo} alt="homeLogo" width={440} height={338} />
           </div>
           <div className="flex flex-col gap-[40px] items-center">
-            <h1 className="title-md-600 md:title-lg-600">
+            <h1 className="title-md-600 md:title-lg-600" >
               너에게 꼭 맞는 강의를 찾아줄게!
             </h1>
 
