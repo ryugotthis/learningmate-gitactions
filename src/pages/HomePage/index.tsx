@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // 컴포넌트
 import Header from '../../widgets/header';
 import SearchBar from '../../widgets/header/ui/SearchBar';
@@ -6,16 +6,12 @@ import HomeLogo from '../../widgets/header/ui/icons/HomeLogo.svg';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
 import FilterModal from '../../features/filter/ui/FilterModal';
-// import { LectureCardListHomeContainer } from '../../features/lectures/ui/LectureCardHomeContainer';
-// ✅ lazy import 추가
-const LectureCardListHomeContainer = lazy(
-  () => import('../../features/lectures/ui/LectureCardHomeContainer')
-);
+import LectureCardListHomeContainer from '../../features/lectures/ui/LectureCardHomeContainer';
+
 // 데이터 커스텀 훅
 import { useFilterList } from '../../shared/store/filterListStore';
 import { useGetPlatforms } from '../../entities/lectures/model';
 import SEO from '../../shared/ui/SEO';
-import { LoadingSpinner } from '../../shared/ui';
 
 interface Sort {
   name: string;
@@ -79,9 +75,9 @@ const HomePage = () => {
             <img src={HomeLogo} alt="homeLogo" width={440} height={338} />
           </div>
           <div className="flex flex-col gap-[40px] items-center">
-            <p className="title-md-600 md:title-lg-600">
+            <h1 className="title-md-600 md:title-lg-600">
               너에게 꼭 맞는 강의를 찾아줄게!
-            </p>
+            </h1>
 
             <SearchBar isNaveBar={false} />
           </div>
@@ -164,17 +160,9 @@ const HomePage = () => {
             </ul>
           )}
           {/* 본문 카드 */}
-          <Suspense
-            fallback={
-              <div className="flex justify-center my-[60px]">
-                <LoadingSpinner />
-              </div>
-            }
-          >
-            <div className="mb-[100px]">
-              <LectureCardListHomeContainer sort={sortSelected.query} />
-            </div>
-          </Suspense>
+          <div className="mb-[100px]">
+            <LectureCardListHomeContainer sort={sortSelected.query} />
+          </div>
         </main>
       </div>
     </>
