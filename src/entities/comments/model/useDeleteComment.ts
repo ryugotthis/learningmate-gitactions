@@ -1,23 +1,3 @@
-// import { useMutation } from '@tanstack/react-query';
-
-// import { AxiosError } from 'axios';
-// import { deleteComment } from '../api/comments/deleteComment';
-
-// export const useDeleteComment = () => {
-//   // const navigate = useNavigate();
-//   return useMutation({
-//     mutationFn: (postId: number) => deleteComment(postId),
-
-//     onSuccess: (data) => {
-//       console.log(data, '댓글 삭제 성공');
-//     },
-//     onError: (error) => {
-//       const axiosError = error as AxiosError; // ✅ TypeScript가 AxiosError로 인식하게 변환
-//       console.log('댓긋 삭제 실패2:', axiosError.response?.status);
-//     },
-//   });
-// };
-
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteComment } from '../api/deleteComment'; // 댓글 삭제 API
 import { AxiosError } from 'axios';
@@ -54,11 +34,8 @@ export const useDeleteComment = () => {
         ['demandLectureComments', postId],
         (oldData: any) => {
           if (!oldData) return oldData;
-          // 예시 1: 댓글 목록이 배열일 경우
+          // 댓글 목록이 배열
           return oldData.filter((comment: any) => comment.id !== commentId);
-
-          // 예시 2: 댓글 목록이 객체 내의 comments 배열이라면 아래와 같이 처리:
-          // return { ...oldData, comments: oldData.comments.filter((comment: any) => comment.id !== commentId) };
         }
       );
 

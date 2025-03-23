@@ -10,12 +10,16 @@ export const useCreateBookMark = () => {
 
     onMutate: async (newBookmark: BookMarkData) => {
       const { postId } = newBookmark;
+      // 해당 게시글의 북마크 상태 쿼리를 취소 (동시 요청 충돌 방지)
       await queryClient.cancelQueries({ queryKey: ['bookmarkState', postId] });
 
+      // 이전 북마크 상태를 저장 (에러 발생 시 롤백용)
       const previousBookmarkState = queryClient.getQueriesData({
         queryKey: ['bookmarkState', postId],
       });
+      // UI를 즉시 업데이트하여 북마크된 것으로 표시 (낙관적 업데이트)
       queryClient.setQueryData(['bookmarkState', postId], true);
+      // 이후 onError에서 rollback할 수 있도록 이전 상태 반환
       return { previousBookmarkState };
     },
 

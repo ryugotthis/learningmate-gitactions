@@ -120,17 +120,13 @@ const LecturesForMeDetail = () => {
           {/* UpVote 버튼 */}
           <aside className="hidden lg:block absolute left-[-60px] top-1/3 transform -translate-y-1/2 ">
             <UpVoteButtonContainer
-              // onClick={() => handleVoteUpButton(lecture.id)}
-              // isVoteUpClicked={isVoteUpClicked}
               postId={lecture?.id}
               likes={lecture?.likes}
             />
           </aside>
+          {/* 테블릿, 모바일 버전 UpVote 버튼 */}
           <aside className="lg:hidden fixed right-[16px] md:right-[120px] bottom-[50px] z-50">
             <UpVoteButton2 postId={lecture?.id} />
-            {/* <button className="fixed flex justify-center items-center w-[64px] h-[64px] rounded-full border-2 border-primary-default bg-white right-[100px] bottom-[100px] z-50">
-              <UpVoteIcon className="text-primary-default w-[24px] h-[24px]" />
-            </button> */}
           </aside>
         </section>
 

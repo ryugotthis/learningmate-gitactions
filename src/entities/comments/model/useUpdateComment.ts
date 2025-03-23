@@ -23,23 +23,20 @@ export const useUpdateComment = (commentId: number) => {
     }) => updateComment(commentId, data),
 
     onMutate: async ({ data, postId }) => {
-      // 각 쿼리 캐시 취소 및 이전 상태 저장
+      // 해당 게시글의 댓글 쿼리를 취소 (동시 요청 충돌 방지)
       await queryClient.cancelQueries({
         queryKey: ['demandLectureComments', postId],
       });
 
-      // const previousMyDemandLecture = queryClient.getQueryData(['myDemandLecture']);
+      // 이전 댓글 상태를 저장 (에러 발생 시 롤백용)
       const previousComment = queryClient.getQueriesData({
         queryKey: ['demandLectureComments', postId],
       });
 
-      // Optimistic update: 각 캐시에서 좋아요 수 및 상태 변경 (데이터 구조에 맞게 수정)
+      // UI를 즉시 업데이트하여 수정된 것으로 표시 (낙관적 업데이트)
       queryClient.setQueryData(
         ['demandLectureComments', postId],
         (oldData: any) => {
-          console.log('전체', oldData);
-          console.log('부분', data);
-          console.log('여기 아이디', commentId);
           if (!oldData) return oldData;
           return oldData.map((comment: any) =>
             comment.id === commentId
@@ -49,7 +46,7 @@ export const useUpdateComment = (commentId: number) => {
         }
       );
 
-      // 롤백을 위한 이전 상태 반환
+      // 이후 onError에서 rollback할 수 있도록 이전 상태 반환
       return {
         previousComment,
       };

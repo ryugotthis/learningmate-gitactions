@@ -173,7 +173,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
                 onChange={(e) => setSearchText(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    console.log('엔터 눌림, 검색어 저장:', debouncedSearchText);
                     setSearchTitle(debouncedSearchText);
                   }
                 }}
@@ -213,12 +212,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
                       <li
                         key={index}
                         className="px-[24px] pt-[16px] pb-[18px] flex gap-[24px] items-center hover:bg-gray-200 cursor-pointer"
-                        // onClick={() => setSearchText(title)}
                         onMouseDown={() => {
-                          console.log('검색어 저장:', title);
                           setSearchTitle(title);
                         }}
-                        // setSearchTitle
                       >
                         <img src={Search} alt="search" />
                         <p className="truncate text-md-500">{title}</p>

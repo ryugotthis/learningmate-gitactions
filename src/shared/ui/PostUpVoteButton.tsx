@@ -1,5 +1,7 @@
+// 커스텀 훅
 import { useReissue } from '../../entities/auth/model/useReissue';
 import { useAuthStore } from '../store/authstore';
+// 아이콘
 import { UpIcon } from './icons';
 
 interface UpVoteButtonProps {
@@ -22,8 +24,8 @@ export const PostUpVoteButton = ({
   likeMutate,
   unLikeMutate,
 }: UpVoteButtonProps) => {
-  const { isLoggedIn } = useAuthStore();
-  const { mutate: reissue } = useReissue();
+  const { isLoggedIn } = useAuthStore(); // 로그인 상태
+  const { mutate: reissue } = useReissue(); // 토큰 재발급
 
   const handleVoteUpButton = () => {
     if (!isLoggedIn) {

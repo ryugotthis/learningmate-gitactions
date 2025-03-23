@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useAuthStore } from '../../../shared/store/authstore';
 
 export const apiClient = axios.create({
-  baseURL: 'https://15.164.2.37/api/v1', //API 기본 URL
+  baseURL: import.meta.env.VITE_API_URL, // 환경 변수에서 baseURL 가져옴
   headers: {
     'Content-Type': 'multipart/form-data',
   },

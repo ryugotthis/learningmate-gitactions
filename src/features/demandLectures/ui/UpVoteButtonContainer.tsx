@@ -1,8 +1,12 @@
 // 컴포넌트
 import { PostUpVoteButton } from '../../../shared/ui/PostUpVoteButton';
 // 커스텀 훅
-import { useGetPostLikeStatus } from '../../../entities/lectures/model';
-import { useCreateLikes, useDeleteLikes } from '../../../entities/likes/model';
+
+import {
+  useCreateLikes,
+  useDeleteLikes,
+  useGetPostLikeStatus,
+} from '../../../entities/likes/model';
 
 interface UpVoteButtonProps {
   // onClick: () => void;

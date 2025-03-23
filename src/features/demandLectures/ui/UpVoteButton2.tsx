@@ -1,20 +1,22 @@
 // 커스텀 훅
 import { useReissue } from '../../../entities/auth/model/useReissue';
 import { useAuthStore } from '../../../shared/store/authstore';
-import { useGetPostLikeStatus } from '../../../entities/lectures/model';
-import { useCreateLikes, useDeleteLikes } from '../../../entities/likes/model';
+import {
+  useCreateLikes,
+  useDeleteLikes,
+  useGetPostLikeStatus,
+} from '../../../entities/likes/model';
 // 아이콘
 import { UpVoteIcon } from '../../../shared/ui/icons';
 
 export const UpVoteButton2 = ({ postId }: { postId: number }) => {
-  const { mutate: likeMutate } = useCreateLikes();
-  const { mutate: unLikeMutate } = useDeleteLikes();
-  const { data: isLikeClicked } = useGetPostLikeStatus(postId);
-  const { isLoggedIn } = useAuthStore();
-  const { mutate: reissue } = useReissue();
+  const { mutate: likeMutate } = useCreateLikes(); // 좋아요 post
+  const { mutate: unLikeMutate } = useDeleteLikes(); // 좋아요 delete
+  const { data: isLikeClicked } = useGetPostLikeStatus(postId); // 좋아요 post 했는지 상태
+  const { isLoggedIn } = useAuthStore(); // 로그인 여부
+  const { mutate: reissue } = useReissue(); // 토큰 재발급 받기
 
   const handleVoteUpButton = () => {
-    console.log('로그인상태', isLoggedIn);
     if (!isLoggedIn) {
       alert('로그인이 필요해');
     }

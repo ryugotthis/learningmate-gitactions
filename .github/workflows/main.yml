@@ -38,3 +38,51 @@ jobs:
           AWS_DISTRIBUTION_ID: ${{ secrets.AWS_DISTRIBUTION_ID }}
           PATHS: '/index.html'
         continue-on-error: true
+#         name: AWS_CICD
+
+# on:
+#   push:
+#     branches:
+#       - master
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       # 1. 깃허브에서 코드 체크아웃
+#       - name: Checkout source code
+#         uses: actions/checkout@v2
+
+#       # 2. Node.js 버전 설정 (권장)
+#       - name: Set Node.js version
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '18'
+
+#       # 3. 의존성 설치
+#       - name: Install dependencies
+#         run: npm ci
+
+#       # 4. 빌드 (자동으로 .env.production 적용됨)
+#       - name: Build for production
+#         run: npm run build
+
+#       # 5. AWS CLI로 S3 배포
+#       - name: S3 Deploy
+#         run: aws s3 sync ./dist s3://react-vite-learningmate/ --delete --acl bucket-owner-full-control
+#         env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           AWS_REGION: ${{ secrets.AWS_REGION }}
+
+#       # 6. CloudFront 캐시 무효화
+#       - name: Invalidate CloudFront Cache
+#         uses: chetan/invalidate-cloudfront-action@master
+#         env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           AWS_REGION: ${{ secrets.AWS_REGION }}
+#           AWS_DISTRIBUTION_ID: ${{ secrets.AWS_DISTRIBUTION_ID }}
+#           PATHS: '/*'
+#         continue-on-error: true

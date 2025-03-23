@@ -20,13 +20,13 @@ export const useCreateDemandLectureComment = () => {
     }) => createDemandLectureComment(postId, data),
 
     onSuccess: (data) => {
-      console.log(data, '포스트demandLecture 성공');
+      console.log(data, '댓글 등록 성공');
     },
     onError: (error) => {
       const axiosError = error as AxiosError; // ✅ TypeScript가 AxiosError로 인식하게 변환
-      console.log('포스트demandLecture2:', axiosError.response?.status);
+      console.log('댓글 등록 실패:', axiosError.response?.status);
       if (axiosError.response?.status === 403) {
-        alert('로그인을 해주세요'); // ✅ 403일 때만 alert 표시
+        alert('로그인을 해주세요'); // 403일 때만 alert 표시
       }
     },
   });

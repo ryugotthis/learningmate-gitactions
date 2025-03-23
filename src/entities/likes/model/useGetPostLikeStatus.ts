@@ -1,6 +1,7 @@
 import { useAuthStore } from '../../../shared/store/authstore';
-import { getPostLikeStatus } from '../api/getPostLikeStatus';
+
 import { useQuery } from '@tanstack/react-query';
+import { getPostLikeStatus } from '../api/getPostLikeStatus';
 
 // ✅ React Query 훅
 export const useGetPostLikeStatus = (postId: number) => {
