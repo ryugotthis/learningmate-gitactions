@@ -36,11 +36,8 @@ const Header = () => {
       navigate('/login'); // ✅ 로그인 페이지로 이동
     }
   };
-  console.log('보자보자', userData);
 
   useEffect(() => {
-    console.log('여긴홈페이지?', isHome);
-
     if (!isHome) return; // 홈페이지가 아니면 스크롤 이벤트 등록 안 함
 
     const handleScroll = () => {

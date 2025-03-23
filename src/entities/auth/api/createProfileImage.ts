@@ -24,7 +24,6 @@ export const createProfileImage = async (formData: any): Promise<any> => {
     const response = await apiClient.post(`/users/profile-image`, formData);
     return response.data;
   } catch (error) {
-    console.log('데이터형태', formData);
     console.error('📌이미지 추가 실패1:', error);
     throw error;
   }
