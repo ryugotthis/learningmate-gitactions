@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- ✅ Pretendard 웹폰트 추가 -->
+    <!-- ✅ 가변 다이나믹 서브셋 방식 (용량 ↓, 성능 ↑, 모던 브라우저 지원) -->
     <link
-      rel="preload"
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/PretendardVariable.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
     />
 
     <!-- 🔹 페이지 기본 정보(Helmet에서 덮어씌워질 수 있음) -->
