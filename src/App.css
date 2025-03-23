@@ -12,7 +12,14 @@
 /* font-weight: 100 900; */
 /* } */
 /* } */
-
+@layer base {
+  @font-face {
+    font-family: 'Pretendard Variable';
+    src: url('/fonts/PretendardVariable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
+  }
+}
 @layer utilities {
   /* Figma에서 "Title-md-600"으로 정의한 스타일 */
   .title-lg-600 {
