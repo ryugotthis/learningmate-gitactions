@@ -1,5 +1,5 @@
 import { useParams, useLocation } from 'react-router-dom';
-import { useEffect, useState, Suspense, lazy } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import Header from '../../widgets/header';
 // 아이콘
 import {
@@ -17,7 +17,7 @@ import { UpVoteButton2 } from '../../features/demandLectures/ui/UpVoteButton2';
 import { OptionsMenu } from '../../features/demandLectures/ui/OptionsMenu';
 import { UpVoteButtonContainer } from '../../features/demandLectures/ui/UpVoteButtonContainer';
 // import Editor from '../../shared/ui/Editor';
-const Editor = lazy(() => import('../../shared/ui/Editor'));
+const Editor = React.lazy(() => import('../../shared/ui/Editor'));
 // 훅
 import { useGetDemandLectureDetailItem } from '../../entities/demandLectures/model';
 import { useFormatDate } from '../../shared/util/useFormatDate';
