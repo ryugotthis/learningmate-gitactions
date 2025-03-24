@@ -24,5 +24,22 @@ export default defineConfig(({ command }) => {
   return {
     plugins: [react()],
     server: serverConfig,
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // 🔹 공통 라이브러리들을 분리해서 캐싱 활용
+            react: ['react', 'react-dom'],
+            vendor: [
+              'react-router-dom',
+              '@tanstack/react-query',
+              'zustand',
+              'react-hook-form',
+              // 여기에 자주 쓰는 라이브러리 추가 가능
+            ],
+          },
+        },
+      },
+    },
   };
 });
