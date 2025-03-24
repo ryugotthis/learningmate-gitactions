@@ -27,7 +27,7 @@ const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
     title,
   });
 
-  const lectures = data?.pages.flatMap((page) => page.data) || []; // 각 페이지의 데이터를 하나의 배열로 합치기
+  
 
   const [manualLoadTriggered, setManualLoadTriggered] = useState(false); // 더보기 버튼 눌림 상태
 
@@ -45,10 +45,40 @@ const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
         <MoonLoader size={105} color="#17af6d" />
       </div>
     );
-
+    // const lectures = data?.pages.flatMap((page) => page.data) || []; // 각 페이지의 데이터를 하나의 배열로 합치기
+    const allLectures = data?.pages.flatMap((page) => page.data) || [];
+    const firstPageLectures = data?.pages[0]?.data || [];
+    const initialLectures = firstPageLectures.slice(0, 9);
+  
   return (
     <>
-      {manualLoadTriggered ? (
+     {!manualLoadTriggered ? (
+        <>
+          <LectureCardList data={initialLectures} />
+          <div className="mt-[50px] flex justify-center">
+            {hasNextPage && (
+              <button
+                onClick={handleManualLoad}
+                disabled={isFetchingNextPage}
+                className="h-[48px] px-[24px] border border-line rounded-4xl text-font-sub text-md-600"
+              >
+                {isFetchingNextPage ? '로딩중...' : '더보기'}
+              </button>
+            )}
+          </div>
+        </>
+      ) : (
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={() => fetchNextPage()}
+          hasMore={hasNextPage && !isFetchingNextPage}
+          loader={<div key="loader">로딩중...</div>}
+          useWindow={true}
+        >
+          <LectureCardList data={allLectures} />
+        </InfiniteScroll>
+      )}
+      {/* {manualLoadTriggered ? (
         // 버튼 클릭 후에는 InfiniteScroll로 자동 로드
         <InfiniteScroll
           pageStart={0}
@@ -75,7 +105,7 @@ const LectureCardListHomeContainer = ({ sort }: { sort: string }) => {
             )}
           </div>
         </>
-      )}
+      )} */}
     </>
   );
 };
