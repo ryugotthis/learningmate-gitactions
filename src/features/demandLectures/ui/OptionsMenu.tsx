@@ -25,11 +25,8 @@ export const OptionsMenu = ({
   const handleDelete = async () => {
     if (window.confirm('삭제하면 이 글은 다시 복구할 수 없어, 삭제 할래?')) {
       try {
-        console.log('삭제할 id', postId);
-
         // 토큰 재발급을 먼저 시도합니다.
         await reissueToken();
-        console.log('토큰재발급성공~!');
         // 삭제 API 호출
         deleteMutate(postId);
 

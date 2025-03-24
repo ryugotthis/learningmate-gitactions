@@ -75,6 +75,12 @@ const LecturesForMePut = () => {
     // 약간의 지연을 두어 에디터 내부 상태 업데이트를 기다림
     await new Promise((resolve) => setTimeout(resolve, 200));
 
+    if (!editorRef.current || typeof editorRef.current.save !== 'function') {
+      console.warn('Editor 인스턴스가 아직 준비되지 않았습니다.');
+      alert('에디터가 아직 준비되지 않았어요. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+
     let savedData;
     try {
       savedData = await editorRef.current.save();
