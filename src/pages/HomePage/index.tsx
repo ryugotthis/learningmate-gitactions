@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense, lazy } from 'react';
 // 컴포넌트
 import Header from '../../widgets/header';
-import SearchBar from '../../widgets/header/ui/SearchBar';
+// import SearchBar from '../../widgets/header/ui/SearchBar';
+const SearchBar = lazy(() => import('../../widgets/header/ui/SearchBar'));
 import HomeLogo from '../../widgets/header/ui/icons/HomeLogo.svg';
 import FilterSiteIcon from '../../shared/ui/icons/StartIcon.svg';
 import SortIcon from '../../shared/ui/icons/RightIcon.svg';
@@ -75,11 +76,13 @@ const HomePage = () => {
             <img src={HomeLogo} alt="homeLogo" width={440} height={338} />
           </div>
           <div className="flex flex-col gap-[40px] items-center">
-            <h1 className="title-md-600 md:title-lg-600" >
+            <h1 className="title-md-600 md:title-lg-600">
               너에게 꼭 맞는 강의를 찾아줄게!
             </h1>
 
-            <SearchBar isNaveBar={false} />
+            <Suspense fallback={<div>검색창 로딩 중...</div>}>
+              <SearchBar isNaveBar={false} />
+            </Suspense>
           </div>
         </div>
       </header>

@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense, lazy } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 // 컴포넌트
-import SearchBar from './ui/SearchBar';
+// import SearchBar from './ui/SearchBar';
+const SearchBar = lazy(() => import('./ui/SearchBar'));
 // 커스텀 훅
 import { useAuthStore } from '../../shared/store/authstore';
 import { useLogout } from '../../entities/auth/model/useLogout';
@@ -149,7 +150,11 @@ const Header = () => {
             >
               내 활동
             </button>
-            {showSearch && <SearchBar isNaveBar={true} />}
+            {showSearch && (
+              <Suspense fallback={<div>검색창 로딩 중...</div>}>
+                <SearchBar isNaveBar={true} />
+              </Suspense>
+            )}
           </div>
         </div>
         <div className="flex gap-[16px] pr-[16px] lg:pr-[32px] ">
