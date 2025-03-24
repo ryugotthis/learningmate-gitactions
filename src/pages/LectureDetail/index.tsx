@@ -151,6 +151,7 @@ const LectureDetail = () => {
                   <span className="">강의</span>
                 </button>
                 <button
+                  name="link-copy"
                   onClick={handleCopy}
                   className="flex lg:gap-[4px] lg:h-[40px] items-center border border-line p-[12px] lg:px-[24px] lg:py-0 rounded-full lg:rounded-4xl"
                 >

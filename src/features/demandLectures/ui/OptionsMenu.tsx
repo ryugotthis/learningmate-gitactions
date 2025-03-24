@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
+
 // 컴포넌트
 import { MoreOptionsButton } from './MoreOptionsButton';
 // 커스텀 훅
@@ -42,9 +44,25 @@ export const OptionsMenu = ({
     }
   };
 
+  const handleCopyLink = useCallback(() => {
+    const currentUrl = window.location.href;
+    navigator.clipboard
+      .writeText(currentUrl)
+      .then(() => {
+        alert('링크가 복사되었습니다!');
+      })
+      .catch((err) => {
+        console.error('복사 실패:', err);
+      });
+  }, []);
+
   return (
     <div className="flex justify-end items-center gap-[24px] text-sm-600 text-font-sub">
-      <button className="flex lg:gap-[4px] lg:h-[40px] items-center border border-line p-[12px] lg:px-[24px] lg:py-0 rounded-full lg:rounded-4xl">
+      <button
+        name="link-copy"
+        onClick={handleCopyLink}
+        className="flex lg:gap-[4px] lg:h-[40px] items-center border border-line p-[12px] lg:px-[24px] lg:py-0 rounded-full lg:rounded-4xl"
+      >
         <LinkIcon className="w-[24px] h-[24px]" />
 
         <span className="hidden lg:inline">링크 복사</span>

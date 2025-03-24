@@ -109,7 +109,7 @@ const Header = () => {
           {/* 햄버거 버튼 (모바일/태블릿 전용) */}
           <button
             className="lg:hidden"
-            name="home-hamburger-button"
+            name="menu-button"
             onClick={() => {
               setMenuOpen(!menuOpen);
               setIsSearchClicked(false); // 메뉴가 열리면 검색창 닫기
@@ -144,6 +144,7 @@ const Header = () => {
         <div className="flex gap-[16px] pr-[16px] lg:pr-[32px] ">
           {/* 모바일, 태블릿 버전 검색 버튼 */}
           <button
+            name="search-button"
             onClick={() => {
               setIsSearchClicked(!isSearchClicked);
               setMenuOpen(false); // 검색 버튼 클릭 시 메뉴 닫기
