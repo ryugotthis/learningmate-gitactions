@@ -41,7 +41,7 @@ export const LectureCard = ({ data }: { data: any }) => {
         </div>
         {/* 제목, 설명 */}
         <div className="flex flex-col h-[116px] gap-[8px]">
-          <h2 className=" text-font-default line-clamp-2">{data?.title}</h2>
+          <h2 className="">{data?.title}</h2>
           <p className="text-md-400 text-font-sub line-clamp-2">
             {data?.description}
           </p>
