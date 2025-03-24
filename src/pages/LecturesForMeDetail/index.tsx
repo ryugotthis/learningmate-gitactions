@@ -1,5 +1,5 @@
 import { useParams, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense, lazy } from 'react';
 import Header from '../../widgets/header';
 // 아이콘
 import {
@@ -16,8 +16,8 @@ import { CommentList } from '../../features/comment/ui/CommemtList';
 import { UpVoteButton2 } from '../../features/demandLectures/ui/UpVoteButton2';
 import { OptionsMenu } from '../../features/demandLectures/ui/OptionsMenu';
 import { UpVoteButtonContainer } from '../../features/demandLectures/ui/UpVoteButtonContainer';
-import Editor from '../../shared/ui/Editor';
-
+// import Editor from '../../shared/ui/Editor';
+const Editor = lazy(() => import('../../shared/ui/Editor'));
 // 훅
 import { useGetDemandLectureDetailItem } from '../../entities/demandLectures/model';
 import { useFormatDate } from '../../shared/util/useFormatDate';
@@ -115,8 +115,10 @@ const LecturesForMeDetail = () => {
         </header>
         {/* 본문 영역 */}
         <section className="relative p-5 h-100">
-          <Editor initialData={lecture?.content} readOnly={true} />
-
+          {/* <Editor initialData={lecture?.content} readOnly={true} /> */}
+          <Suspense fallback={<div>에디터 로딩 중...</div>}>
+            <Editor initialData={lecture?.content} readOnly={true} />
+          </Suspense>
           {/* UpVote 버튼 */}
           <aside className="hidden lg:block absolute left-[-60px] top-1/3 transform -translate-y-1/2 ">
             <UpVoteButtonContainer
