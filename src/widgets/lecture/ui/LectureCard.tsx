@@ -36,13 +36,18 @@ export const LectureCard = ({ data }: { data: any }) => {
             src={matchedPlatform ? matchedPlatform.url : '기본이미지URL'}
             alt={data?.platform.title || 'platformLogo'}
             className="w-[60px]"
+            loading="eager"
+            fetchPriority="high"
+            width="60"
+            height="60"
+            decoding="async"
           />
           <BookmarkButton postId={data.id} />
         </div>
         {/* 제목, 설명 */}
         <div className="flex flex-col h-[116px] gap-[8px]">
           <h2 className="title-sm-600 text-font-default line-clamp-2">
-            {data?.title || '로딩 중...'}
+            {data?.title}
           </h2>
           <p className="text-md-400 text-font-sub line-clamp-2">
             {data?.description}
