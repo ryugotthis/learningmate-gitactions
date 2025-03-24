@@ -44,7 +44,11 @@ export const BookmarkButton = ({ postId }: { postId: number }) => {
 
   return (
     <>
-      <button onClick={(e) => handleBookmarkButton(e)} className="text-line">
+      <button
+        onClick={(e) => handleBookmarkButton(e)}
+        name="bookmark-button"
+        className="text-line"
+      >
         {isLoggedIn ? (
           bookmarkState ? (
             <BookmarkFiledIcon className="text-primary-default" />

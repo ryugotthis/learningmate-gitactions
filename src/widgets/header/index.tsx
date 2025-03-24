@@ -109,6 +109,7 @@ const Header = () => {
           {/* 햄버거 버튼 (모바일/태블릿 전용) */}
           <button
             className="lg:hidden"
+            name="home-hamburger-button"
             onClick={() => {
               setMenuOpen(!menuOpen);
               setIsSearchClicked(false); // 메뉴가 열리면 검색창 닫기
@@ -116,27 +117,27 @@ const Header = () => {
           >
             <HamburgerIcon />
           </button>
-          <button onClick={() => navigate('/')}>
+          <button name="home-button" onClick={() => navigate('/')}>
             <Logo />
           </button>
 
           {/* PC 버전 메뉴 */}
           <div className="hidden text-md-600 lg:flex lg:items-center lg:gap-[32px]">
-            <a className="cursor-pointer" onClick={() => navigate('/')}>
+            <button name="lecture-button" onClick={() => navigate('/')}>
               강의
-            </a>
-            <a
-              className="cursor-pointer"
+            </button>
+            <button
+              name="lectures-for-me-button"
               onClick={() => navigate('/lectures-for-me')}
             >
               날.강.도
-            </a>
-            <a
-              className="cursor-pointer"
+            </button>
+            <button
+              name="my-activity-button"
               onClick={() => navigate('/my-activity')}
             >
               내 활동
-            </a>
+            </button>
             {showSearch && <SearchBar isNaveBar={true} />}
           </div>
         </div>
@@ -152,6 +153,7 @@ const Header = () => {
             <SearchIcon />
           </button>
           <button
+            name="user-info-page"
             onClick={handleLoginButton}
             className={`${
               isLoggedIn
