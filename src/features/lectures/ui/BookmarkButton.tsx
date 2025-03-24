@@ -47,6 +47,7 @@ export const BookmarkButton = ({ postId }: { postId: number }) => {
       <button
         onClick={(e) => handleBookmarkButton(e)}
         name="bookmark-button"
+        aria-label="북마크 추가"
         className="text-line"
       >
         {isLoggedIn ? (

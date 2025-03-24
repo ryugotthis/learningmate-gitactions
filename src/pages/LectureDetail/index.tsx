@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 //컴포넌트
 import Header from '../../widgets/header';
@@ -75,15 +75,17 @@ const LectureDetail = () => {
     }
   };
   // 링크 복사
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      alert('링크가 복사되었습니다!'); // 복사 성공 메시지
-    } catch (err) {
-      console.error('URL 복사 실패', err);
-      alert('URL 복사 실패'); // 복사 실패 메시지
-    }
-  };
+  const handleCopyLink = useCallback(() => {
+    const currentUrl = window.location.href;
+    navigator.clipboard
+      .writeText(currentUrl)
+      .then(() => {
+        alert('링크가 복사되었습니다!');
+      })
+      .catch((err) => {
+        console.error('복사 실패:', err);
+      });
+  }, []);
 
   // 메뉴 외부 클릭 감지 로직
   useEffect(() => {
@@ -152,7 +154,7 @@ const LectureDetail = () => {
                 </button>
                 <button
                   name="link-copy"
-                  onClick={handleCopy}
+                  onClick={handleCopyLink}
                   className="flex lg:gap-[4px] lg:h-[40px] items-center border border-line p-[12px] lg:px-[24px] lg:py-0 rounded-full lg:rounded-4xl"
                 >
                   <LinkIcon className="w-[24px] h-[24px]" />

@@ -110,6 +110,7 @@ const Header = () => {
           <button
             className="lg:hidden"
             name="menu-button"
+            aria-label="메뉴 열기"
             onClick={() => {
               setMenuOpen(!menuOpen);
               setIsSearchClicked(false); // 메뉴가 열리면 검색창 닫기
@@ -117,23 +118,33 @@ const Header = () => {
           >
             <HamburgerIcon />
           </button>
-          <button name="home-button" onClick={() => navigate('/')}>
+          <button
+            name="home-button"
+            aria-label="홈페이지 이동"
+            onClick={() => navigate('/')}
+          >
             <Logo />
           </button>
 
           {/* PC 버전 메뉴 */}
           <div className="hidden text-md-600 lg:flex lg:items-center lg:gap-[32px]">
-            <button name="lecture-button" onClick={() => navigate('/')}>
+            <button
+              name="lecture-button"
+              aria-label="강의페이지 이동"
+              onClick={() => navigate('/')}
+            >
               강의
             </button>
             <button
               name="lectures-for-me-button"
+              aria-label="날강도페이지 이동"
               onClick={() => navigate('/lectures-for-me')}
             >
               날.강.도
             </button>
             <button
               name="my-activity-button"
+              aria-label="내활동페이지 이동"
               onClick={() => navigate('/my-activity')}
             >
               내 활동
@@ -145,6 +156,7 @@ const Header = () => {
           {/* 모바일, 태블릿 버전 검색 버튼 */}
           <button
             name="search-button"
+            aria-label="검색 버튼"
             onClick={() => {
               setIsSearchClicked(!isSearchClicked);
               setMenuOpen(false); // 검색 버튼 클릭 시 메뉴 닫기
@@ -155,6 +167,7 @@ const Header = () => {
           </button>
           <button
             name="user-info-page"
+            aria-label="사용자 정보"
             onClick={handleLoginButton}
             className={`${
               isLoggedIn
