@@ -83,37 +83,46 @@ const LecturesForMePut = () => {
     await new Promise((resolve) => setTimeout(resolve, 200));
 
     // 에디터가 준비되지 않았을 경우 예외 처리
-    if (
-      !isEditorReady || // ✅ 준비 완료 여부 검사 추가
-      !editorRef.current ||
-      typeof editorRef.current.save !== 'function'
-    ) {
-      console.warn('Editor 인스턴스가 아직 준비되지 않았습니다.');
-      alert('에디터가 아직 준비되지 않았어요. 잠시 후 다시 시도해주세요.');
-      return;
-    }
+    // if (
+    //   !isEditorReady || // ✅ 준비 완료 여부 검사 추가
+    //   !editorRef.current ||
+    //   typeof editorRef.current.save !== 'function'
+    // ) {
+    //   console.warn('Editor 인스턴스가 아직 준비되지 않았습니다.');
+    //   alert('에디터가 아직 준비되지 않았어요. 잠시 후 다시 시도해주세요.');
+    //   return;
+    // }
     // if (!editorRef.current || typeof editorRef.current.save !== 'function') {
     //   console.warn('Editor 인스턴스가 아직 준비되지 않았습니다.');
     //   alert('에디터가 아직 준비되지 않았어요. 잠시 후 다시 시도해주세요.');
     //   return;
     // }
 
-    let savedData;
-    try {
-      savedData = await editorRef.current.save();
-      console.log('Saved data from editorRef.save():', savedData);
-    } catch (err) {
-      console.error('Editor save error:', err);
-      alert('에디터 저장 중 오류가 발생했어요.');
-      return;
-    }
+    // let savedData;
+    // try {
+    //   savedData = await editorRef.current.save();
+    //   console.log('Saved data from editorRef.save():', savedData);
+    // } catch (err) {
+    //   console.error('Editor save error:', err);
+    //   alert('에디터 저장 중 오류가 발생했어요.');
+    //   return;
+    // }
 
-    const savedBlocks = savedData?.blocks ?? [];
-    const finalContent =
-      savedBlocks.length > 0
-        ? JSON.stringify({ blocks: savedBlocks })
-        : JSON.stringify({ blocks: JSON.parse(latestContentRef.current) });
+    // const savedBlocks = savedData?.blocks ?? [];
+    // const finalContent =
+    //   savedBlocks.length > 0
+    //     ? JSON.stringify({ blocks: savedBlocks })
+    //     : JSON.stringify({ blocks: JSON.parse(latestContentRef.current) });
 
+    // if (!finalContent.trim() || finalContent === '{"blocks":[]}') {
+    //   setErrorContent(true);
+    //   return;
+    // }
+    console.log('에디터 준비 상태:', isEditorReady);
+    console.log('에디터 레퍼런스:', editorRef.current);
+    // LecturesForMePost와 유사한 방식으로 처리
+    // editorRef.current.save() 대신 latestContentRef.current 사용
+    const finalContent = latestContentRef.current;
     if (!finalContent.trim() || finalContent === '{"blocks":[]}') {
       setErrorContent(true);
       return;

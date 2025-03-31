@@ -1,4 +1,10 @@
-import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import {
+  useEffect,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import EditorJS from '@editorjs/editorjs';
 
 // Editor.js 플러그인들 (ImageTool 제거됨)
@@ -14,14 +20,32 @@ export interface EditorProps {
   readOnly?: boolean; // 읽기 전용 여부
   onReady?: () => void; // // EditorJS 인스턴스 초기화가 완료되었을 때 실행되는 콜백 함수
 }
+type ImperativeEditorHandle = {
+  save: () => Promise<any>;
+};
 
 // forwardRef를 사용해 부모 컴포넌트에서 에디터 인스턴스 접근 가능하게 함
-const Editor = forwardRef<EditorJS | null, EditorProps>(
+const Editor = forwardRef<ImperativeEditorHandle, EditorProps>(
   ({ onChange, initialData, readOnly = false, onReady }, ref) => {
     const editorInstance = useRef<EditorJS | null>(null);
+    const [isInitialized, setIsInitialized] = useState(false);
+    console.log('초기화되ㅇ었나', isInitialized);
 
     // 부모에서 ref.current로 Editor 인스턴스에 접근할 수 있게 설정
-    useImperativeHandle(ref, () => editorInstance.current!, []);
+    // useImperativeHandle(ref, () => editorInstance.current!, []);
+    // 명시적으로 save 메서드를 노출
+    useImperativeHandle(
+      ref,
+      () => ({
+        save: async () => {
+          if (editorInstance.current) {
+            return await editorInstance.current.save();
+          }
+          throw new Error('Editor 인스턴스가 준비되지 않았습니다');
+        },
+      }),
+      [editorInstance.current]
+    );
 
     // 전달받은 initialData를 EditorJS가 기대하는 형태({ blocks: [...] })로 파싱
     const getParsedData = () => {
@@ -47,9 +71,10 @@ const Editor = forwardRef<EditorJS | null, EditorProps>(
 
     // 에디터 초기화 및 해제
     useEffect(() => {
-      const isRefValid = typeof ref !== 'function' && ref !== null;
-      if (!editorInstance.current) {
-        editorInstance.current = new EditorJS({
+      let editor: EditorJS | null = null;
+
+      const initEditor = () => {
+        editor = new EditorJS({
           holder: 'editorjs',
           readOnly,
           placeholder: readOnly ? '' : '본문을 입력해줘',
@@ -66,32 +91,79 @@ const Editor = forwardRef<EditorJS | null, EditorProps>(
           },
           data: getParsedData(),
           onChange: async () => {
-            if (!readOnly) {
-              const data = await editorInstance.current?.save();
+            if (!readOnly && editor) {
+              const data = await editor.save();
               onChange?.(data);
             }
           },
           onReady: () => {
-            if (!readOnly && isRefValid) {
-              // 수정 모드 일때만
-              onReady?.();
-            }
+            console.log('👍 에디터 준비 완료');
+            editorInstance.current = editor;
+            setIsInitialized(true);
+            onReady?.();
           },
         });
+      };
 
-        console.log('🛠 EditorJS 인스턴스 생성됨:', editorInstance.current);
+      // 에디터 초기화
+      if (!editorInstance.current) {
+        initEditor();
       }
 
+      // 클린업 함수
       return () => {
-        console.log('🧹 Editor.js 정리 중...');
-        editorInstance.current?.destroy?.();
-        editorInstance.current = null;
-
-        const editorHolder = document.getElementById('editorjs');
-        if (editorHolder) {
-          editorHolder.innerHTML = '';
+        if (editor) {
+          console.log('🧹 Editor.js 정리 중...');
+          editor.destroy();
+          editorInstance.current = null;
+          setIsInitialized(false);
         }
       };
+      // const isRefValid = typeof ref !== 'function' && ref !== null;
+      // if (!editorInstance.current) {
+      //   editorInstance.current = new EditorJS({
+      //     holder: 'editorjs',
+      //     readOnly,
+      //     placeholder: readOnly ? '' : '본문을 입력해줘',
+      //     tools: {
+      //       header: Header,
+      //       list: List,
+      //       code: CodeTool,
+      //       quote: {
+      //         class: Quote,
+      //         config: {
+      //           quotePlaceholder: '인용문을 입력하세요...',
+      //         },
+      //       },
+      //     },
+      //     data: getParsedData(),
+      //     onChange: async () => {
+      //       if (!readOnly) {
+      //         const data = await editorInstance.current?.save();
+      //         onChange?.(data);
+      //       }
+      //     },
+      //     onReady: () => {
+      //       if (!readOnly && isRefValid) {
+      //         // 수정 모드 일때만
+      //         onReady?.();
+      //       }
+      //     },
+      //   });
+
+      //   console.log('🛠 EditorJS 인스턴스 생성됨:', editorInstance.current);
+      // }
+
+      // return () => {
+      //   console.log('🧹 Editor.js 정리 중...');
+      //   editorInstance.current?.destroy?.();
+      //   editorInstance.current = null;
+
+      //   const editorHolder = document.getElementById('editorjs');
+      //   if (editorHolder) {
+      //     editorHolder.innerHTML = '';
+      //   }
+      // };
     }, [initialData, readOnly, onChange, onReady]);
 
     return (
