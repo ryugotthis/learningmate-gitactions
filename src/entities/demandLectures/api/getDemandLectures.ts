@@ -8,7 +8,7 @@ export const getDemandLecture = async ({
 
   sort: string;
 }): Promise<any> => {
-  console.log('플랫폼 요청 URL:', `${apiClient.defaults.baseURL}/platforms`);
+  // console.log('플랫폼 요청 URL:', `${apiClient.defaults.baseURL}/platforms`);
 
   const response = await apiClient.get(
     `/demand-lectures?page=${page}` +

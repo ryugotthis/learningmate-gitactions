@@ -7,7 +7,6 @@ export interface DemandLectureData {
 
 export const createDownVoteLike = async (opinionId: number): Promise<any> => {
   try {
-    console.log('포스트날강도추천데이터');
     const response = await authApiClient.post(
       `/down-vote/${opinionId}/like`,
       null

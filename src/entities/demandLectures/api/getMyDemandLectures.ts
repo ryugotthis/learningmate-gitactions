@@ -11,10 +11,6 @@ export const getMyDemandLectures = async ({
   size,
   sort = 'likes',
 }: MyDemandLecturesProps): Promise<any> => {
-  console.log(
-    '플랫폼 요청 URL:',
-    `${authApiClient.defaults.baseURL}/platforms`
-  );
   const response = await authApiClient.get(
     `/demand-lectures/my?page=${page}&size=${size}` +
       `${sort === 'desc' ? `&sort=desc` : `&sort=${sort},desc`}`

@@ -26,7 +26,6 @@ export const useGetLectures = ({
       });
     },
     getNextPageParam: (lastPage) => {
-      console.log('lastPage', lastPage);
       // lastPage.last가 true면 더 이상 데이터가 없음을 의미
       return lastPage.last ? undefined : lastPage.page + 1;
     },

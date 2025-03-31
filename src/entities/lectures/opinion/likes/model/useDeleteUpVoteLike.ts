@@ -37,10 +37,7 @@ export const useDeleteUpVoteLike = (postId: number) => {
 
       // Optimistic update: 각 캐시에서 좋아요 수 및 상태 변경 (데이터 구조에 맞게 수정)
       queryClient.setQueryData(['upVoteOpinion', postId], (oldData: any) => {
-        console.log('현제 강의 아이디', postId);
-        console.log('현재 캐시 데이터:', oldData);
         if (oldData && Array.isArray(oldData.content)) {
-          console.log('데이터형태확인', oldData);
           return {
             ...oldData,
             content: oldData.content.map((opinion: any) =>
@@ -64,7 +61,7 @@ export const useDeleteUpVoteLike = (postId: number) => {
     },
     // context는 onMutate의 반환값이 onError의 매개변수
     onError: (err, opinionId, context) => {
-      console.log('에러:', err);
+      console.log('추천 좋아요 취소 실패:', err);
 
       // 에러 발생 시 이전 상태로 롤백
 
