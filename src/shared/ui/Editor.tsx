@@ -47,6 +47,7 @@ const Editor = forwardRef<EditorJS | null, EditorProps>(
 
     // 에디터 초기화 및 해제
     useEffect(() => {
+      const isRefValid = typeof ref !== 'function' && ref !== null;
       if (!editorInstance.current) {
         editorInstance.current = new EditorJS({
           holder: 'editorjs',
@@ -71,7 +72,7 @@ const Editor = forwardRef<EditorJS | null, EditorProps>(
             }
           },
           onReady: () => {
-            if (!readOnly && ref) {
+            if (!readOnly && isRefValid) {
               // 수정 모드 일때만
               onReady?.();
             }
