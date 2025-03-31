@@ -41,6 +41,11 @@ const LecturesForMePut = () => {
   // 에디터 인스턴스 참조
   const editorRef = useRef<any>(null);
   const latestContentRef = useRef<string>('');
+  const [isEditorReady, setIsEditorReady] = useState(false);
+
+  // const handleEditorReady = useCallback(() => {
+  //   setIsEditorReady(true);
+  // }, []);
 
   // 데이터 수신 후 초기값 설정
   useEffect(() => {
@@ -78,11 +83,20 @@ const LecturesForMePut = () => {
     await new Promise((resolve) => setTimeout(resolve, 200));
 
     // 에디터가 준비되지 않았을 경우 예외 처리
-    if (!editorRef.current || typeof editorRef.current.save !== 'function') {
+    if (
+      !isEditorReady || // ✅ 준비 완료 여부 검사 추가
+      !editorRef.current ||
+      typeof editorRef.current.save !== 'function'
+    ) {
       console.warn('Editor 인스턴스가 아직 준비되지 않았습니다.');
       alert('에디터가 아직 준비되지 않았어요. 잠시 후 다시 시도해주세요.');
       return;
     }
+    // if (!editorRef.current || typeof editorRef.current.save !== 'function') {
+    //   console.warn('Editor 인스턴스가 아직 준비되지 않았습니다.');
+    //   alert('에디터가 아직 준비되지 않았어요. 잠시 후 다시 시도해주세요.');
+    //   return;
+    // }
 
     let savedData;
     try {
@@ -175,6 +189,7 @@ const LecturesForMePut = () => {
               ref={editorRef}
               initialData={initialContent}
               onChange={handleEditorChange}
+              onReady={() => setIsEditorReady(true)} //
               readOnly={false}
             />
           </Suspense>

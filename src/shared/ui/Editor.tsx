@@ -12,11 +12,12 @@ export interface EditorProps {
   onChange?: (data: any) => void; // 에디터 내용이 바뀔 때 실행될 콜백 함수
   initialData?: string; // 에디터에 표시할 초기 데이터(JSON 문자열)
   readOnly?: boolean; // 읽기 전용 여부
+  onReady?: () => void; // // EditorJS 인스턴스 초기화가 완료되었을 때 실행되는 콜백 함수
 }
 
 // forwardRef를 사용해 부모 컴포넌트에서 에디터 인스턴스 접근 가능하게 함
 const Editor = forwardRef<EditorJS | null, EditorProps>(
-  ({ onChange, initialData, readOnly = false }, ref) => {
+  ({ onChange, initialData, readOnly = false, onReady }, ref) => {
     const editorInstance = useRef<EditorJS | null>(null);
 
     // 부모에서 ref.current로 Editor 인스턴스에 접근할 수 있게 설정
@@ -69,6 +70,12 @@ const Editor = forwardRef<EditorJS | null, EditorProps>(
               onChange?.(data);
             }
           },
+          onReady: () => {
+            if (!readOnly && ref) {
+              // 수정 모드 일때만
+              onReady?.();
+            }
+          },
         });
 
         console.log('🛠 EditorJS 인스턴스 생성됨:', editorInstance.current);
@@ -84,7 +91,7 @@ const Editor = forwardRef<EditorJS | null, EditorProps>(
           editorHolder.innerHTML = '';
         }
       };
-    }, [initialData, readOnly, onChange]);
+    }, [initialData, readOnly, onChange, onReady]);
 
     return (
       <div
