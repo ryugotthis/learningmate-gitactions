@@ -29,7 +29,7 @@ const Editor = forwardRef<ImperativeEditorHandle, EditorProps>(
   ({ onChange, initialData, readOnly = false, onReady }, ref) => {
     const editorInstance = useRef<EditorJS | null>(null);
     const [isInitialized, setIsInitialized] = useState(false);
-    console.log('초기화되ㅇ었나', isInitialized);
+    // console.log('초기화되ㅇ었나', isInitialized);
 
     // 부모에서 ref.current로 Editor 인스턴스에 접근할 수 있게 설정
     // useImperativeHandle(ref, () => editorInstance.current!, []);
@@ -44,7 +44,8 @@ const Editor = forwardRef<ImperativeEditorHandle, EditorProps>(
           throw new Error('Editor 인스턴스가 준비되지 않았습니다');
         },
       }),
-      [editorInstance.current]
+      // [editorInstance.current]
+      [isInitialized]
     );
 
     // 전달받은 initialData를 EditorJS가 기대하는 형태({ blocks: [...] })로 파싱
@@ -112,12 +113,21 @@ const Editor = forwardRef<ImperativeEditorHandle, EditorProps>(
 
       // 클린업 함수
       return () => {
-        if (editor) {
-          console.log('🧹 Editor.js 정리 중...');
+        // if (editor) {
+        //   console.log('🧹 Editor.js 정리 중...');
+        //   editor.destroy();
+        //   editorInstance.current = null;
+        //   setIsInitialized(false);
+        // }
+        console.log('🧹 Editor.js 정리 중...');
+
+        // 에디터 인스턴스가 있을 경우에만 destroy 실행
+        if (editor && typeof editor.destroy === 'function') {
           editor.destroy();
-          editorInstance.current = null;
-          setIsInitialized(false);
         }
+
+        editorInstance.current = null;
+        setIsInitialized(false);
       };
       // const isRefValid = typeof ref !== 'function' && ref !== null;
       // if (!editorInstance.current) {
