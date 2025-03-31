@@ -4,7 +4,6 @@ import { apiClient } from '../../../shared/api/apiClient';
 // 로그아웃 함수
 export const logout = async (): Promise<any> => {
   try {
-    console.log('로그아웃 요청 URL:', `${apiClient.defaults.baseURL}/logout`);
     await apiClient.post('/logout'); // 서버에 로그아웃 요청
   } catch (error) {
     console.error('로그아웃 실패1:', error);

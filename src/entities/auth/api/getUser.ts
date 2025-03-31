@@ -21,10 +21,7 @@
 // });
 import { authApiClient } from '../../../shared/api/authApiClient';
 export const getUser = async (): Promise<any> => {
-  console.log('플랫폼 요청 URL:', `${authApiClient.defaults.baseURL}/users/my`);
   const response = await authApiClient.get('/users/my');
-
-  console.log('📌 API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
 
   return response.data.data;
 };

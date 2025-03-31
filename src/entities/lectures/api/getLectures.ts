@@ -20,7 +20,5 @@ export const getLectures = async ({
   const url = `/lectures?size=9&page=${pageParam}${platformsQuery}${titleQuery}${sortQuery}`;
   const response = await apiClient.get(url);
 
-  console.log('🥰test API 응답 데이터:', response.data); // ✅ 응답 데이터 출력
-
   return response.data; // ✅ 올바르게 `data`만 반환
 };
