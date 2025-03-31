@@ -67,9 +67,3 @@ export const useUpdateComment = (commentId: number) => {
     },
   });
 };
-// onError: (error) => {
-//   const axiosError = error as AxiosError; // ✅ TypeScript가 AxiosError로 인식하게 변환
-//   console.log('댓글 수정 실패2:', axiosError.response?.status);
-//   if (axiosError.response?.status === 403) {
-//     alert('로그인을 해주세요'); // ✅ 403일 때만 alert 표시
-//   }

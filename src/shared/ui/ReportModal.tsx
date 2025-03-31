@@ -21,14 +21,9 @@ const ReportModal: React.FC<ReportModalProps> = ({
 
   // 신고 버튼 클릭 시 실행할 함수
   const handleReport = () => {
-    // 예: 서버로 reason 전송 등
-    console.log('선택된 신고 사유:', reason);
     onClose(); // 모달을 먼저 닫고
     onReportSuccess(); // 부모 컴포넌트에 신고 성공 알림
   };
-
-  // 모달이 닫힌 상태면 렌더링 안 함
-  // if (!isOpen) return null;
 
   return (
     // 화면 전체를 덮는 반투명 오버레이

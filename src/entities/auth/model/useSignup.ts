@@ -7,8 +7,7 @@ export const useSignup = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: (data: SignupPayload) => signup(data),
-    onSuccess: (data) => {
-      console.log('회원가입 성공:', data);
+    onSuccess: () => {
       navigate('/login');
     },
     onError: (error) => {

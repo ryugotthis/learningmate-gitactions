@@ -18,14 +18,13 @@ interface CommentListProps {
   postId: number;
 }
 export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
-  console.log('postId', postId);
   const {
     data: CommentListData,
     isLoading,
     isError,
     error,
   } = useGetDemandLectureComments(postId);
-  console.log('댓글데이터확인', CommentListData);
+
   return (
     <>
       <div className="flex items-center mb-10">

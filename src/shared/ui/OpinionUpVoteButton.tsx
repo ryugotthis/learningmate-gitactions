@@ -37,14 +37,10 @@ const OpinionUpVoteButton = ({
         onSuccess: () => {
           // reissue가 성공하면, 현재 토글 상태에 따라 북마크 생성 또는 삭제
           if (isLikeClicked) {
-            console.log('좋아요해제');
             unLikeMutate(opinionId);
           } else {
             likeMutate(opinionId);
           }
-          // 토글 상태 업데이트
-          // setIsToggled((prev) => !prev);
-          // console.log('북마크 요청 postId:', postId);
         },
         onError: (error) => {
           // reissue 실패 시 페이지 이동 (예: 로그인 페이지)

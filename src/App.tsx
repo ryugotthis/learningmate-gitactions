@@ -15,10 +15,9 @@ const App = ({ children }: { children?: React.ReactNode }) => {
     const refreshTokenOnLoad = async () => {
       if (!isLoggedIn) return; // 로그인 상태가 아닐 경우 실행 안 함
       if (!accessToken) {
-        console.log('🔄 새로고침 감지: accessToken 없음 → 재발급 시도');
+        //  새로고침 감지: accessToken 없음 → 재발급 시도;
         try {
           await reissueToken(); // ✅ mutateAsync() 사용하여 실행
-          console.log('✅ accessToken 갱신 완료');
         } catch (error) {
           console.error('🚨 새로고침 시 토큰 갱신 실패, 로그아웃 처리 필요');
           setIsLoggedIn(false); // 로그아웃 상태 변경
@@ -34,7 +33,7 @@ const App = ({ children }: { children?: React.ReactNode }) => {
     <div>
       <main>{children || <Outlet />}</main>
       <footer>
-        <p>© 2025 My App</p>
+        <p>© 2025 Learningmate app </p>
       </footer>
     </div>
   );

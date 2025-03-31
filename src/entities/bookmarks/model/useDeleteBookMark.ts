@@ -19,11 +19,8 @@ export const useDeleteBookMark = () => {
       return { previousBookmarkState };
     },
 
-    onSuccess: (data: any) => {
-      console.log('북마크 추가 성공', data);
-    },
     onError: (err, postId, context) => {
-      console.log('에러:', err);
+      console.log('북마크 삭제 실패2:', err);
       // 에러 발생 시 이전 상태로 롤백
       queryClient.setQueryData(
         ['bookmarkState', postId],

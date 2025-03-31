@@ -71,8 +71,6 @@ const LecturesForMePost = () => {
         },
         {
           onSuccess: (data) => {
-            console.log('✅ 게시글 등록 성공!');
-
             // state를 함께 전달하여 페이지 이동
             navigate(`/lectures-for-me/${data.data.id}`, {
               state: { submitStatus: 'success' },

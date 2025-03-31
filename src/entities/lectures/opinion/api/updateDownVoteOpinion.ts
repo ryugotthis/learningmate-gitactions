@@ -13,7 +13,6 @@ export const updateDownVoteOpinion = async ({
   data: OpinionData;
 }): Promise<any> => {
   try {
-    console.log('추천글 수정', data);
     const response = await authApiClient.put(`/down-votes/${opinionId}`, data);
     return response.data;
   } catch (error) {

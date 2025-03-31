@@ -41,7 +41,6 @@ const MyPage = () => {
   };
 
   const handleImageDelete = () => {
-    console.log('클릭');
     deleteProfileImage();
   };
 
@@ -88,12 +87,9 @@ const MyPage = () => {
   const onSubmit = (data: any) => {
     const { newPassword } = data;
 
-    console.log('회원가입보낸데이터', newPassword);
     // e.preventDefault();
     updatePassword({ password: newPassword });
     logout();
-
-    console.log('비밀번호 변경 요청');
   };
   const {
     register,

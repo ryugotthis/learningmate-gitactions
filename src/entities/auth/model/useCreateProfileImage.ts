@@ -6,10 +6,6 @@ export const useCreateProfileImage = () => {
   return useMutation({
     mutationFn: (formData: any) => createProfileImage(formData),
 
-    onSuccess: (data) => {
-      console.log(data, '이미지 추가 성공');
-      // navigate(`/lecture-detail/${data.id}`)
-    },
     onMutate: async (data) => {
       await queryClient.cancelQueries({ queryKey: ['getUser'] });
 
@@ -23,7 +19,7 @@ export const useCreateProfileImage = () => {
     },
     onError: (err, context) => {
       // 에러 발생 시 이전 상태로 롤백
-      console.log('에러:', err);
+      console.log('이미지 추가 실패2:', err);
       queryClient.setQueryData(['getUser'], context?.previousUser);
     },
     // mutation이 성공하든 실패하든 무조건 실행되는 콜백 함수

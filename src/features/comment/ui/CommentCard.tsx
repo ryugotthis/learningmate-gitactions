@@ -45,8 +45,6 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
     }));
   };
 
-  console.log('hello', data.user.profileImage);
-
   // 1초 후에 메시지 제거
   useEffect(() => {
     if (submitStatus) {
@@ -89,7 +87,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
       setSubmitStatus('noText');
       return;
     }
-    console.log('수정데이터', editedComment);
+
     // put API로 댓글 수정 요청
     try {
       mutateAsync();
@@ -115,10 +113,10 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
     if (window.confirm('삭제하면 이 댓글은 다시 복구할 수 없어, 삭제 할래?')) {
       try {
         const commentId = data.id;
-        console.log('삭제할 id', data.id);
+
         // 삭제 API 호출 예시 (API 함수 이름은 상황에 맞게 변경)
         // await deletePostApi();
-        console.log('삭제 완료');
+
         deleteCommentMutate({ commentId, postId });
         // navigate('/lectures-for-me');
         // 전체 페이지 새로고침을 위해 window.location.href 사용

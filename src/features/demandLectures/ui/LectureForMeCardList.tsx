@@ -43,7 +43,7 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [lecturesForMeData, setLecturesForMeData] = useState<any[]>([]);
-  console.log('🟨🟨🟨날강도 데이터', lecturesForMeData);
+
   // api에서 받은 날.강.도 게시글
   const {
     data: demandLecturesData,
@@ -66,7 +66,7 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
     size: 10,
     sort: sort,
   });
-  console.log('내 글', myDemandLecturesData);
+
   const [data, setData] = useState<any>(undefined);
 
   const navigate = useNavigate();

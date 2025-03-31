@@ -17,17 +17,14 @@ export const useLogin = () => {
     mutationFn: (data: LoginPayload) => login(data),
 
     onSuccess: (data) => {
-      console.log(data, '로그인성공후 홈페이지이동');
-
+      // 로그인성공후 홈페이지이동
       setAccessToken(data.data.accessToken);
       clearErrorState();
-
       setIsLoggedIn(true);
       navigate('/');
     },
     onError: (error) => {
       setIsLoggedIn(false);
-      console.log('에러확인', error);
       const axiosError = error as AxiosError; // ✅ TypeScript가 AxiosError로 인식하게 변환
       console.log('로그인 실패2:', axiosError.response?.status);
       setErrorState(String(axiosError.response?.status));

@@ -29,8 +29,6 @@ const LecturesForMe = () => {
   const menuRef = useRef<HTMLDivElement>(null); // 정렬 메뉴 참조
   const [isMyPosts, setIsMyPosts] = useState(false); // 내 글 보기 상태 관리
 
-  console.log('선택받은거!', sortSelected.name);
-
   // 정렬 메뉴 외부 클릭 감지 로직
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -45,8 +43,7 @@ const LecturesForMe = () => {
     };
   }, [isSortDropdownOpen]);
   const { isLoggedIn } = useAuthStore();
-  console.log('로그인 체크', isLoggedIn);
-  console.log('클릭체크1', isMyPosts);
+
   // Header는 props가 없거나 변하지 않는다면 useMemo로 감싸서 재렌더링을 방지
   // const memoizedHeader = useMemo(() => <Header />, []);
 

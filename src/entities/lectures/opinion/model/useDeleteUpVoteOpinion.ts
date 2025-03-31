@@ -7,9 +7,6 @@ export const useDeleteUpVoteOpinion = (postId: number) => {
 
   return useMutation({
     mutationFn: (opinionId: number) => deleteUpVoteOpinion(opinionId),
-    // onError: (error) => {
-    //   console.error('🚨 추천글 삭제 실패2:', error);
-    // },
 
     onMutate: async (opinionId) => {
       await queryClient.cancelQueries({
@@ -37,7 +34,7 @@ export const useDeleteUpVoteOpinion = (postId: number) => {
       return { previousUpVoteOpinions, previousLecturesDetail };
     },
     onError: (error, variables, context) => {
-      console.log('에러:', error);
+      console.log('추천 의견 삭제 실패:', error);
       console.log('변수:', variables);
       // 에러 발생 시 이전 캐시로 롤백
       queryClient.setQueryData(

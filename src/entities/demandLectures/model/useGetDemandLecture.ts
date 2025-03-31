@@ -1,15 +1,3 @@
-// import { useQuery } from '@tanstack/react-query';
-// import { fetchDemandLecture } from '../api/postDemandLecture';
-
-// export const useDemandLecture = () => {
-//   return useQuery({
-//     queryKey: ['demandLecture'],
-//     queryFn: fetchDemandLecture, // ✅ `fetchDemandLecture` 실행
-//     staleTime: 5000,
-//     retry: 1,
-//   });
-// };
-
 import { getDemandLecture } from '../api/getDemandLectures';
 import { useQuery } from '@tanstack/react-query';
 

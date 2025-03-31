@@ -53,7 +53,7 @@ export const useDeleteComment = () => {
 
       // 추가 에러 로그 출력
       const axiosError = error as AxiosError;
-      console.log('댓글 삭제 실패:', axiosError.response?.status);
+      console.log('댓글 삭제 실패2:', axiosError.response?.status);
     },
 
     // onSettled: 요청이 끝나면 최신 데이터를 위해 쿼리를 무효화
@@ -61,10 +61,6 @@ export const useDeleteComment = () => {
       queryClient.invalidateQueries({
         queryKey: ['demandLectureComments', variables.postId],
       });
-    },
-
-    onSuccess: (data) => {
-      console.log(data, '댓글 삭제 성공');
     },
   });
 };

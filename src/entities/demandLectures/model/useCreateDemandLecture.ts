@@ -12,12 +12,9 @@ export const useCreateDemandLecture = () => {
   return useMutation({
     mutationFn: (data: DemandLectureData) => createDemandLecture(data),
 
-    onSuccess: (data) => {
-      console.log(data, '포스트demandLecture 성공');
-    },
     onError: (error) => {
       const axiosError = error as AxiosError; // ✅ TypeScript가 AxiosError로 인식하게 변환
-      console.log('포스트demandLecture2:', axiosError.response?.status);
+      console.log('날강도 글 생성 실패2:', axiosError.response?.status);
     },
   });
 };

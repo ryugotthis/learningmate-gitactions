@@ -11,9 +11,6 @@ export const useDeleteProfileImage = () => {
   return useMutation({
     mutationFn: () => deleteProfileImage(),
 
-    onSuccess: (data) => {
-      console.log(data, '이미지 삭제 성공');
-    },
     onMutate: async (): Promise<MutationContext> => {
       await queryClient.cancelQueries({ queryKey: ['getUser'] });
 
@@ -28,7 +25,7 @@ export const useDeleteProfileImage = () => {
     },
     onError: (err, _, context: MutationContext | undefined) => {
       // 에러 발생 시 이전 상태로 롤백
-      console.log('에러:', err);
+      console.log('이미지 삭제 실패2:', err);
       if (context) {
         queryClient.setQueryData(['getUser'], context.previousUser);
       }

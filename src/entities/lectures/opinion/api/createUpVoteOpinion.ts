@@ -13,7 +13,6 @@ export const createUpVoteOpinion = async ({
   data: OpinionData;
 }): Promise<any> => {
   try {
-    console.log('추천의견추가 post데이터', data);
     const response = await authApiClient.post(
       `/posts/${postId}/up-votes`,
       data

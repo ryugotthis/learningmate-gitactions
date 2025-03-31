@@ -6,7 +6,6 @@ export interface BookMarkData {
 
 export const deleteBookMark = async (postId: number): Promise<any> => {
   try {
-    console.log('북마크 삭제시도');
     const response = await authApiClient.delete(`/bookmarks?postId=${postId}`);
     return response.data;
   } catch (error) {

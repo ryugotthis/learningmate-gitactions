@@ -22,7 +22,7 @@ export const useReissue = () => {
       }
     },
     onError: (error) => {
-      console.error('🚨 토큰 갱신 실패:', error);
+      console.error('🚨 토큰 갱신 실패2:', error);
       clearAccessToken();
       setIsLoggedIn(false);
     },

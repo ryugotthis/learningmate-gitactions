@@ -29,11 +29,9 @@ const Header = () => {
 
   const handleLoginButton = () => {
     if (accessToken) {
+      // 토글됨
       SetIsProfileClicked(true);
-      console.log('엑세스토큰 있음 → 로그아웃 실행');
-      // mutate(); // ✅ 로그아웃 실행
     } else {
-      console.log('엑세스토큰 없음 → 로그인 페이지 이동');
       navigate('/login'); // ✅ 로그인 페이지로 이동
     }
   };

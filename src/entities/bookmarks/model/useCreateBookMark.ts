@@ -23,12 +23,9 @@ export const useCreateBookMark = () => {
       return { previousBookmarkState };
     },
 
-    onSuccess: (data: any) => {
-      console.log('북마크 추가 성공', data);
-    },
     onError: (err, postId, context) => {
       // 에러 발생 시 이전 상태로 롤백
-      console.log('에러:', err);
+      console.log('북마크 추가 실패2:', err);
       queryClient.setQueryData(
         ['bookmarkState', postId],
         context?.previousBookmarkState

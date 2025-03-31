@@ -25,8 +25,7 @@ export const UpVoteButtonContainer = ({
   const { mutate: likeMutate } = useCreateUpVoteLike(postId);
   const { mutate: unLikeMutate } = useDeleteUpVoteLike(postId);
   const { data: postLikesStatus } = useGetUpVoteLikeState(opinionId);
-  console.log('추천 데이터 확인', likes);
-  console.log('클릭 확인', postLikesStatus);
+
   return (
     <>
       {/* 강의 게시글 의견 추천버튼 */}

@@ -10,7 +10,6 @@ export const useCreateLecture = () => {
     mutationFn: (searchText: string) => createLecture({ url: searchText }),
 
     onSuccess: (data) => {
-      console.log(data, '강의 추가 성공');
       navigate(`/lecture-detail/${data.data.id}`); // 강의 추가하고 그 강의상세 게시판으로 이동
     },
     onError: (error) => {

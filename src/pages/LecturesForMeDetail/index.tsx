@@ -52,7 +52,6 @@ const LecturesForMeDetail = () => {
   if (isError)
     return <p className="text-red-500">❌ 오류 발생: {error.message}</p>;
   if (!lecturesForMeData) return <p>❌ 데이터를 불러올 수 없습니다.</p>;
-  console.log('강의데이터받아써?');
 
   // ✅ `lecturesForMeData`는 객체이므로, 바로 `lecture`로 사용
   const lecture = lecturesForMeData;

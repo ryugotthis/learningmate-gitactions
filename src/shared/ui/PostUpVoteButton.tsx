@@ -37,26 +37,6 @@ export const PostUpVoteButton = ({
         onSuccess: () => {
           // reissue가 성공하면, 현재 토글 상태에 따라 북마크 생성 또는 삭제
           if (isLikeClicked) {
-            console.log('좋아요해제');
-            unLikeMutate(postId);
-          } else {
-            likeMutate(postId);
-          }
-        },
-        onError: (error) => {
-          // reissue 실패 시 페이지 이동 (예: 로그인 페이지)
-          console.error('reissue 실패', error);
-          alert('로그인이 필요해');
-        },
-      });
-    }
-    if (isLoggedIn) {
-      // reissue 호출
-      reissue(undefined, {
-        onSuccess: () => {
-          // reissue가 성공하면, 현재 토글 상태에 따라 북마크 생성 또는 삭제
-          if (isLikeClicked) {
-            console.log('좋아요해제');
             unLikeMutate(postId);
           } else {
             likeMutate(postId);

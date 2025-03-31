@@ -18,7 +18,6 @@ export const getLectures = async ({
   const sortQuery =
     sort === 'desc' ? `&sort=createTime,desc` : `&sort=${sort},desc`;
   const url = `/lectures?size=9&page=${pageParam}${platformsQuery}${titleQuery}${sortQuery}`;
-  console.log('요청 URL:', apiClient.defaults.baseURL + url);
   const response = await apiClient.get(url);
 
   console.log('🥰test API 응답 데이터:', response.data); // ✅ 응답 데이터 출력

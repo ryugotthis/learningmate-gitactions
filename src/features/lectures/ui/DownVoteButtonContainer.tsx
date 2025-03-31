@@ -25,8 +25,7 @@ export const DownVoteButtonContainer = ({
   const { mutate: likeMutate } = useCreateDownVoteLike(postId);
   const { mutate: unLikeMutate } = useDeleteDownVoteLike(postId);
   const { data: postLikesStatus } = useGetDownVoteLikeState(opinionId);
-  console.log('비추천 데이터 확인', likes);
-  console.log('클릭 확인', postLikesStatus);
+
   return (
     <>
       {/* 강의 게시글 의견 추천버튼 */}
