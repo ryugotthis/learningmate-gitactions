@@ -53,9 +53,9 @@ const MyPage = () => {
       formData.append('profileImage', file);
 
       // FormData의 내용을 확인하기 위한 코드
-      for (const [key, value] of formData.entries()) {
-        console.log(`${key}:`, value);
-      }
+      // for (const [key, value] of formData.entries()) {
+      //   console.log(`${key}:`, value);
+      // }
 
       // useMutation의 mutate 함수 호출하여 이미지 업로드 API 요청
       createProfileImage(formData);
@@ -80,7 +80,7 @@ const MyPage = () => {
   }, []);
 
   useEffect(() => {
-    console.log('유저데이터', data);
+    // console.log('유저데이터', data);
     setUser(data);
   }, [data]);
 
