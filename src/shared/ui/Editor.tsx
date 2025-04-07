@@ -113,12 +113,6 @@ const Editor = forwardRef<ImperativeEditorHandle, EditorProps>(
 
       // 클린업 함수
       return () => {
-        // if (editor) {
-        //   console.log('🧹 Editor.js 정리 중...');
-        //   editor.destroy();
-        //   editorInstance.current = null;
-        //   setIsInitialized(false);
-        // }
         console.log('🧹 Editor.js 정리 중...');
 
         // 에디터 인스턴스가 있을 경우에만 destroy 실행
@@ -129,51 +123,6 @@ const Editor = forwardRef<ImperativeEditorHandle, EditorProps>(
         editorInstance.current = null;
         setIsInitialized(false);
       };
-      // const isRefValid = typeof ref !== 'function' && ref !== null;
-      // if (!editorInstance.current) {
-      //   editorInstance.current = new EditorJS({
-      //     holder: 'editorjs',
-      //     readOnly,
-      //     placeholder: readOnly ? '' : '본문을 입력해줘',
-      //     tools: {
-      //       header: Header,
-      //       list: List,
-      //       code: CodeTool,
-      //       quote: {
-      //         class: Quote,
-      //         config: {
-      //           quotePlaceholder: '인용문을 입력하세요...',
-      //         },
-      //       },
-      //     },
-      //     data: getParsedData(),
-      //     onChange: async () => {
-      //       if (!readOnly) {
-      //         const data = await editorInstance.current?.save();
-      //         onChange?.(data);
-      //       }
-      //     },
-      //     onReady: () => {
-      //       if (!readOnly && isRefValid) {
-      //         // 수정 모드 일때만
-      //         onReady?.();
-      //       }
-      //     },
-      //   });
-
-      //   console.log('🛠 EditorJS 인스턴스 생성됨:', editorInstance.current);
-      // }
-
-      // return () => {
-      //   console.log('🧹 Editor.js 정리 중...');
-      //   editorInstance.current?.destroy?.();
-      //   editorInstance.current = null;
-
-      //   const editorHolder = document.getElementById('editorjs');
-      //   if (editorHolder) {
-      //     editorHolder.innerHTML = '';
-      //   }
-      // };
     }, [initialData, readOnly, onChange, onReady]);
 
     return (
