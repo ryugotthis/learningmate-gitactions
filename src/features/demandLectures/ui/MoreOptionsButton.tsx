@@ -60,7 +60,7 @@ export const MoreOptionsButton = ({
         <MoreIcon />
       </button>
       {isMoreToggled && (
-        <ul className="absolute w-[121px] mt-[7px] text-[16px] font-medium bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)] z-1">
+        <ul className="absolute w-[121px] mt-[7px] text-[16px] font-medium bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)] z-20">
           {userData?.name === name ? (
             <>
               <li
