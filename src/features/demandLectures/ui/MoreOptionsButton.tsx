@@ -70,7 +70,10 @@ export const MoreOptionsButton = ({
                 수정
               </li>
               <li
-                onClick={() => handleDelete()}
+                onClick={(e) => {
+                  e.stopPropagation;
+                  handleDelete;
+                }}
                 className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark"
               >
                 삭제
