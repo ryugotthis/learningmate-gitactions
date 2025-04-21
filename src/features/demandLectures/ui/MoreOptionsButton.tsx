@@ -23,9 +23,9 @@ export const MoreOptionsButton = ({
   const { data: userData } = useGetUser();
 
   const [isMoreToggled, setIsMoreToggled] = useState(false); // 더보기 버튼 상태 관리
-  const handleEdit = (e: React.MouseEvent<HTMLElement>) => {
+  const handleEdit = () => {
     // 수정 페이지로 이동 (예: postId를 경로 파라미터로 전달)
-    e.stopPropagation(); // 이벤트 버블링 방지
+    // e.stopPropagation(); // 이벤트 버블링 방지
     navigate(`/lectures-for-me/edit/${postId}`);
   };
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
@@ -64,15 +64,15 @@ export const MoreOptionsButton = ({
           {userData?.name === name ? (
             <>
               <li
-                onClick={(e) => handleEdit(e)}
+                onClick={() => handleEdit()}
                 className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark"
               >
                 수정
               </li>
               <li
-                onClick={(e) => {
-                  e.stopPropagation;
-                  console.log('클릭1');
+                onClick={() => {
+                  // e.stopPropagation;
+
                   handleDelete();
                 }}
                 className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark"
