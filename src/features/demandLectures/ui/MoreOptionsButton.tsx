@@ -72,6 +72,7 @@ export const MoreOptionsButton = ({
               <li
                 onClick={(e) => {
                   e.stopPropagation;
+                  console.log('클릭1');
                   handleDelete();
                 }}
                 className="py-[12px] px-[16px] cursor-pointer text-font-sub font-bold whitespace-nowrap hover:bg-surface-dark"

@@ -23,6 +23,7 @@ export const OptionsMenu = ({
   const { mutate: deleteMutate } = useDeleteLectureForMe();
 
   const handleDelete = async () => {
+    console.log('클릭2');
     if (window.confirm('삭제하면 이 글은 다시 복구할 수 없어, 삭제 할래?')) {
       try {
         // 토큰 재발급을 먼저 시도합니다.
