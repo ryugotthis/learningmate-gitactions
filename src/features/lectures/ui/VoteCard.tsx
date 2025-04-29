@@ -7,6 +7,7 @@ import { VoteCardItem } from './VoteCardItem';
 import { UpVoteOpinionModal } from '../opinion/ui/UpVoteOpinionModal';
 import { DownVoteOpinionModal } from '../opinion/ui/DownVoteOpinionModal';
 import Hangul from 'hangul-js'; // 한글 자음 단위로 필터링하기 위해
+import { useAuthStore } from '../../../shared/store/authstore';
 
 export const VoteCard = ({
   title,
@@ -23,11 +24,17 @@ export const VoteCard = ({
   visibleCount: number;
   searchText: string;
 }) => {
+  // 로그인 상태 확인
+  const { isLoggedIn } = useAuthStore();
   // 모달의 열림/닫힘 상태를 저장할 state
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 의견 추가 버튼 클릭 시 모달 열림
   const handleAddOpinion = () => {
+    if (!isLoggedIn) {
+      alert('로그인을 해주세요');
+      return;
+    }
     setIsModalOpen(true);
   };
 
