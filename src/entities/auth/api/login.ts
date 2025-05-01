@@ -12,8 +12,6 @@ export interface LoginPayload {
 export const login = async (data: LoginPayload): Promise<any> => {
   // 가상의 API URL을 사용하여 POST 요청
   try {
-    console.log('로그인데이터', data);
-
     const response = await authApiClient.post('/login', data);
 
     // 서버로부터 받은 데이터 반환
