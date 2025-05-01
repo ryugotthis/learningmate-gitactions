@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useAuthStore } from '../store/authstore';
+import { reissue } from '../../entities/auth/api/reissue';
 
 export const authApiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL, //API 기본 URL
@@ -18,3 +19,36 @@ authApiClient.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// 응답 인터셉터 (401/403 에러 처리 + 토큰 재발급)
+authApiClient.interceptors.response.use(
+  (res) => res,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const { accessToken } = await reissue();
+        useAuthStore.getState().setAccessToken(accessToken);
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        return authApiClient(originalRequest);
+      } catch (reissueError) {
+        useAuthStore.getState().clearAccessToken();
+        useAuthStore.getState().setIsLoggedIn(false);
+        alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+        window.location.href = '/login';
+        return Promise.reject(reissueError);
+      }
+    }
+
+    if (error.response?.status === 403) {
+      alert('접근 권한이 없습니다.');
+      // 필요하면 다른 페이지로 이동도 가능
+      // window.location.href = '/unauthorized';
+    }
+
+    return Promise.reject(error);
+  }
+);
