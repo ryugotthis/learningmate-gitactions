@@ -6,9 +6,11 @@ import { persist } from 'zustand/middleware';
 interface AuthState {
   accessToken: string | null; // JWT Access Token
   isLoggedIn: boolean; // 로그인 상태 여부
+  isAuthReady: boolean; // 토큰 재발급 완료 여부
   setAccessToken: (token: string) => void; // Access Token 설정 함수
   clearAccessToken: () => void; // Access Token 초기화 함수(로그아웃)
   setIsLoggedIn: (status: boolean) => void; // 로그인 상태를 직접 변경할 수 있는 함수
+  setAuthReady: () => void; // 토큰 재발급 완료 상태 변경 함수
 }
 
 // Zustand를 사용한 전역 상태 관리
@@ -18,7 +20,8 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       accessToken: null, // 초기 상태는 null
       isLoggedIn: false, // 로그인 상태 추가
-      accessName: null, // 닉네임 추가
+      isAuthReady: false,
+
       setAccessToken: (token) => {
         set({ accessToken: token, isLoggedIn: !!token }); //  token이 있으면 isLoggedIn = true
       },
@@ -28,6 +31,9 @@ export const useAuthStore = create<AuthState>()(
 
       setIsLoggedIn: (status) => {
         set({ isLoggedIn: status });
+      },
+      setAuthReady: () => {
+        set({ isAuthReady: true });
       },
     }),
     {
