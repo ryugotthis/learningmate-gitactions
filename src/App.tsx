@@ -5,7 +5,7 @@ import { useReissue } from './entities/auth/model/useReissue';
 import { useAuthStore } from './shared/store/authstore';
 import { useEffect } from 'react';
 import { useLogout } from './entities/auth/model/useLogout';
-const App = ({ children }: { children?: React.ReactNode }) => {
+const App = () => {
   const { mutateAsync: reissueToken } = useReissue(); // 토큰 갱신 훅
   const { accessToken, isLoggedIn, setIsLoggedIn, isAuthReady, setAuthReady } =
     useAuthStore(); // 저장된 토큰, 로그인 상태
@@ -40,7 +40,7 @@ const App = ({ children }: { children?: React.ReactNode }) => {
 
   return (
     <div>
-      <main>{children || <Outlet />}</main>
+      <main>{<Outlet />}</main>
       <footer>
         <p>© 2025 Learningmate app </p>
       </footer>
