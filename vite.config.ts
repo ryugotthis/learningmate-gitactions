@@ -55,6 +55,8 @@ export default defineConfig(({ command }) => {
               '@tanstack/react-query',
               'zustand',
               'react-hook-form',
+              'axios',
+    'react-helmet-async',
               // 여기에 자주 쓰는 라이브러리 추가 가능
             ],
           },
