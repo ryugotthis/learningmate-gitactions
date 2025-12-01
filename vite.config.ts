@@ -44,11 +44,17 @@ export default defineConfig(({ command }) => {
   return {
     plugins,
     server: serverConfig,
+    resolve: {
+      alias: {
+        // "@/..." → "src/..." 로 매핑
+        '@': path.resolve(__dirname, './src'),
+      },
+    },
     build: {
       rollupOptions: {
         output: {
           manualChunks: {
-            // 🔹 공통 라이브러리들을 분리해서 캐싱 활용
+            // 공통 라이브러리들을 분리해서 캐싱 활용
             react: ['react', 'react-dom'],
             vendor: [
               'react-router-dom',

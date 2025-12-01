@@ -1,25 +1,25 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import App from '../../App';
+import App from '@/App';
 import { ROUTES } from './routes';
-import ScrollToTop from '../../shared/lib/ScrollToTop';
+import ScrollToTop from '@/shared/lib/ScrollToTop';
 
 // ✅ 📌 페이지 컴포넌트를 동적 import하여 코드 스플리팅 적용
 // React.lazy()를 사용하면, 초기 로딩 시 모든 페이지를 한 번에 불러오는 대신,
 // 사용자가 해당 경로에 접근할 때만 필요한 JS 파일이 로드됨
-const LoginPage = lazy(() => import('../../pages/LoginPage'));
-const SignupPage = lazy(() => import('../../pages/SignupPage'));
-const HomePage = lazy(() => import('../../pages/HomePage'));
-const LecturesForMe = lazy(() => import('../../pages/LecturesForMe'));
-const MyActivity = lazy(() => import('../../pages/MyActivity'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const SignupPage = lazy(() => import('@/pages/SignupPage'));
+const HomePage = lazy(() => import('@/pages/HomePage'));
+const LecturesForMe = lazy(() => import('@/pages/LecturesForMe'));
+const MyActivity = lazy(() => import('@/pages/MyActivity'));
 const LecturesForMeDetail = lazy(
-  () => import('../../pages/LecturesForMeDetail')
+  () => import('@/pages/LecturesForMeDetail')
 );
-const LecturesForMePost = lazy(() => import('../../pages/LecturesForMePost'));
-const LectureDetail = lazy(() => import('../../pages/LectureDetail'));
-const LecturesForMePut = lazy(() => import('../../pages/LecturesForMePut'));
-const MyPage = lazy(() => import('../../pages/MyPage'));
-const ErrorPage = lazy(() => import('../../pages/ErrorPage'));
+const LecturesForMePost = lazy(() => import('@/pages/LecturesForMePost'));
+const LectureDetail = lazy(() => import('@/pages/LectureDetail'));
+const LecturesForMePut = lazy(() => import('@/pages/LecturesForMePut'));
+const MyPage = lazy(() => import('@/pages/MyPage'));
+const ErrorPage = lazy(() => import('@/pages/ErrorPage'));
 
 // ✅ 📌 Suspense로 비동기 로딩 처리
 // React.lazy()를 사용하면 해당 컴포넌트가 비동기로 로드되므로,
