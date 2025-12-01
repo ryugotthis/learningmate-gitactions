@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import App from '../../App';
+import { ROUTES } from './routes';
 import ScrollToTop from '../../shared/lib/ScrollToTop';
 
 // ✅ 📌 페이지 컴포넌트를 동적 import하여 코드 스플리팅 적용
@@ -34,44 +35,44 @@ export const RouterProvider = () => {
         <Routes>
           <Route element={<App />}>
             {/* ✅ 메인 페이지 */}
-            <Route path="/" element={<HomePage />} />
+            <Route path={ROUTES.HOME} element={<HomePage />} />
 
             {/* ✅ 마이페이지 */}
-            <Route path="/my-page" element={<MyPage />} />
+            <Route path={ROUTES.MY_PAGE} element={<MyPage />} />
 
             {/* ✅ 강의 상세 페이지 (id 동적 라우팅) */}
-            <Route path="/lecture-detail/:id" element={<LectureDetail />} />
+            <Route path={ROUTES.LECTURE_DETAIL} element={<LectureDetail />} />
 
             {/* ✅ 로그인 및 회원가입 페이지 */}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
+            <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+            <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
 
             {/* ✅ 내가 선택한 강의 리스트 */}
-            <Route path="/lectures-for-me" element={<LecturesForMe />} />
+            <Route path={ROUTES.LECTURES_FOR_ME} element={<LecturesForMe />} />
 
             {/* ✅ 특정 강의 상세 페이지 */}
             <Route
-              path="/lectures-for-me/:id"
+              path={ROUTES.LECTURES_FOR_ME_DETAIL}
               element={<LecturesForMeDetail />}
             />
 
             {/* ✅ 강의 등록 페이지 */}
             <Route
-              path="/lectures-for-me/new"
+              path={ROUTES.LECTURES_FOR_ME_NEW}
               element={<LecturesForMePost />}
             />
 
             {/* ✅ 강의 수정 페이지 */}
             <Route
-              path="/lectures-for-me/edit/:id"
+              path={ROUTES.LECTURES_FOR_ME_EDIT}
               element={<LecturesForMePut />}
             />
 
             {/* ✅ 내가 작성한 활동 페이지 */}
-            <Route path="/my-activity" element={<MyActivity />} />
+            <Route path={ROUTES.MY_ACTIVITY} element={<MyActivity />} />
 
             {/* ✅ 404 페이지 (경로가 없을 경우) */}
-            <Route path="*" element={<ErrorPage />} />
+            <Route path={ROUTES.NOT_FOUND} element={<ErrorPage />} />
           </Route>
         </Routes>
       </Suspense>
