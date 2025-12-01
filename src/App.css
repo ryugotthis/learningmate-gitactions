@@ -1,58 +1,67 @@
+/* 브라우저 기본 스타일 + Tailwind 초기화(Reset) 담당 */
 @tailwind base;
+/* 재사용 가능한 컴포넌트 스타일 레이어 */
 @tailwind components;
+/* Tailwind 유틸리티 클래스들의 본체, 우선순위 가장 높음 */
 @tailwind utilities;
 
 @layer base {
+  /* 폰트 이름을 브라우저에 등록 */
   @font-face {
     font-family: 'Pretendard Variable';
     src: url('/fonts/PretendardStdVariable.woff2') format('woff2');
     font-weight: 100 900;
     font-display: swap;
   }
+
+  /* 전역 기본 폰트로 Pretendard Variable 적용 */
+  html {
+    @apply font-sans;
+  }
 }
 @layer utilities {
   /* Figma에서 "Title-md-600"으로 정의한 스타일 */
   .title-lg-600 {
-    @apply font-pretendard text-[32px] leading-[120%] tracking-[-0.1em] font-semibold;
+    @apply  text-[32px] leading-[120%] tracking-[-0.1em] font-semibold;
   }
   .title-md-600 {
-    @apply font-pretendard text-[24px] leading-[120%] tracking-[-0.1em] font-semibold;
+    @apply  text-[24px] leading-[120%] tracking-[-0.1em] font-semibold;
   }
   .title-sm-600 {
-    @apply font-pretendard text-[20px] leading-[120%] tracking-[-0.1em] font-semibold;
+    @apply  text-[20px] leading-[120%] tracking-[-0.1em] font-semibold;
   }
   .title-sm-500 {
-    @apply font-pretendard text-[20px] leading-[120%] tracking-[-0.1em] font-medium;
+    @apply  text-[20px] leading-[120%] tracking-[-0.1em] font-medium;
   }
   .text-lg-600 {
-    @apply font-pretendard text-[18px] leading-[120%] tracking-[-0.075em] font-semibold;
+    @apply  text-[18px] leading-[120%] tracking-[-0.075em] font-semibold;
   }
   .text-lg-500 {
-    @apply font-pretendard text-[18px] leading-[120%] tracking-[-0.075em] font-medium;
+    @apply  text-[18px] leading-[120%] tracking-[-0.075em] font-medium;
   }
   .text-md-600 {
-    @apply font-pretendard text-[16px] leading-[140%] tracking-[-0.05em] font-semibold;
+    @apply  text-[16px] leading-[140%] tracking-[-0.05em] font-semibold;
   }
   .text-md-500 {
-    @apply font-pretendard text-[16px] leading-[140%] tracking-[-0.05em] font-medium;
+    @apply  text-[16px] leading-[140%] tracking-[-0.05em] font-medium;
   }
   .text-md-400 {
-    @apply font-pretendard text-[16px] leading-[140%] tracking-[-0.05em];
+    @apply  text-[16px] leading-[140%] tracking-[-0.05em];
   }
   .text-sm-600 {
-    @apply font-pretendard text-[14px] leading-[140%] tracking-[-0.05em] font-semibold;
+    @apply  text-[14px] leading-[140%] tracking-[-0.05em] font-semibold;
   }
   .text-sm-500 {
-    @apply font-pretendard text-[14px] leading-[140%] tracking-[-0.05em] font-medium;
+    @apply  text-[14px] leading-[140%] tracking-[-0.05em] font-medium;
   }
   .text-sm-400 {
-    @apply font-pretendard text-[14px] leading-[140%] tracking-[-0.05em];
+    @apply  text-[14px] leading-[140%] tracking-[-0.05em];
   }
   .text-xsm-400 {
-    @apply font-pretendard text-[12px] leading-[140%] tracking-[-0.05em];
+    @apply  text-[12px] leading-[140%] tracking-[-0.05em];
   }
   .info-md-400 {
-    @apply font-pretendard text-[16px] leading-[160%] tracking-[-0.05em];
+    @apply  text-[16px] leading-[160%] tracking-[-0.05em];
   }
 
   

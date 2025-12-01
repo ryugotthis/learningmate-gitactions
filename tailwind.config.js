@@ -22,8 +22,8 @@ export default {
         8: '8',
       },
       fontFamily: {
-        // Pretendard 폰트 등록
-        pretendard: ['"Pretendard Variable"', 'system-ui', 'sans-serif'],
+        sans: ['"Pretendard Variable"', 'system-ui', 'sans-serif'],
+        
       },
       colors: {
         primary: {
