@@ -1,40 +1,4 @@
-// module.exports = {
-//   theme: {
-//     screens: {
-//       sm: '480px',
-//       md: '768px',
-//       lg: '976px',
-//       xl: '1440px',
-//     },
-//     colors: {
-//       'primary-default': '#17af6d',
-//       'secondary-default': '#cb363e',
-//       'error': '#ff485e',
-//       'logo': '#fae100',
-//       'surface-dark': '#f5f5f5',
-//       'tertiary-default': '#777',
-//       'line': '#d9d9d9',
-//       'placeholder': '#bfbfbf',
-//       'font-sub-default': '#777',
-//       'font-default': '#232527',
-//       'surface-dark': '#f5f5f5',
-//       'surface-line': '#e2e2e2',
-//     },
-//     fontFamily: {
-//       sans: ['Graphik', 'sans-serif'],
-//       serif: ['Merriweather', 'serif'],
-//     },
-//     extend: {
-//       spacing: {
-//         128: '32rem',
-//         144: '36rem',
-//       },
-//       borderRadius: {
-//         '4xl': '2rem',
-//       },
-//     },
-//   },
-// };
+
 /** @type {import('tailwindcss').Config} */
 export default {
   mode: 'jit', // Tailwind CSS v3.0부터는 기본으로 활성화되어 있을 수 있습니다
@@ -100,7 +64,5 @@ export default {
       },
     },
   },
-  // plugins: [
-  //   require('@tailwindcss/typography'), // ✅ Tiptap과 호환되도록 typography 플러그인 추가
-  // ],
+
 };
