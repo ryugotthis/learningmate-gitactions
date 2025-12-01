@@ -1,7 +1,6 @@
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  mode: 'jit', // Tailwind CSS v3.0부터는 기본으로 활성화되어 있을 수 있습니다
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
