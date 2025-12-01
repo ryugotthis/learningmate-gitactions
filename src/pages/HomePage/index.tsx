@@ -152,7 +152,7 @@ const HomePage = () => {
               {filterList.map((filter, index) => (
                 <li
                   key={index}
-                  className="border-2 border-primary-default rounded-4xl mx-1 my-1 text-sm font-bold text-primary-default px-3 py-1"
+                  className="border-2 border-primary rounded-4xl mx-1 my-1 text-sm font-bold text-primary px-3 py-1"
                 >
                   {platforms?.map(
                     (platform: any) =>

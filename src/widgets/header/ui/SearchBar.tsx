@@ -109,24 +109,24 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
       <div
         className={`${
           isNaveBar && 'border-none p-0'
-        } border-[0.15rem] border-secondary-default p-[0.05rem] rounded-full`}
+        } border-[0.15rem] border-secondary p-[0.05rem] rounded-full`}
       >
         <div
           className={`${
             isNaveBar && 'border-none p-0'
-          } border-[0.15rem] border-secondary-default p-[0.05rem] rounded-full`}
+          } border-[0.15rem] border-secondary p-[0.05rem] rounded-full`}
         >
           <div
             className={`relative flex gap-[18px] w-[312px] md:w-[608px] lg:w-[640px] h-[56px] px-[16px] py-[12px] items-center border border-line rounded-4xl bg-surface-dark flex-grow ${
               isNaveBar
-                ? 'focus-within:border-2 focus-within:border-primary-default'
-                : 'border-secondary-default border-[0.15rem]'
+                ? 'focus-within:border-2 focus-within:border-primary'
+                : 'border-secondary border-[0.15rem]'
             } `}
           >
             {/* 플랫폼 드롭다운 버튼 */}
             <div ref={dropdownRef} className=" ">
               <button
-                className={`w-[42px] md:w-[125px] flex justify-between items-center text-sm text-font-default border-line  cursor-pointer focus:outline-none`}
+                className={`w-[42px] md:w-[125px] flex justify-between items-center text-sm text-font border-line  cursor-pointer focus:outline-none`}
                 onClick={() => setIsPlatformOpen(!isPlatformOpen)}
               >
                 <div className="flex items-center gap-[6px] ">
@@ -169,7 +169,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
                 ref={inputRef} // input 요소에 ref 연결
                 value={searchText}
                 placeholder="강의명 또는 URL을 입력해봐!"
-                className=" w-full placeholder:text-font-sub tracking-[-0.1em] text-font-default bg-surface-dark  focus:outline-none"
+                className=" w-full placeholder:text-font-sub tracking-[-0.1em] text-font bg-surface-dark  focus:outline-none"
                 onChange={(e) => setSearchText(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
@@ -223,7 +223,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
                   ) : (
                     <li
                       onMouseDown={handleCreateLecture}
-                      className=" px-[24px] pt-[16px] pb-[18px] flex gap-[24px] items-center text-primary-default cursor-pointer hover:bg-gray-200"
+                      className=" px-[24px] pt-[16px] pb-[18px] flex gap-[24px] items-center text-primary cursor-pointer hover:bg-gray-200"
                     >
                       <PlusIcon />
                       <p className="text-md-500">새로 등록하기</p>

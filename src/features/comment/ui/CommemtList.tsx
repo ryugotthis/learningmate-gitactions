@@ -28,7 +28,7 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
   return (
     <>
       <div className="flex items-center mb-10">
-        <span className="text-font-sub-default mr-2">
+        <span className="text-font-sub mr-2">
           댓글 {CommentListData?.length}
         </span>
         {/* 높이가 없으니 중간 경계선이 됨 그냥 border하면 top,bottom 2겹이 됨 */}

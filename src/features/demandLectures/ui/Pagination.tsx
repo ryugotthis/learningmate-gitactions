@@ -55,7 +55,7 @@ const Pagination: React.FC<PaginationProps> = ({
           className={`p-2 w-8 h-8 flex items-center justify-center rounded-full 
             ${
               currentPage === page
-                ? 'bg-primary-default text-white'
+                ? 'bg-primary text-white'
                 : 'text-gray-600 hover:bg-gray-200'
             }`}
         >

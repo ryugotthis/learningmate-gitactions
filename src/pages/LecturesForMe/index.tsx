@@ -63,7 +63,7 @@ const LecturesForMe = () => {
         <header className="flex  flex-col gap-[24px] md:gap-[40px]">
           <div className="flex items-center justify-between h-[241px] lg:gap-[60px] px-[16px]  md:p-[32px] bg-surface-dark rounded-[12px]">
             <div className="w-full flex flex-col gap-[6px]">
-              <h1 className="text-font-default title-md-600 md:title-lg-600">
+              <h1 className="text-font title-md-600 md:title-lg-600">
                 나를 위한 강의 도우미 게시판
               </h1>
               <p className="text-font-sub text-sm-400 md:text-md-400 ">
@@ -93,7 +93,7 @@ const LecturesForMe = () => {
                   {/* container */}
                   <div
                     className={`flex items-center w-[46px] h-[24px] transition-colors ${
-                      !isMyPosts ? 'bg-surface-dark ' : 'bg-primary-default'
+                      !isMyPosts ? 'bg-surface-dark ' : 'bg-primary'
                     }  rounded-2xl`}
                   >
                     <div className="flex items-center w-full h-full rounded-2xl m-[3px]">
@@ -121,7 +121,7 @@ const LecturesForMe = () => {
               >
                 <button
                   onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
-                  className="flex gap-[4px] h-[40px] md:h-[48px] focus-within:outline-none justify-center items-center border pl-[24px] pr-[20px] border-surface-line border-opacity-100  text-font-sub-default rounded-4xl"
+                  className="flex gap-[4px] h-[40px] md:h-[48px] focus-within:outline-none justify-center items-center border pl-[24px] pr-[20px] border-surface-line border-opacity-100  text-font-sub rounded-4xl"
                 >
                   <p className="whitespace-nowrap">{sortSelected.name}</p>
                   <DownArrowIcon />
@@ -143,20 +143,11 @@ const LecturesForMe = () => {
               {/* 글 등록 버튼 */}
               <div>
                 <PostLectureForMeButton />
-                {/* <button
-                  onClick={() => mutate(testData)}
-                  className="flex items-center px-4 py-3 text-white bg-primary-default rounded-4xl"
-                >
-                  <PlusIcon className=" mr-1" />
-                  <p className="text-sm font-bold cursor-pointer">글 등록</p>
-                </button> */}
+                
               </div>
             </div>
           </div>
-          {/* {isPending ? '⏳ 요청 중...' : ' 글 등록 테스트'}
-          {demandIsError && (
-            <p className="text-red-500">❌ 오류 발생: {demandError?.message}</p>
-          )} */}
+         
         </header>
 
         <main>

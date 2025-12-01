@@ -22,7 +22,7 @@ export const UpVoteCard = ({
     <>
       <VoteCard
         title="추천"
-        color="primary-default"
+        color="primary"
         postId={postId}
         opinionData={opinionData}
         // 더보기 버튼 수 관리

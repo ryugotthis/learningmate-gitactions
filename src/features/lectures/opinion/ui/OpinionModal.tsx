@@ -101,7 +101,7 @@ export const OpinionModal = ({
         </div>
         <div className="px-[24px] pt-[8px] pb-[24px]">
           <button
-            className="w-full px-[24px] py-[12px] text-[14px] bg-primary-default text-white rounded-4xl"
+            className="w-full px-[24px] py-[12px] text-[14px] bg-primary text-white rounded-4xl"
             onClick={handleSubmit}
             disabled={isPending}
           >

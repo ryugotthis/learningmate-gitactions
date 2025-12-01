@@ -44,12 +44,12 @@ export const UpVoteButton2 = ({ postId }: { postId: number }) => {
     <button
       onClick={handleVoteUpButton}
       className={`flex justify-center items-center w-[64px] h-[64px] rounded-full border-2 ${
-        isLikeClicked ? 'border-primary-default' : 'border-surface-line'
+        isLikeClicked ? 'border-primary' : 'border-surface-line'
       } bg-white `}
     >
       <UpVoteIcon
         className={`w-[24px] h-[24px] ${
-          isLikeClicked ? 'text-primary-default' : 'text-font-sub'
+          isLikeClicked ? 'text-primary' : 'text-font-sub'
         }`}
       />
     </button>

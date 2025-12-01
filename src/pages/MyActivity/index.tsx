@@ -50,7 +50,7 @@ const MyActivity = () => {
       <div className="flex justify-center mt-[100px]">
         <div className="w-[328px] md:w-[624px] lg:w-[1152px] flex flex-col gap-[24px] ">
           <div className="flex justify-start border-b border-line">
-            <div className="px-[36px] py-[12px] border-b-2 border-primary-default text-[20px] tracking-[-0.1em] font-semibold">
+            <div className="px-[36px] py-[12px] border-b-2 border-primary text-[20px] tracking-[-0.1em] font-semibold">
               북마크
             </div>
           </div>
@@ -108,7 +108,7 @@ const MyActivity = () => {
               {filterList.map((filter, index) => (
                 <li
                   key={index}
-                  className="border-2 border-primary-default rounded-4xl mx-1 my-1 text-sm font-bold text-primary-default px-3 py-1"
+                  className="border-2 border-primary rounded-4xl mx-1 my-1 text-sm font-bold text-primary px-3 py-1"
                 >
                   {platforms?.map(
                     (platform: any) =>

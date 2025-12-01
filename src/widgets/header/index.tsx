@@ -175,8 +175,8 @@ const Header = () => {
             className={`${
               isLoggedIn
                 ? ''
-                : 'px-[24px] border-2 border-primary-default rounded-4xl'
-            } h-[40px] text-primary-default text-sm font-black`}
+                : 'px-[24px] border-2 border-primary rounded-4xl'
+            } h-[40px] text-primary text-sm font-black`}
           >
             {isLoggedIn ? (
               userData?.profileImage ? (

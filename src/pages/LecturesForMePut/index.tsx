@@ -158,7 +158,7 @@ const LecturesForMePut = () => {
           />
           <button
             onClick={handleSubmit}
-            className="h-[40px] px-[24px] text-sm-600 bg-primary-default rounded-4xl  text-white hover:bg-primary-dark transition"
+            className="h-[40px] px-[24px] text-sm-600 bg-primary rounded-4xl  text-white hover:bg-primary-dark transition"
           >
             수정
           </button>
@@ -175,7 +175,7 @@ const LecturesForMePut = () => {
               className={`w-full title-md-600 md:title-lg-600 px-[16px] md:px-[24px] focus:outline-none focus:ring-2 ${
                 errorTitle
                   ? 'focus:ring-red-500 border-red-500'
-                  : 'focus:ring-primary-default'
+                  : 'focus:ring-primary'
               }`}
               placeholder="제목을 입력해줘"
               value={title}

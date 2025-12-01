@@ -152,7 +152,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
             <div className="flex flex-col gap-[16px]">
               <textarea
                 // ref={commentRef}
-                className="w-full resize-none focus:outline-none border border-primary-default p-[16px] rounded-[8px]"
+                className="w-full resize-none focus:outline-none border border-primary p-[16px] rounded-[8px]"
                 placeholder="댓글을 입력해줘"
                 value={editedComment} // 기존 댓글 내용이 보임
                 onChange={(e) => setEditedComment(e.target.value)}
@@ -169,7 +169,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
                 </button>
                 <button
                   onClick={handleEditCommentRegister}
-                  className="w-1/2 h-[40px] border bg-tertiary-default text-white rounded-4xl px-[24px]"
+                  className="w-1/2 h-[40px] border bg-tertiary text-white rounded-4xl px-[24px]"
                 >
                   등록
                 </button>
@@ -191,7 +191,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
                 <ProfileIcon />
               )}
               <div className="flex gap-[4px] text-[14px]">
-                <span className="text-font-default">{data.user.name}</span>
+                <span className="text-font">{data.user.name}</span>
                 <span>·</span>
                 <span className="text-font-sub">
                   {useFormatDate(data.createTime)}
@@ -200,7 +200,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
             </div>
             <div ref={menuRef} className="flex relative items-start">
               <button onClick={() => toggleReport(data.id)} className="">
-                <MoreIcon className="text-tertiary-default" />
+                <MoreIcon className="text-tertiary" />
               </button>
               {reportedComments[data.id] && (
                 <ul className="absolute top-2 right-0 mt-5 text-sm l-0 bg-white rounded-md shadow-[0_0_5px_rgba(0,0,0,0.1)]">
@@ -243,8 +243,8 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
             </div>
           </div>
 
-          <div className="text-sm text-font-sub-default">
-            <p className="mb-5 flex-grow text-font-default">{data.content}</p>
+          <div className="text-sm text-font-sub">
+            <p className="mb-5 flex-grow text-font">{data.content}</p>
           </div>
         </div>
       )}
@@ -258,8 +258,8 @@ export const CommentCard: React.FC<CommentCardProps> = ({ data, postId }) => {
             </div>
           )}
           {submitStatus === 'success' && (
-            <div className="bg-white flex gap-[6px] border-2 border-primary-default rounded-4xl px-[24px] py-[12px]">
-              <CheckIcon className="text-primary-default" />
+            <div className="bg-white flex gap-[6px] border-2 border-primary rounded-4xl px-[24px] py-[12px]">
+              <CheckIcon className="text-primary" />
               <p className="font-bold">글 등록 성공!</p>
             </div>
           )}

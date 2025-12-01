@@ -105,7 +105,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
                 <li
                   key={title}
                   onClick={() => togglePlatform(platform.title)}
-                  className="h-[28px] md:h-[35px] flex items-center gap-[4px] text-sm-500 md:text-md-500 border border-primary-default rounded-4xl text-primary-default px-[16px] cursor-pointer"
+                  className="h-[28px] md:h-[35px] flex items-center gap-[4px] text-sm-500 md:text-md-500 border border-primary rounded-4xl text-primary px-[16px] cursor-pointer"
                 >
                   <p>{platform.title}</p>
                   <CloseIcon className="w-[16px] h-[16px]" />
@@ -145,7 +145,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
               setFilterList(selectedPlatforms);
               onClose();
             }}
-            className="flex-1 h-[48px] px-[24px] py-[12px] rounded-4xl bg-primary-default text-white"
+            className="flex-1 h-[48px] px-[24px] py-[12px] rounded-4xl bg-primary text-white"
           >
             적용
           </button>

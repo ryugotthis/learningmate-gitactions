@@ -111,7 +111,7 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
   if (!lecturesForMeData || lecturesForMeData.length === 0) {
     return (
       <div className="flex justify-center items-center border border-surface-line divide-y divide-surface-line py-15 rounded-xl overflow-hidden">
-        <p className="text-font-sub-default">글을 등록해 줘</p>
+        <p className="text-font-sub">글을 등록해 줘</p>
       </div>
     );
   }
@@ -167,7 +167,7 @@ export const LecturesForMECardList: React.FC<LecturesForMECardListProps> = ({
             />
           ))
         ) : (
-          <p className="text-font-sub-default">
+          <p className="text-font-sub">
             📌 데이터가 올바르지 않습니다.
           </p>
         )}

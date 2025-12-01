@@ -76,11 +76,11 @@ const LoginPage = () => {
           <div className="flex flex-col gap-[4px]">
             <label
               htmlFor="email"
-              className="block text-sm-500 md:font-medium text-font-default md:tracking-[-0.05em]"
+              className="block text-sm-500 md:font-medium text-font md:tracking-[-0.05em]"
             >
               이메일
             </label>
-            <div className="w-full h-[48px] px-[20px] py-[12px] flex items-center flex-grow border border-surface-line bg-surface-default rounded-4xl focus-within:border-primary-default">
+            <div className="w-full h-[48px] px-[20px] py-[12px] flex items-center flex-grow border border-surface-line bg-surface rounded-4xl focus-within:border-primary">
               {/* 이메일 입력 필드 + X 버튼 */}
               <input
                 type="text"
@@ -101,11 +101,11 @@ const LoginPage = () => {
           <div className="flex flex-col gap-[4px]">
             <label
               htmlFor="password"
-              className="block text-sm-500 md:font-medium text-font-default md:tracking-[-0.05em]"
+              className="block text-sm-500 md:font-medium text-font md:tracking-[-0.05em]"
             >
               비밀번호
             </label>
-            <div className="w-full h-[48px] px-[20px] py-[12px] flex items-center flex-grow border border-surface-line bg-surface-default rounded-4xl focus-within:border-primary-default">
+            <div className="w-full h-[48px] px-[20px] py-[12px] flex items-center flex-grow border border-surface-line bg-surface rounded-4xl focus-within:border-primary">
               <input
                 type={isPasswordVisible ? 'text' : 'password'}
                 // placeholder="Password"
@@ -131,7 +131,7 @@ const LoginPage = () => {
               onClick={() => {
                 console.log('비밀번호 찾기');
               }}
-              className="text-sm-400 text-tertiary-default"
+              className="text-sm-400 text-tertiary"
             >
               비밀번호 찾기
             </button>
@@ -139,7 +139,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="h-[48px] rounded-4xl bg-primary-default text-white text-md-600"
+            className="h-[48px] rounded-4xl bg-primary text-white text-md-600"
           >
             로그인
           </button>
@@ -147,7 +147,7 @@ const LoginPage = () => {
             type="button"
             disabled={isPending}
             onClick={() => navigate('/signup')}
-            className="h-[48px] rounded-4xl mt-[6px] md:mt-[10px] border border-surface-line text-tertiary-default text-md-600"
+            className="h-[48px] rounded-4xl mt-[6px] md:mt-[10px] border border-surface-line text-tertiary text-md-600"
           >
             회원가입
           </button>
@@ -157,7 +157,7 @@ const LoginPage = () => {
           </button> */}
         </form>
         {errorState && (
-          <button className="fixed bottom-[50px] flex gap-[6px] md:gap-[6px] items-center rounded-4xl px-[20px] md:px-[24px] py-[8px] md:py-[12px] border-2 border-error text-font-default bg-white">
+          <button className="fixed bottom-[50px] flex gap-[6px] md:gap-[6px] items-center rounded-4xl px-[20px] md:px-[24px] py-[8px] md:py-[12px] border-2 border-error text-font bg-white">
             <FailedIcon />
             <p className="text-sm-500 md:text-md-500">
               로그인 정보가 정확하지 않은 것 같아

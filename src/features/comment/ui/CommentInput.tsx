@@ -96,7 +96,7 @@ export const CommentInput: React.FC<CommentInputProps> = ({ postId }) => {
         disabled={!hasComment || isPending}
         className={`px-5 py-1 rounded-4xl ${
           hasComment && !isPending ? 'cursor-pointer' : 'cursor-not-allowed'
-        }  text-white bg-tertiary-default `}
+        }  text-white bg-tertiary `}
       >
         등록
       </button>
@@ -105,22 +105,18 @@ export const CommentInput: React.FC<CommentInputProps> = ({ postId }) => {
 
       <div className="fixed bottom-[50px] left-0 right-0 w-full flex justify-center">
         <div className="w-[328px] flex justify-center">
-          {/* <div className=" bg-white flex gap-[6px] border-2 border-primary-default rounded-4xl px-[24px] py-[12px]">
-            <CheckIcon className="text-primary-default" />
-
-            <p className="text-md-500 text-font-default">댓글 등록 성공!</p>
-          </div> */}
+    
           {submitStatus === 'success' && (
-            <div className="bg-white flex gap-[6px] border-2 border-primary-default rounded-4xl px-[24px] py-[12px]">
-              <CheckIcon className="text-primary-default" />
+            <div className="bg-white flex gap-[6px] border-2 border-primary rounded-4xl px-[24px] py-[12px]">
+              <CheckIcon className="text-primary" />
 
-              <p className="text-md-500 text-font-default">댓글 등록 성공!</p>
+              <p className="text-md-500 text-font">댓글 등록 성공!</p>
             </div>
           )}
           {submitStatus === 'error' && (
             <div className="bg-white flex gap-[6px] border-2 border-error rounded-4xl px-[24px] py-[12px]">
               <ErrorIcon className="text-error" />
-              <p className="text-md-500 text-font-default">댓글 등록 실패</p>
+              <p className="text-md-500 text-font">댓글 등록 실패</p>
             </div>
           )}
         </div>

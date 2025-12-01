@@ -32,24 +32,24 @@ export default {
           200: '#98d6b5',
           300: '#6cc798',
           400: '#48bb83',
-          default: '#17af6d', // 기본 primary 색상
+          DEFAULT: '#17af6d', // 기본 primary 색상
           600: '#0eaf6d',
           dark: '#038356',
           800: '#007c4a',
           900: '#005345',
         },
         secondary: {
-          default: '#cb363e',
+          DEFAULT: '#cb363e',
         },
         error: '#ff485e',
         logo: '#fae100',
         surface: {
           dark: '#f5f5f5',
           line: '#e2e2e2',
-          default: '#ffffff',
+          DEFAULT: '#ffffff',
         },
         tertiary: {
-          default: '#777',
+          DEFAULT: '#777',
         },
         line: '#d9d9d9',
         placeholder: '#bfbfbf',
@@ -58,7 +58,7 @@ export default {
         gray99: '#999999',
         font: {
           sub: '#777',
-          default: '#232527',
+          DEFAULT: '#232527',
         },
       },
     },

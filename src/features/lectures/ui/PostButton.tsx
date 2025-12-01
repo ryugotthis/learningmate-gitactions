@@ -8,7 +8,7 @@ export const PostButton = () => {
   <>
     <button
       // onClick={() => }
-      className="flex items-center px-4 py-3 text-white bg-primary-default rounded-4xl"
+      className="flex items-center px-4 py-3 text-white bg-primary rounded-4xl"
     >
       {/* <img src={Add} alt="add" className="mr-1" /> */}
       <PlusIcon className=" mr-1" />

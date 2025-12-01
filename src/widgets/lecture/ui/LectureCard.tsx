@@ -46,7 +46,7 @@ export const LectureCard = ({ data }: { data: any }) => {
         </div>
         {/* 제목, 설명 */}
         <div className="flex flex-col h-[116px] gap-[8px]">
-          <h2 className="title-sm-600 text-font-default line-clamp-2">
+          <h2 className="title-sm-600 text-font line-clamp-2">
             {data?.title}
           </h2>
           <p className="text-md-400 text-font-sub line-clamp-2">
@@ -56,20 +56,20 @@ export const LectureCard = ({ data }: { data: any }) => {
         {/* 추천, 비추천, 조회수 */}
         <div className="flex h-[42px] items-start divide-x">
           <div className="flex flex-col items-center gap-[8px] m-0 flex-1 ">
-            <span className="title-sm-600 text-font-default">
+            <span className="title-sm-600 text-font">
               {data?.likes}
             </span>
             <span className="text-sm-400 text-font-sub">추천</span>
           </div>
 
           <div className="flex flex-col items-center gap-[8px] m-0 flex-1">
-            <span className="title-sm-600 text-font-default">
+            <span className="title-sm-600 text-font">
               {data?.dislikes}
             </span>
             <span className="text-sm-400 text-font-sub">비추천</span>
           </div>
           <div className="flex flex-col items-center gap-[8px] m-0 flex-1">
-            <span className="title-sm-600 text-font-default">
+            <span className="title-sm-600 text-font">
               {data?.views}
             </span>
             <span className="text-sm-400 text-font-sub">조회수</span>

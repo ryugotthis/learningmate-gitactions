@@ -52,7 +52,7 @@ export const BookmarkButton = ({ postId }: { postId: number }) => {
       >
         {isLoggedIn ? (
           bookmarkState ? (
-            <BookmarkFiledIcon className="text-primary-default" />
+            <BookmarkFiledIcon className="text-primary" />
           ) : (
             <BookmarkIcon />
           )

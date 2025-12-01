@@ -36,7 +36,7 @@ export const PostLectureForMeButton = () => {
     <>
       <button
         onClick={handlePostLectureForMeButton}
-        className="hidden md:flex items-center h-[40px] md:h-[48px] gap[4px] pl-[20px] pr-[24px] text-white bg-primary-default rounded-4xl"
+        className="hidden md:flex items-center h-[40px] md:h-[48px] gap[4px] pl-[20px] pr-[24px] text-white bg-primaryrounded-4xl"
       >
         <PlusIcon className=" mr-1" />
         <p className="whitespace-nowrap text-sm-600 md:text-md-600">글 등록</p>
@@ -44,7 +44,7 @@ export const PostLectureForMeButton = () => {
       {/* 모바일 버전 버튼 */}
       <button
         onClick={handlePostLectureForMeButton}
-        className="md:hidden fixed flex justify-center items-center right-[20px] bottom-[50px] w-[64px] h-[64px] rounded-full bg-primary-default "
+        className="md:hidden fixed flex justify-center items-center right-[20px] bottom-[50px] w-[64px] h-[64px] rounded-full bg-primary"
       >
         <PlusIcon className="text-white" />
       </button>

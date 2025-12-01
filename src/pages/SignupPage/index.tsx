@@ -245,7 +245,7 @@ const SignupPage = () => {
               <button
                 type="button"
                 onClick={handleSendCode}
-                className="py-2 px-5 bg-tertiary-default text-white font-semibold rounded-4xl hover:bg-font-default transition whitespace-nowrap"
+                className="py-2 px-5 bg-tertiary text-white font-semibold rounded-4xl hover:bg-font transition whitespace-nowrap"
               >
                 {isCodeSent ? '재전송' : '인증 요청'}
               </button>
@@ -298,7 +298,7 @@ const SignupPage = () => {
                       인증코드가 잘못됐어! 다시 입력해봐
                     </span>
                   ) : isCodeValid ? (
-                    <span className="text-primary-default">
+                    <span className="text-primary">
                       인증이 완료됐어!
                     </span>
                   ) : (
@@ -430,7 +430,7 @@ const SignupPage = () => {
           <div className="flex flex-col gap-1">
             <label
               htmlFor="terms"
-              className="flex items-center text-sm text-font-default cursor-pointer"
+              className="flex items-center text-sm text-font cursor-pointer"
             >
               <input
                 type="checkbox"
@@ -463,8 +463,8 @@ const SignupPage = () => {
             type="submit"
             disabled={isPending || !isValid || !isTermsAccepted || !isCodeValid}
             className={`w-full mt-3 py-3 font-semibold rounded-4xl transition
-              bg-primary-default text-white hover:cursor-pointer        
-           disabled:bg-disabled disabled:text-font-sub-default`}
+              bg-primary text-white hover:cursor-pointer        
+           disabled:bg-disabled disabled:text-font-sub`}
           >
             {isPending ? 'Signing up...' : '회원가입'}
           </button>

@@ -211,7 +211,7 @@ const LectureDetail = () => {
               <div ref={sortRef} className="relative">
                 <button
                   onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
-                  className="flex gap-[4px] h-[40px] md:h-[48px] focus-within:outline-none justify-center items-center border pl-[24px] pr-[20px] border-surface-line border-opacity-100  text-font-sub-default rounded-4xl"
+                  className="flex gap-[4px] h-[40px] md:h-[48px] focus-within:outline-none justify-center items-center border pl-[24px] pr-[20px] border-surface-line border-opacity-100  text-font-sub rounded-4xl"
                 >
                   <p className="text-sm-600 md:text-md-600 whitespace-nowrap">
                     {sortSelected.name}
@@ -243,7 +243,7 @@ const LectureDetail = () => {
                 onClick={() => setSelected('추천')}
                 className={`px-[36px] py-[12px] focus:outline-none ${
                   selected === '추천'
-                    ? 'text-font-default text-lg-600 md:title-sm-600'
+                    ? 'text-font text-lg-600 md:title-sm-600'
                     : 'text-font-sub text-lg-500 md:title-sm-500'
                 }`}
               >
@@ -253,7 +253,7 @@ const LectureDetail = () => {
                 onClick={() => setSelected('비추천')}
                 className={`px-[36px] py-[12px] focus:outline-none ${
                   selected === '비추천'
-                    ? 'text-font-default text-lg-600 md:title-sm-600'
+                    ? 'text-font text-lg-600 md:title-sm-600'
                     : 'text-font-sub text-lg-500 md:title-sm-500'
                 }`}
               >
@@ -263,7 +263,7 @@ const LectureDetail = () => {
               <div
                 className={`absolute bottom-0 h-[2px] transition-transform duration-300 ${
                   selected === '추천'
-                    ? 'bg-primary-default w-[104px] translate-x-0'
+                    ? 'bg-primary w-[104px] translate-x-0'
                     : 'bg-error w-[124px] translate-x-[104px]'
                 }`}
               />
@@ -322,7 +322,7 @@ const LectureDetail = () => {
         {/* 추천 비추천 비율 바 */}
         <div className="flex w-[326px] md:w-[624px] lg:w-[1152px] items-center gap-[16px] md:gap-[24px] px-[16px] py-[24px] md:px-[32px] md:py-[40px]">
           <button className="flex flex-col gap-[8px] items-center w-[40px]">
-            <UpVoteIcon className="text-primary-default w-[24px] h-[24px] md:w-[40px] md:h-[40px]" />
+            <UpVoteIcon className="text-primary w-[24px] h-[24px] md:w-[40px] md:h-[40px]" />
             <span className="text-md-600 md:title-md-600 whitespace-nowrap">
               추천
             </span>
@@ -338,7 +338,7 @@ const LectureDetail = () => {
               return (
                 <>
                   <div
-                    className="bg-primary-default h-full"
+                    className="bg-primary h-full"
                     style={{ width: `${likePercentage}%` }}
                   ></div>
                   <div

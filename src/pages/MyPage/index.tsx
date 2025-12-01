@@ -119,7 +119,7 @@ const MyPage = () => {
 
             {/* 프로필 이미지 섹션 */}
             <div className="flex flex-col md:flex-row md:items-center gap-[8px] md:gap-[32px]">
-              <span className="text-sm-400 md:text-lg-500 text-font-default">
+              <span className="text-sm-400 md:text-lg-500 text-font">
                 프로필 이미지
               </span>
               <div
@@ -188,7 +188,7 @@ const MyPage = () => {
                 <label className="w-[120px] tracking-[-0.05em] text-font-sub">
                   닉네임
                 </label>
-                <span className="tracking-[-0.05em] font-semibold text-font-default">
+                <span className="tracking-[-0.05em] font-semibold text-font">
                   {user?.name}
                 </span>
               </div>
@@ -196,7 +196,7 @@ const MyPage = () => {
                 <label className="w-[120px] tracking-[-0.05em] text-font-sub">
                   이메일
                 </label>
-                <span className="tracking-[-0.05em] font-semibold text-font-default">
+                <span className="tracking-[-0.05em] font-semibold text-font">
                   {user?.email}
                 </span>
               </div>
@@ -338,7 +338,7 @@ const MyPage = () => {
                   type="submit"
                   disabled={!isValid}
                   // onClick={handleChangePassword}
-                  className="h-[40px] px-[24px] border-2 border-primary-default text-primary-default rounded-4xl font-semibold text-[14px]"
+                  className="h-[40px] px-[24px] border-2 border-primary text-primary rounded-4xl font-semibold text-[14px]"
                 >
                   비밀번호 변경
                 </button>

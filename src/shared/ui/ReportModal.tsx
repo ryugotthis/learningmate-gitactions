@@ -36,13 +36,13 @@ const ReportModal: React.FC<ReportModalProps> = ({
             {title === 'lecture' ? '강의 신고' : '댓글 신고'}
           </h2>
           <button onClick={onClose} aria-label="close">
-            <CloseIcon className="text-font-default" />
+            <CloseIcon className="text-font" />
           </button>
         </div>
 
         {/* 신고 사유 선택 (라디오 버튼) */}
 
-        <ul className="flex flex-col gap-[24px] m-[24px] text-font-default text-md-500 md:text-lg-500">
+        <ul className="flex flex-col gap-[24px] m-[24px] text-font text-md-500 md:text-lg-500">
           {data?.map((report: any) => (
             <label
               key={report.id}

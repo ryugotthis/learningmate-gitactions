@@ -104,7 +104,7 @@ const LecturesForMeDetail = () => {
               ) : (
                 <ProfileIcon />
               )}
-              <span className="text-sm-400 text-font-default">
+              <span className="text-sm-400 text-font">
                 {lecture?.user?.name}
               </span>
             </div>
@@ -142,9 +142,9 @@ const LecturesForMeDetail = () => {
       {/* 하단에 등록 성공 메시지 표시 */}
       <div className="absolute w-full flex justify-center  ">
         {submitStatus === 'success' && (
-          <div className="fixed bottom-[50px] flex justify-end bg-white gap-[6px] border-2 border-primary-default rounded-4xl px-[24px] py-[12px]">
-            <CheckIcon className="text-primary-default" />
-            <p className="text-md-500 text-font-default">글 등록 성공!</p>
+          <div className="fixed bottom-[50px] flex justify-end bg-white gap-[6px] border-2 border-primary rounded-4xl px-[24px] py-[12px]">
+            <CheckIcon className="text-primary" />
+            <p className="text-md-500 text-font">글 등록 성공!</p>
           </div>
         )}
       </div>
