@@ -9,13 +9,13 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 // 🔹 Firebase 프로젝트 설정
 const firebaseConfig = {
-  apiKey: 'AIzaSyC1IHAH5w65Iu999PXaBVJG8U4hamaFjHI',
-  authDomain: 'learningmate-email.firebaseapp.com',
-  projectId: 'learningmate-email',
-  storageBucket: 'learningmate-email.firebasestorage.app',
-  messagingSenderId: '215337013056',
-  appId: '1:215337013056:web:b4b4a139fcead427e9b4a5',
-  measurementId: 'G-K1YX20N1WT',
+  apiKey: process.env.VITE_FIREBASE_API_KEY,
+  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.VITE_FIREBASE_APP_ID,
+  measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
