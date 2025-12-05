@@ -3,7 +3,7 @@ import { useAuthStore } from '../../../shared/store/authstore';
 import { reissue } from '../api/reissue';
 import { AxiosError } from 'axios'; // AxiosError 타입 추가
 
-let isReissuing = false; // 중복 요청 방지 플래그
+
 
 export const useReissue = () => {
   const { setAccessToken, clearAccessToken, setIsLoggedIn } = useAuthStore();

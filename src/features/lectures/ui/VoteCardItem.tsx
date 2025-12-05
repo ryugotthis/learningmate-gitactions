@@ -5,7 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko'; // 한국어 로케일 불러오기
 // 커스텀 훅
 import { useDeleteUpVoteOpinion } from '../../../entities/lectures/opinion/model';
-import { useGetUser } from '../../../entities/auth/model/useGetUser ';
+import { useGetUser } from '../../../entities/auth/model/useGetUser';
 // 컴포넌트
 import { UpVoteButtonContainer } from './UpVoteButtonConainer';
 import { UpVoteEditOpinionModal } from '../opinion/ui/UpVoteOpinionEditModal';

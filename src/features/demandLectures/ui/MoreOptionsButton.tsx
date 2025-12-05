@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { LectureForMEReportModal } from '../../reports/ui/LectureForMeReportModal';
 import { AlertMessage } from '../../../shared/ui';
 // 커스텀 훅
-import { useGetUser } from '../../../entities/auth/model/useGetUser ';
+import { useGetUser } from '../../../entities/auth/model/useGetUser';
 // 아이콘
 import { MoreIcon } from '../../../shared/ui/icons';
 

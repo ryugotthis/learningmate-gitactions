@@ -6,7 +6,7 @@ const SearchBar = lazy(() => import('./ui/SearchBar'));
 // 커스텀 훅
 import { useAuthStore } from '../../shared/store/authstore';
 import { useLogout } from '../../entities/auth/model/useLogout';
-import { useGetUser } from '../../entities/auth/model/useGetUser ';
+import { useGetUser } from '../../entities/auth/model/useGetUser';
 // 아이콘
 import Logo from './ui/icons/Logo';
 import { HamburgerIcon, ProfileIcon, SearchIcon } from '../../shared/ui/icons';
@@ -22,7 +22,7 @@ const Header = () => {
   // 메뉴와 검색 패널 상태를 각각 관리
   const [menuOpen, setMenuOpen] = useState(false);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
-  const [isProfileClicked, SetIsProfileClicked] = useState(false);
+  const [isProfileClicked, setIsProfileClicked] = useState(false);
   // 프로필 드롭다운에 대한 ref 생성
   const profileDropdownRef = useRef<HTMLUListElement>(null);
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Header = () => {
   const handleLoginButton = () => {
     if (accessToken) {
       // 토글됨
-      SetIsProfileClicked(true);
+      setIsProfileClicked(true);
     } else {
       navigate('/login'); // ✅ 로그인 페이지로 이동
     }
@@ -58,7 +58,7 @@ const Header = () => {
         profileDropdownRef.current &&
         !profileDropdownRef.current.contains(event.target as Node)
       ) {
-        SetIsProfileClicked(false);
+        setIsProfileClicked(false);
       }
     };
 
@@ -71,25 +71,7 @@ const Header = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isProfileClicked]);
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        profileDropdownRef.current &&
-        !profileDropdownRef.current.contains(event.target as Node)
-      ) {
-        SetIsProfileClicked(false);
-      }
-    };
 
-    // 프로필 드롭다운이 열려 있을 때만 이벤트 리스너 등록
-    if (isProfileClicked) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isProfileClicked]);
   // 메뉴와 검색 둘 중 하나라도 열려있으면 오버레이를 표시
   const overlayVisible = menuOpen || isSearchClicked;
 

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDeleteComment } from '../../../entities/comments/model/useDeleteComment';
 import { AlertMessage } from '../../../shared/ui';
 // 커스텀 훅
-import { useGetUser } from '../../../entities/auth/model/useGetUser ';
+import { useGetUser } from '../../../entities/auth/model/useGetUser';
 import { useUpdateComment } from '../../../entities/comments/model/useUpdateComment';
 import { useReissue } from '../../../entities/auth/model/useReissue';
 import { useFormatDate } from '../../../shared/util/useFormatDate';

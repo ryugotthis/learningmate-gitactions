@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import Header from '../../widgets/header';
 import SEO from '../../shared/ui/SEO';
 // 커스텀 훅
-import { useGetUser } from '../../entities/auth/model/useGetUser ';
+import { useGetUser } from '../../entities/auth/model/useGetUser';
 import { useCreateProfileImage } from '../../entities/auth/model/useCreateProfileImage';
 import { useDeleteProfileImage } from '../../entities/auth/model/useDeleteProfileImage';
 import { useUpdatePassword } from '../../entities/auth/model/useUpdatePassword';

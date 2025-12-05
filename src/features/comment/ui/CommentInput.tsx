@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 // 커스텀 훅
-import { useGetUser } from '../../../entities/auth/model/useGetUser ';
+import { useGetUser } from '../../../entities/auth/model/useGetUser';
 // 컴포넌트
 import { useCreateDemandLectureComment } from '../../../entities/comments/model/useCreateDemandLectureComment';
 // 아이콘
