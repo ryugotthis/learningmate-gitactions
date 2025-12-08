@@ -4,9 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 // import SearchBar from './ui/SearchBar';
 const SearchBar = lazy(() => import('./ui/SearchBar'));
 // 커스텀 훅
-import { useAuthStore } from '../../shared/store/authstore';
-import { useLogout } from '../../entities/auth/model/useLogout';
-import { useGetUser } from '../../entities/auth/model/useGetUser';
+import { useAuthStore } from '@/shared/store/authstore';
+import { useLogout } from '@/entities/auth/model/useLogout';
+import { useGetUser } from '@/entities/auth/model/useGetUser';
 // 아이콘
 import Logo from './ui/icons/Logo';
 import { HamburgerIcon, ProfileIcon, SearchIcon } from '../../shared/ui/icons';
@@ -14,21 +14,21 @@ import { HamburgerIcon, ProfileIcon, SearchIcon } from '../../shared/ui/icons';
 const Header = () => {
   const location = useLocation(); // 현재 페이지 경로 가져오기
   const isHome = location.pathname === '/'; // 현재 페이지가 홈페이지인지 확인
-  const [showSearch, setShowSearch] = useState(!isHome); // 기본값 설정
-  const { mutate } = useLogout(); // 로그아웃
+  const [isDesktopSearchVisible, setDesktopSearchVisible] = useState(!isHome); // 기본값 설정
+  const { mutate:logout } = useLogout(); // 로그아웃
   const { data: userData } = useGetUser();
   const { accessToken, isLoggedIn } = useAuthStore();
 
   // 메뉴와 검색 패널 상태를 각각 관리
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   // 프로필 드롭다운에 대한 ref 생성
   const profileDropdownRef = useRef<HTMLUListElement>(null);
   const navigate = useNavigate();
 
   const handleLoginButton = () => {
-    if (accessToken) {
+    if (accessToken && isLoggedIn) {
       // 토글됨
       setIsProfileClicked(true);
     } else {
@@ -36,15 +36,15 @@ const Header = () => {
     }
   };
 
+  // 홈페이지 스크롤 이벤트 처리
   useEffect(() => {
-    if (!isHome) return; // 홈페이지가 아니면 스크롤 이벤트 등록 안 함
+    if (!isHome) return; 
 
     const handleScroll = () => {
-      // console.log('현재좌표', window.scrollY);
       if (window.scrollY > 400) {
-        setShowSearch(true);
+        setDesktopSearchVisible(true);
       } else {
-        setShowSearch(false);
+        setDesktopSearchVisible(false);
       }
     };
 
@@ -73,13 +73,13 @@ const Header = () => {
   }, [isProfileClicked]);
 
   // 메뉴와 검색 둘 중 하나라도 열려있으면 오버레이를 표시
-  const overlayVisible = menuOpen || isSearchClicked;
+  const overlayVisible = menuOpen || isMobileSearchOpen;
 
   return (
     <header
       className={`${
         isHome
-          ? showSearch
+          ? isDesktopSearchVisible
             ? 'fixed w-full bg-white opacity-100 translate-y-0'
             : 'relative'
           : 'relative bg-white'
@@ -93,8 +93,9 @@ const Header = () => {
             name="menu-button"
             aria-label="메뉴 열기"
             onClick={() => {
-              setMenuOpen(!menuOpen);
-              setIsSearchClicked(false); // 메뉴가 열리면 검색창 닫기
+              setMenuOpen(prev => !prev);
+            
+              setIsMobileSearchClicked(false); // 메뉴가 열리면 검색창 닫기
             }}
           >
             <HamburgerIcon />
@@ -130,7 +131,7 @@ const Header = () => {
             >
               내 활동
             </button>
-            {showSearch && (
+            {isDesktopSearchVisible && (
               <Suspense fallback={<div>검색창 로딩 중...</div>}>
                 <SearchBar isNaveBar={true} />
               </Suspense>
@@ -139,17 +140,23 @@ const Header = () => {
         </div>
         <div className="flex gap-[16px] pr-[16px] lg:pr-[32px] ">
           {/* 모바일, 태블릿 버전 검색 버튼 */}
-          <button
+
+          {overlayVisible && (
+            <button
             name="search-button"
             aria-label="검색 버튼"
             onClick={() => {
-              setIsSearchClicked(!isSearchClicked);
+              setIsMobileSearchClicked(pre=> !pre);
               setMenuOpen(false); // 검색 버튼 클릭 시 메뉴 닫기
             }}
             className="mr-[8px] lg:mr-[0] lg:hidden"
           >
             <SearchIcon />
           </button>
+
+
+          )}
+          
           <button
             name="user-info-page"
             aria-label="사용자 정보"
@@ -186,7 +193,7 @@ const Header = () => {
                 마이페이지
               </li>
               <li
-                onClick={() => mutate()}
+                onClick={() => logout()}
                 className="px-[16px] py-[12px] text-font-sub font-medium tracking-[-0.05em] cursor-pointer"
               >
                 로그아웃
@@ -202,7 +209,7 @@ const Header = () => {
           className="fixed inset-0 bg-black opacity-50 z-20"
           onClick={() => {
             setMenuOpen(false);
-            setIsSearchClicked(false);
+            setIsMobileSearchClicked(false);
           }}
         />
       )}
@@ -241,7 +248,7 @@ const Header = () => {
       )}
 
       {/* 모바일/태블릿 검색 패널 */}
-      {isSearchClicked && (
+      {isMobileSearchOpen && (
         <div className="lg:hidden absolute flex justify-center w-full px-[24px] py-[12px] bg-white z-30">
           <SearchBar isNaveBar={true} />
         </div>

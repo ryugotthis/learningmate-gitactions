@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 // 컴포넌트
-import { LoadingSpinner } from '../../../shared/ui';
+import { LoadingSpinner } from '@/shared/ui';
 // 커스텀 훅
-import { useCreateLecture } from '../../../entities/lectures/model/useCreateLecture';
-import { useGetLectureTitle } from '../../../entities/lectures/model/useGetLecturesTitle';
-import { useSearchStore } from '../../../features/lectures/model/useLectureStore';
-import { useReissue } from '../../../entities/auth/model/useReissue';
-import { useAuthStore } from '../../../shared/store/authstore';
+import { useCreateLecture } from '@/entities/lectures/model/useCreateLecture';
+import { useGetLectureTitle } from '@/entities/lectures/model/useGetLecturesTitle';
+import { useSearchStore } from '@/features/lectures/model/useLectureStore';
+import { useReissue } from '@/entities/auth/model/useReissue';
+import { useAuthStore } from '@/shared/store/authstore';
 // 아이콘
 import { All, PlusIcon, Search, Notice, Dropdown } from './icons';
 import { PlatformIcons, DeleteCloseIcon } from '../../../shared/ui/icons';
