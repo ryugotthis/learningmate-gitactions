@@ -1,10 +1,10 @@
 // //로그인 훅
 import { useMutation } from '@tanstack/react-query';
 import { login, LoginPayload } from '../api/login';
-import { useAuthStore } from '../../../shared/store/authstore';
+import { useAuthStore } from '@/shared/store/authstore';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { useErrorstore } from '../../../shared/store/errorStore';
+import { useErrorstore } from '@/shared/store/errorStore';
 
 // 로그인 훅
 export const useLogin = () => {
@@ -12,7 +12,7 @@ export const useLogin = () => {
   // const setAccessToken = useAuthStore((state) => state.setAccessToken); //상태 업데이트 함수 가져오기
   // const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn); // 로그인 상태 업데이트
   const navigate = useNavigate();
-  const { setErrorState, clearErrorState } = useErrorstore();
+  const { setErrorMessage, clearErrorState } = useErrorstore();
   return useMutation({
     mutationFn: (data: LoginPayload) => login(data),
 
@@ -25,9 +25,15 @@ export const useLogin = () => {
     },
     onError: (error) => {
       setIsLoggedIn(false);
-      const axiosError = error as AxiosError; // ✅ TypeScript가 AxiosError로 인식하게 변환
-      // console.log('로그인 실패2:', axiosError.response?.status);
-      setErrorState(String(axiosError.response?.status));
+      const axiosError = error as AxiosError; // TypeScript가 AxiosError로 인식하게 변환
+      const status = axiosError.response?.status;
+
+      // 상태코드별 다른 메시지 설정
+      if (status === 401 || status === 400) {
+        setErrorMessage("이메일 또는 비밀번호가 올바르지 않은 것 같아");
+      } else {
+        setErrorMessage("로그인 중 문제가 발생한 것 같아.");
+      }
     },
   });
 };

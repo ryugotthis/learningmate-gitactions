@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-// import { useErrorstore } from '../../../auth/model/store';
-// import { AxiosError } from 'axios';
 import { deleteBookMark } from '../api/DeleteBookMark';
 
 export const useDeleteBookMark = () => {
   const queryClient = useQueryClient();
-  // const { setErrorState } = useErrorstore();
+
   return useMutation({
     mutationFn: (postId: number) => deleteBookMark(postId),
 

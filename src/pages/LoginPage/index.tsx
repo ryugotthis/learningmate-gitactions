@@ -1,46 +1,52 @@
+type LoginFormValues = {
+  email: string;
+  password: string;
+};
+
 // 로그인 페이지 구현
-import { useEffect, useState } from 'react';
-import { useLogin } from '../../entities/auth/model/useLogin';
+import { useState } from 'react';
+import { useLogin } from '@/entities/auth/model/useLogin';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 // 컴포넌트
-import Header from '../../widgets/header';
-import SEO from '../../shared/ui/SEO';
+import Header from '@/widgets/header';
+import SEO from '@/shared/ui/SEO';
 // 커스텀 훅
-import { useErrorstore } from '../../shared/store/errorStore';
-import Logo from '../../features/auth/ui/icons/Logo.svg';
+import { useErrorstore } from '@/shared/store/errorStore';
+import Logo from '@/features/auth/ui/icons/Logo.svg';
 // 아이콘
-import { Invisible, Visible } from '../../features/auth/ui/icons';
-import { DeleteCloseIcon, FailedIcon } from '../../shared/ui/icons';
+import { Invisible, Visible } from '@/features/auth/ui/icons';
+import { DeleteCloseIcon } from '@/shared/ui/icons';
+import ErrorToast from '@/shared/ui/ErrorToast';
 
 const LoginPage = () => {
   const { mutate: login, isPending } = useLogin();
-  // const [formData, setFormData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
   // 비밀번호 눈
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const onSubmit = (data: any) => {
-    const { ...filterData } = data;
-    login(filterData);
+  const onSubmit = (data: LoginFormValues) => {
+    login(data);
   };
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<LoginFormValues>();
 
   //에러상태
-  const { errorState, clearErrorState } = useErrorstore();
+  const { setErrorMessage } = useErrorstore();
 
-  // ✅ 에러 상태가 true가 되면 2초 후에 자동 초기화
-  useEffect(() => {
-    if (errorState) {
-      const timer = setTimeout(() => {
-        clearErrorState();
-      }, 2000); // 2초
+  // 유효성 검증 실패 처리
+const onInvalid = () => {
+  if (errors.email?.message) {
+    setErrorMessage(errors.email.message);  // 이메일 에러 메시지 전송
+    return;
+  }
 
-      return () => clearTimeout(timer); // 컴포넌트 언마운트 또는 상태 변경 시 clear
-    }
-  }, [errorState, clearErrorState]);
+  if (errors.password?.message) {
+    setErrorMessage(errors.password.message); // 비밀번호 에러 메시지 전송
+    return;
+  }
+};
 
   return (
     <>
@@ -55,7 +61,12 @@ const LoginPage = () => {
       <div className="flex flex-col w-[360px] md:w-[400px] items-center mx-auto gap-[20px] md:gap-[24px] mt-[62.5px] md:mt-[100px]">
         <h1 className="title-sm-600 md:title-md-600">로그인</h1>
 
-        <button className="flex justify-center gap-[8px] items-center w-full h-[48px] bg-kakao  text-black rounded-4xl">
+        <button 
+        type='button'
+        onClick={()=>{
+          // TODO: 카카오 로그인 로직 연결
+        }}
+        className="flex justify-center gap-[8px] items-center w-full h-[48px] bg-kakao  text-black rounded-4xl">
           <img src={Logo} alt="logo" />
           <span className="tracking-[-0.1em] font-semibold">
             카카오로 3초만에 로그인하기
@@ -70,7 +81,7 @@ const LoginPage = () => {
           <div className="flex-grow border-t border-line"></div>
         </div>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
           className="flex flex-col w-full gap-[14px]"
         >
           <div className="flex flex-col gap-[4px]">
@@ -83,9 +94,9 @@ const LoginPage = () => {
             <div className="w-full h-[48px] px-[20px] py-[12px] flex items-center flex-grow border border-surface-line bg-surface rounded-4xl focus-within:border-primary">
               {/* 이메일 입력 필드 + X 버튼 */}
               <input
-                type="text"
+                type="email"
                 id="email"
-                {...register('email')}
+                {...register('email', { required: '이메일을 입력해줘' })}
                 className=" border-none outline-none flex-1"
               />
               <button
@@ -108,9 +119,9 @@ const LoginPage = () => {
             <div className="w-full h-[48px] px-[20px] py-[12px] flex items-center flex-grow border border-surface-line bg-surface rounded-4xl focus-within:border-primary">
               <input
                 type={isPasswordVisible ? 'text' : 'password'}
-                // placeholder="Password"
                 id="password"
-                {...register('password')}
+                autoComplete="current-password"
+                {...register('password', { required: '비밀번호를 입력해줘' })}
                 className="border-none outline-none flex-1"
               />
               <button
@@ -129,7 +140,7 @@ const LoginPage = () => {
             <button
               type="button"
               onClick={() => {
-                console.log('비밀번호 찾기');
+                // TODO: 비밀번호 찾기 페이지 구현
               }}
               className="text-sm-400 text-tertiary"
             >
@@ -139,9 +150,10 @@ const LoginPage = () => {
 
           <button
             type="submit"
+            disabled={isPending}
             className="h-[48px] rounded-4xl bg-primary text-white text-md-600"
           >
-            로그인
+            {isPending ? '로그인 중...' : '로그인'}
           </button>
           <button
             type="button"
@@ -152,18 +164,9 @@ const LoginPage = () => {
             회원가입
           </button>
 
-          {/* <button type="submit" disabled={isPending}>
-            {isPending ? 'Logging in...' : 'Login'}
-          </button> */}
         </form>
-        {errorState && (
-          <button className="fixed bottom-[50px] flex gap-[6px] md:gap-[6px] items-center rounded-4xl px-[20px] md:px-[24px] py-[8px] md:py-[12px] border-2 border-error text-font bg-white">
-            <FailedIcon />
-            <p className="text-sm-500 md:text-md-500">
-              로그인 정보가 정확하지 않은 것 같아
-            </p>
-          </button>
-        )}
+        {/* 에러 상태 메시지 */}
+        <ErrorToast />
       </div>
     </>
   );
