@@ -22,3 +22,5 @@ export const getLectures = async ({
 
   return response.data; // ✅ 올바르게 `data`만 반환
 };
+
+console.log('[apiClient] baseURL in PROD:', apiClient.defaults.baseURL);
