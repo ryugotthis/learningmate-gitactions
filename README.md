@@ -11,14 +11,14 @@
 ## 📚 About the Project
 
 **러닝메이트**는 팀 프로젝트로 진행된 강의 추천 플랫폼으로,  
-**프론트엔드 개발, 사용자 경험 개선, 퍼포먼스 최적화, CI/CD 구축** 등  
+**프론트엔드 구조 설계, 인증, 사용자 경험 개선, 성능 최적화, 자동 배포** 등  
 다양한 실무 기술을 적용한 프로젝트입니다.
 
 ### 주요 목표
 
-- 사용자가 **강의 추천 및 탐색**을 쉽게 할 수 있도록 구현
-- JWT 인증, API 역할 분리, 무한스크롤 등 **실무 중심의 구조 설계**
-- 성능 최적화 및 배포 자동화로 **제품 완성도 향상**
+- 사용자가 **강의를 쉽게 탐색·추천**을 쉽게 할 수 있는 직관적 UI 제공
+- 실무에서 사용하는 구조(인증, API 분리, 무한스크롤 등)를 직접 설계
+- 데이터 흐름·성능·배포까지 고려한 전체 개발 사이클 경험
 
 ---
 
@@ -26,42 +26,45 @@
 
 - **JWT 인증 및 보안 처리**
 
-  - Axios 요청 인터셉터 활용, JWT 토큰 자동 포함
-  - accessToken / refreshToken 관리 및 HttpOnly 쿠키 사용
+  - Axios 인터셉터로 Access Token 자동 포함
+  - Access/Refresh Token 기반 자동 재발급 구조 구현
+  - Refresh Token은 HttpOnly 쿠키로만 관리해 보안 강화
 
 - **이메일 인증 기능**
 
-  - Firebase Cloud Functions를 이용한 이메일 인증 코드 발송 및 유효성 검사
+  - Firebase Cloud Functions에서 인증 코드 생성·발송
+  - Firestore 기반 만료 시간 검증으로 안정적인 이메일 인증 흐름 구현
 
 - **회원가입 & 로그인 유효성 검사**
 
-  - React Hook Form 기반 실시간 폼 유효성 검사 및 UX 개선
+  - React Hook Form으로 실시간 검증
+  - 서버 에러와 클라이언트 검증을 통합한 UX 설계
 
-- **API 관리 및 비즈니스 로직 분리**
+- **API 역할 분리 & 데이터 관리 구조**
 
   - custom hook으로 API 호출 로직 분리
-  - useQuery, useMutation 활용하여 역할별 모듈화
-
-- **TanStack Query 기반의 상태 관리 최적화**
-
-  - 낙관적 업데이트 적용
-  - 무한 스크롤(Infinite Query)로 데이터 페칭 최적화
+  - TanStack Query 기반 상태 관리
+    - 낙관적 업데이트
+    - 무한 스크롤(Infinite Query)
+    - 캐싱·동기화 자동화
 
 - **반응형 웹 구현**
 
-  - Tailwind CSS로 디바이스별 반응형 UI 구성 (PC / 태블릿 / 모바일)
+  - Tailwind CSS로 PC / Tablet / Mobile 3단계 반응형 레이아웃 구성
 
-- **CI/CD 자동화**
+- **자동 배포(CD) 파이프라인**
 
-  - GitHub Actions로 자동 빌드 & 배포 파이프라인 구축
-  - AWS S3, Route 53, EC2, CloudFront로 도메인 연결 및 배포
+  - GitHub Actions로 자동 빌드 & S3 업로드
+  - CloudFront 캐시 무효화로 즉시 최신 버전 반영
+  - AWS S3 + Route 53 + EC2 + CloudFront 환경 구성
+  - (참고) CI는 향후 확장 예정이며, 현재는 CD 중심 자동화 구현
 
 - **최적화 작업**
   - Lighthouse 성능 점수 약 40% 향상
   - React.lazy와 Suspense로 페이지 코드 스플리팅
   - 에디터(lazy 컴포넌트) 분리
   - 검색 기능에 디바운스 적용 (0.5s)
-  - useCallback, useMemo로 리렌더링 최소화
+  - useCallback로 리렌더링 최소화
   - react-helmet-async로 SEO 메타 태그 설정
 
 ---

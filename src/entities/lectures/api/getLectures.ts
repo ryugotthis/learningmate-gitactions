@@ -22,7 +22,3 @@ export const getLectures = async ({
 
   return response.data; // ✅ 올바르게 `data`만 반환
 };
-
-if (typeof window !== 'undefined') {
-  (window as any).__API_BASE_URL__ = apiClient.defaults.baseURL;
-}
