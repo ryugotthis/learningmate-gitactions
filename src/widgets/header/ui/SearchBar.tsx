@@ -82,8 +82,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
   }, [searchText]);
 
   const handleCreateLecture = () => {
-    if (!isLoggedIn) alert('로그인이 필요해');
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
+      alert('로그인이 필요해')
+      return;}
       reissue(undefined, {
         onSuccess: () => {
           createLecture(searchText, {
@@ -97,7 +98,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
           alert('강의등록 실패! 다시 시도해줘');
         },
       });
-    }
+  
   };
 
   return (
