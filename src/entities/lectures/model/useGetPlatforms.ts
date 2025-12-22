@@ -8,5 +8,6 @@ export const useGetPlatforms = () => {
     queryFn: getPlatforms,
     staleTime: Infinity, // 데이터가 영원히 신선하게 유지
     refetchOnWindowFocus: false,
+    retry: false, // 실패 시 재시도 안 함
   });
 };
