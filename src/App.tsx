@@ -6,10 +6,19 @@ import { useAuthStore } from './shared/store/authstore';
 import { useEffect } from 'react';
 import { useLogout } from './entities/auth/model/useLogout';
 import { useIsMutating } from '@tanstack/react-query';
+import { useShallow } from 'zustand/react/shallow';
 const App = () => {
   const { mutateAsync: reissueToken } = useReissue(); // 토큰 갱신 훅
-  const { accessToken, isLoggedIn, setIsLoggedIn, isAuthReady, setAuthReady } =
-    useAuthStore(); // 저장된 토큰, 로그인 상태
+    const { accessToken, isLoggedIn, isAuthReady, setIsLoggedIn, setAuthReady } =
+    useAuthStore(
+      useShallow((s) => ({
+        accessToken: s.accessToken,
+        isLoggedIn: s.isLoggedIn,
+        isAuthReady: s.isAuthReady,
+        setIsLoggedIn: s.setIsLoggedIn,
+        setAuthReady: s.setAuthReady,
+      }))
+    );
   const { mutate: logout } = useLogout();
 
   //  현재 ['reissue'] mutation이 돌고 있는지 체크
