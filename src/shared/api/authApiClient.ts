@@ -8,6 +8,7 @@ export const authApiClient = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true, // 쿠키를 포함한 요청 허용
+    timeout: 3000, // 3초 타임아웃 설정
 });
 
 // 요청 인터셉터 추가 (accessToken 자동 추가)
