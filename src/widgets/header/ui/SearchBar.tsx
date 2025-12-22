@@ -9,7 +9,7 @@ import { useReissue } from '@/entities/auth/model/useReissue';
 import { useAuthStore } from '@/shared/store/authstore';
 // 아이콘
 import { All, PlusIcon, Search, Notice, Dropdown } from './icons';
-import { PlatformIcons, DeleteCloseIcon } from '../../../shared/ui/icons';
+import { PlatformIcons, DeleteCloseIcon } from '@/shared/ui/icons';
 
 interface Option {
   value: string;
@@ -33,8 +33,8 @@ interface SearchBarProps {
   isNaveBar: boolean;
 }
 const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
-  const [selectedPlatform, SetSelectedPlatform] = useState<Option>(options[0]); // 선택된 플랫폼 메뉴
-  const [isPlatformOpen, setIsPlatformOpen] = useState<Boolean>(false); // 플랫폼 메뉴창 상태 관리
+  const [selectedPlatform, setSelectedPlatform] = useState<Option>(options[0]); // 선택된 플랫폼 메뉴
+  const [isPlatformOpen, setIsPlatformOpen] = useState<boolean>(false); // 플랫폼 메뉴창 상태 관리
   const dropdownRef = useRef<HTMLDivElement>(null); // 플랫폼 드롭다운 감지
 
   const [searchText, setSearchText] = useState(''); // 검색어 텍스트
@@ -81,7 +81,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
     };
   }, [searchText]);
 
+  // 강의 생성 핸들러
   const handleCreateLecture = () => {
+    const trimmed = searchText.trim();
+
+    if (!trimmed) {
+    alert('강의명 또는 URL을 입력해줘');
+    return;
+    }
+
     if (!isLoggedIn) {
       alert('로그인이 필요해')
       return;}
@@ -104,7 +112,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
   return (
     <>
       {/* 강의 등록 요청 로딩 중일때 로딩 스피너 표시 */}
-      {createLectureLoading ? <LoadingSpinner /> : ''}
+      {createLectureLoading && <LoadingSpinner />}
       {/* {createLectureError ? alert('강의 생성에 실패했어') : ''} */}
 
       <div
@@ -152,7 +160,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ isNaveBar }) => {
                     key={option.value}
                     className="flex gap-1 py-3 px-3 cursor-pointer hover:bg-surface-dark"
                     onMouseDown={() => {
-                      SetSelectedPlatform(option);
+                      setSelectedPlatform(option);
                       setIsPlatformOpen(false);
                     }}
                   >
