@@ -32,8 +32,7 @@ export const useGetLectures = ({
     initialPageParam: 0, // 첫 페이지 번호를 지정 (필요 시)
     staleTime: 5000,
     refetchOnWindowFocus: false,
-    retry: 1, 
-    retryDelay: 1000
+    retry:false,
 
   });
 };
