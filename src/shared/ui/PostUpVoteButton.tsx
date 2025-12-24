@@ -58,7 +58,7 @@ export const PostUpVoteButton = ({
           isLikeClicked ? 'border-primary' : 'border-surface-line'
         }`}
       >
-        <UpIcon className="text-surface-line w-3" />
+        <UpIcon className={`w-3 ${isLikeClicked ? 'text-primary' : 'text-surface-line'}`} />
         <span className="text-sm-600 md:text-md-600">{likes}</span>
       </button>
     </>
