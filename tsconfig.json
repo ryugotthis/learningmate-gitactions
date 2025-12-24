@@ -1,13 +1,5 @@
 {
-  "compilerOptions": {
-    "module": "ESNext",
-    "target": "ES6",
-    "moduleResolution": "node",
-    "types": ["node"], // 기존 "node"를 유지
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "strict": true,
-  },
+  
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

@@ -72,7 +72,11 @@ interface RequestData {
 
 // 🔹 올바른 Firebase Functions v2 문법 사용
 export const sendVerificationCode = functions.https.onCall<RequestData>(
-  { secrets: [smtpUser, smtpPass] }, // ✅ runWith 대신 secrets 사용
+  { secrets: [smtpUser, smtpPass],
+cors: true, // ✅ CORS 활성화
+    region: 'asia-northeast3', // ✅ 리전 설정 (선택사항)
+
+    }, // ✅ runWith 대신 secrets 사용
   async (request) => {
     // ✅ `request`로 변경
     if (!request.data.email) {
@@ -120,6 +124,9 @@ export const sendVerificationCode = functions.https.onCall<RequestData>(
 
 // 🔹 인증 코드 검증 기능 (사용자가 입력한 코드 확인)
 export const verifyCode = onCall<{ email: string; code: string }>(
+  {cors: true, // ✅ CORS 활성화
+    region: 'asia-northeast3', // ✅ 리전 설정
+    },
   // { enforceAuth: false }, // ✅ Firebase 인증 비활성화
   async (request) => {
     const data = request.data; // ✅ request.data를 변수로 정의
