@@ -124,8 +124,8 @@ export const sendVerificationCode = functions.https.onCall<RequestData>(
 
 // 🔹 인증 코드 검증 기능 (사용자가 입력한 코드 확인)
 export const verifyCode = onCall<{ email: string; code: string }>(
-  {cors: true, // ✅ CORS 활성화
-    region: 'asia-northeast3', // ✅ 리전 설정
+  {
+    region: 'asia-northeast2', // ✅ 리전 설정
     },
   // { enforceAuth: false }, // ✅ Firebase 인증 비활성화
   async (request) => {

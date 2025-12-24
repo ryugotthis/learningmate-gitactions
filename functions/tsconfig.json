@@ -11,7 +11,6 @@
     "target": "es2017"
   },
   "compileOnSave": true,
-  "include": [
-    "src"
-, "../src/shared/api/firebase.ts"  ]
+  "include": ["src/**/*"],
+  "exclude": ["../src/**/*", "../node_modules/**/*"]
 }
