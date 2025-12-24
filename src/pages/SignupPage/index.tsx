@@ -53,7 +53,6 @@ const SignupPage = () => {
   const onSubmit = (data: any) => {
     // 회원가입 요청
     const { confirmPassword, terms, ...filteredData } = data;
-    console.log('회원가입보낸데이터', filteredData);
     signup(filteredData); // 회원가입 요청
   };
 
