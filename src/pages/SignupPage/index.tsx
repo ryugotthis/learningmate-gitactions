@@ -20,7 +20,7 @@ import {
 import {
   sendVerificationCode,
   verifyCode,
-} from '../../../functions/src/firebase'; //이메일 인증 코드 보내기, 검증
+} from '../../shared/api/firebase'; //이메일 인증 코드 보내기, 검증
 
 const SignupPage = () => {
   const { mutate: signup, isPending, error } = useSignup(); // 로그인 post 커스텀 훅

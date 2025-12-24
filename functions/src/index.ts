@@ -73,8 +73,8 @@ interface RequestData {
 // 🔹 올바른 Firebase Functions v2 문법 사용
 export const sendVerificationCode = functions.https.onCall<RequestData>(
   { secrets: [smtpUser, smtpPass],
-cors: true, // ✅ CORS 활성화
-    region: 'asia-northeast3', // ✅ 리전 설정 (선택사항)
+    cors: true, // ✅ CORS 활성화
+    region: 'asia-northeast2', // ✅ 리전 설정 (선택사항)
 
     }, // ✅ runWith 대신 secrets 사용
   async (request) => {

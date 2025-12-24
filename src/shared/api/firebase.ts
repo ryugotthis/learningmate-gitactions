@@ -21,7 +21,7 @@ const firebaseConfig = {
 // Initialize Firebase
 // 🔹 Firebase 초기화
 const app = initializeApp(firebaseConfig);
-const functions = getFunctions(app);
+const functions = getFunctions(app, "asia-northeast2");
 
 // ✅ 함수의 반환 타입을 명시 (success, message를 포함)
 interface VerifyCodeResponse {
@@ -30,7 +30,10 @@ interface VerifyCodeResponse {
 }
 
 // 🔹 Firebase Cloud Functions 호출을 위한 함수 정의
-export const sendVerificationCode = httpsCallable(
+export const sendVerificationCode = httpsCallable<
+  { email: string },
+  { success: boolean }
+>(
   functions,
   'sendVerificationCode'
 );
