@@ -111,14 +111,14 @@ const SignupPage = () => {
 
   // 🔹 5분 카운트다운 기능
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isCounting && countdown > 0) {
-      timer = setInterval(() => {
-        setCountdown((prev) => prev - 1);
-      }, 1000);
-    } else if (countdown === 0) {
-      setIsCounting(false); // 타이머 종료
-    }
+    let timer: number; // ✅ 수정!
+  if (isCounting && countdown > 0) {
+    timer = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+  } else if (countdown === 0) {
+    setIsCounting(false);
+  }
 
     return () => clearInterval(timer);
   }, [isCounting, countdown]);
